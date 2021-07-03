@@ -1,0 +1,39 @@
+id_funcion,id_vehiculo,posicion,anomalia
+2,1,2+3,exceso velocidad
+2,1,1+5,choque
+2,1,4+6,choque
+2,1,1+3,atropellamiento
+4,2,5+1,exceso velocidad
+4,2,1+6,atropellamiento
+4,2,2+5,atropellamiento
+6,3,5+1,exceso velocidad
+6,3,5+2,choque
+6,3,9+4,choque
+8,1,7+3,exceso velocidad
+8,1,8+4,choque
+10,3,7+5,atropellamiento
+10,3,6+5,choque
+10,3,1+9,choque
+10,3,9+1,atropellamiento
+10,3,2+8,choque
+12,1,7+8,choque
+12,1,2+7,atropellamiento
+12,1,6+3,choque
+12,1,2+4,exceso velocidad
+14,2,1+6,atropellamiento
+14,2,4+7,choque
+14,2,1+4,exceso velocidad
+14,2,5+2,atropellamiento
+14,2,1+7,choque
+16,2,2+6,exceso velocidad
+16,2,5+3,atropellamiento
+16,2,5+4,choque
+16,2,9+5,exceso velocidad
+16,2,7+4,atropellamiento
+16,2,8+5,choque
+16,2,7+6,exceso velocidad
+18,3,6+6,choque
+18,3,1+10,exceso velocidad
+18,3,9+2,choque
+18,3,2+9,exceso velocidad
+18,3,7+9,choque

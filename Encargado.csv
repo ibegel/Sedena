@@ -1,0 +1,4 @@
+id_encargado,Tipo Encargado,pass,id_usuario
+1,Administrador,abc,1
+2,Instructor,abc,2
+3,Instructor,abc,5

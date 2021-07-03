@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<link rel="stylesheet" href="~/css/bootstrap.min.css" />
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+
+            <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-light text-decoration-none">
+                <img src="~/img/logo.png" width="75" height="75" />
+                 <h1 class="display-4">Servicios Sedena</h1>
+            </a>
+     
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                <input type="search" class="form-control form-control-dark" placeholder="Buscar por nombre " aria-label="Search">
+            </form>
+
+            <div class="text-end">
+
+                <button onclick="AbrirModal(0)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Nuevo Usuario
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="d-flex flex-column p-3 text-white bg-dark" style="height: 100%; width:180px;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <span class="fs-4">Sedena</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item align-middle">
+                @Html.ActionLink("Datos Usuario", "Usuario", null, new { @class = "btn btn-outline-light" })
+            </li>
+            <li>
+                <br />
+            </li>
+            <li>
+                @Html.ActionLink("Datos Encargado", "Encargado", null, new { @class = "btn btn-outline-light" })
+            </li>
+            <li>
+                <br />
+            </li>
+            <li>
+                @Html.ActionLink("Datos Sesion", "Usuario", null, new { @class = "btn btn-outline-light" })
+            </li>
+            <li>
+                <br />
+            </li>
+            <li>
+                @Html.ActionLink("Datos Funcion", "Usuario", null, new { @class = "btn btn-outline-light" })
+            </li>
+            <li>
+                <br />
+            </li>
+            <li>
+                @Html.ActionLink("Datos Usuario", "Usuario", null, new { @class = "btn btn-outline-light" })
+            </li>
+        </ul>
+        <hr>
+        <div class="dropdown">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                <strong>mdo</strong>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item" href="#">New project...</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Sign out</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+<script src="~/js/popper.min.js"></script>
+<script src="~/js/jquery-3.6.0.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/Scripts/Usuario.js"></script>

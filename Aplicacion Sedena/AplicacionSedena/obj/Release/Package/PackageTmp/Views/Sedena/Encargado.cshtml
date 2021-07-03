@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Encargado";
+    Layout = null;
+}
+
+<!-- CSS only -->
+<link rel="stylesheet" href="~/css/bootstrap.min.css" />
+
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+
+            <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-light text-decoration-none">
+                <img src="~/img/logo.png" width="75" height="75" />
+                @Html.ActionLink("Datos Encargado", "Index", null, new { @class = "d-flex  mb-3  me-md-auto text-light text-decoration-none display-4" })
+            </a>
+
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                <input type="search" class="form-control form-control-dark" placeholder="Buscar por nombre " aria-label="Search">
+            </form>
+
+            <div class="text-end">
+                <button onclick="AbrirModal(0)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Nuevo Encargado
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="divTabla">
+
+</div>
+
+
+
+
+
+<!-- JavaScript Bundle with Popper -->
+<script src="~/js/popper.min.js"></script>
+<script src="~/js/jquery-3.6.0.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/Scripts/Encargado.js"></script>
