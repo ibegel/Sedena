@@ -13,6 +13,7 @@ namespace SedenaServices.Controllers
     [EnableCors(headers: "*", origins: "*", methods: "*")]
     public class ConductorController : ApiController
     {
+        [HttpGet]
         public IEnumerable<ConductorCLS> listaConductor()
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
@@ -22,9 +23,7 @@ namespace SedenaServices.Controllers
                                                          {
                                                              id_Funcion = (int)conduc.Id_Funcion,
                                                              id_Vehiculo = (int)conduc.Id_Vehiculo,
-                                                             posicion = conduc.Posicion,
-                                                             anomalia=conduc.Anomalia
-
+                                                             observaciones = conduc.Observaciones
                                                          }).ToList();
                 return listarConductor;
             }
@@ -41,13 +40,12 @@ namespace SedenaServices.Controllers
         }
         // localhost/api/Doctor/
         [HttpPost]
-        public int agregarConductor(int id_funcion, int id_vehiculo, string posicion, string anomalia)
+        public int agregarConductor(int id_funcion, int id_vehiculo, string observaciones)
         {
             Conductor oConductor = new Conductor();
             oConductor.Id_Funcion = id_funcion;
             oConductor.Id_Vehiculo = id_vehiculo;
-            oConductor.Posicion = posicion;
-            oConductor.Anomalia = anomalia;
+            oConductor.Observaciones = observaciones;
             int respuesta = 0;
             try
             {
@@ -78,8 +76,7 @@ namespace SedenaServices.Controllers
                                                          {
                                                              id_Funcion = (int)conduc.Id_Funcion,
                                                              id_Vehiculo = (int)conduc.Id_Vehiculo,
-                                                             posicion = conduc.Posicion,
-                                                             anomalia = conduc.Anomalia
+                                                             observaciones=conduc.Observaciones
 
                                                          }).ToList();
                 return listarConductor;

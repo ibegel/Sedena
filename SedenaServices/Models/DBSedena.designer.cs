@@ -42,20 +42,18 @@ namespace SedenaServices.Models
     partial void InsertSesion(Sesion instance);
     partial void UpdateSesion(Sesion instance);
     partial void DeleteSesion(Sesion instance);
-    partial void InsertUsuario(Usuario instance);
-    partial void UpdateUsuario(Usuario instance);
-    partial void DeleteUsuario(Usuario instance);
     partial void InsertVehiculo(Vehiculo instance);
     partial void UpdateVehiculo(Vehiculo instance);
     partial void DeleteVehiculo(Vehiculo instance);
-    #endregion
-		
-		public DBSedenaDataContext() : 
+    partial void InsertUsuario(Usuario instance);
+    partial void UpdateUsuario(Usuario instance);
+    partial void DeleteUsuario(Usuario instance);
+		#endregion
+		public DBSedenaDataContext() :
 				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SedenaConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
-		
 		public DBSedenaDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
@@ -96,6 +94,14 @@ namespace SedenaServices.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<Configuracion> Configuracion
+		{
+			get
+			{
+				return this.GetTable<Configuracion>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Disparo> Disparo
 		{
 			get
@@ -128,19 +134,19 @@ namespace SedenaServices.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Usuario> Usuario
-		{
-			get
-			{
-				return this.GetTable<Usuario>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Vehiculo> Vehiculo
 		{
 			get
 			{
 				return this.GetTable<Vehiculo>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Usuario> Usuario
+		{
+			get
+			{
+				return this.GetTable<Usuario>();
 			}
 		}
 	}
@@ -239,9 +245,7 @@ namespace SedenaServices.Models
 		
 		private System.Nullable<int> _Id_Vehiculo;
 		
-		private string _Posicion;
-		
-		private string _Anomalia;
+		private string _Observaciones;
 		
 		public Conductor()
 		{
@@ -279,34 +283,99 @@ namespace SedenaServices.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Posicion", DbType="VarChar(30)")]
-		public string Posicion
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Observaciones", DbType="VarChar(MAX)")]
+		public string Observaciones
 		{
 			get
 			{
-				return this._Posicion;
+				return this._Observaciones;
 			}
 			set
 			{
-				if ((this._Posicion != value))
+				if ((this._Observaciones != value))
 				{
-					this._Posicion = value;
+					this._Observaciones = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Configuracion")]
+	public partial class Configuracion
+	{
+		
+		private System.Nullable<int> _Id_Configuracion;
+		
+		private string _Dispositivo;
+		
+		private string _Fecha;
+		
+		private string _Caracteristicas;
+		
+		public Configuracion()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Configuracion", DbType="Int")]
+		public System.Nullable<int> Id_Configuracion
+		{
+			get
+			{
+				return this._Id_Configuracion;
+			}
+			set
+			{
+				if ((this._Id_Configuracion != value))
+				{
+					this._Id_Configuracion = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Anomalia", DbType="VarChar(MAX)")]
-		public string Anomalia
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dispositivo", DbType="VarChar(30)")]
+		public string Dispositivo
 		{
 			get
 			{
-				return this._Anomalia;
+				return this._Dispositivo;
 			}
 			set
 			{
-				if ((this._Anomalia != value))
+				if ((this._Dispositivo != value))
 				{
-					this._Anomalia = value;
+					this._Dispositivo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fecha", DbType="VarChar(30)")]
+		public string Fecha
+		{
+			get
+			{
+				return this._Fecha;
+			}
+			set
+			{
+				if ((this._Fecha != value))
+				{
+					this._Fecha = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Caracteristicas", DbType="VarChar(MAX)")]
+		public string Caracteristicas
+		{
+			get
+			{
+				return this._Caracteristicas;
+			}
+			set
+			{
+				if ((this._Caracteristicas != value))
+				{
+					this._Caracteristicas = value;
 				}
 			}
 		}
@@ -320,9 +389,9 @@ namespace SedenaServices.Models
 		
 		private System.Nullable<int> _Id_Arma;
 		
-		private string _Posicion;
+		private string _Puntuacion;
 		
-		private System.Nullable<int> _Acerto;
+		private string _Anomalias;
 		
 		public Disparo()
 		{
@@ -360,34 +429,34 @@ namespace SedenaServices.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Posicion", DbType="VarChar(30)")]
-		public string Posicion
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Puntuacion", DbType="VarChar(30)")]
+		public string Puntuacion
 		{
 			get
 			{
-				return this._Posicion;
+				return this._Puntuacion;
 			}
 			set
 			{
-				if ((this._Posicion != value))
+				if ((this._Puntuacion != value))
 				{
-					this._Posicion = value;
+					this._Puntuacion = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Acerto", DbType="Int")]
-		public System.Nullable<int> Acerto
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Anomalias", DbType="VarChar(MAX)")]
+		public string Anomalias
 		{
 			get
 			{
-				return this._Acerto;
+				return this._Anomalias;
 			}
 			set
 			{
-				if ((this._Acerto != value))
+				if ((this._Anomalias != value))
 				{
-					this._Acerto = value;
+					this._Anomalias = value;
 				}
 			}
 		}
@@ -1039,6 +1108,92 @@ namespace SedenaServices.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Vehiculo")]
+	public partial class Vehiculo : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id_Vehiculo;
+		
+		private string _Caracteristicas;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnId_VehiculoChanging(int value);
+    partial void OnId_VehiculoChanged();
+    partial void OnCaracteristicasChanging(string value);
+    partial void OnCaracteristicasChanged();
+    #endregion
+		
+		public Vehiculo()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Vehiculo", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int Id_Vehiculo
+		{
+			get
+			{
+				return this._Id_Vehiculo;
+			}
+			set
+			{
+				if ((this._Id_Vehiculo != value))
+				{
+					this.OnId_VehiculoChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Vehiculo = value;
+					this.SendPropertyChanged("Id_Vehiculo");
+					this.OnId_VehiculoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Caracteristicas", DbType="VarChar(MAX)")]
+		public string Caracteristicas
+		{
+			get
+			{
+				return this._Caracteristicas;
+			}
+			set
+			{
+				if ((this._Caracteristicas != value))
+				{
+					this.OnCaracteristicasChanging(value);
+					this.SendPropertyChanging();
+					this._Caracteristicas = value;
+					this.SendPropertyChanged("Caracteristicas");
+					this.OnCaracteristicasChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Usuario")]
 	public partial class Usuario : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1052,6 +1207,8 @@ namespace SedenaServices.Models
 		private string _Rango;
 		
 		private string _Nombre;
+		
+		private string _Url;
 		
 		private EntitySet<Encargado> _Encargado;
 		
@@ -1069,6 +1226,8 @@ namespace SedenaServices.Models
     partial void OnRangoChanged();
     partial void OnNombreChanging(string value);
     partial void OnNombreChanged();
+    partial void OnUrlChanging(string value);
+    partial void OnUrlChanged();
     #endregion
 		
 		public Usuario()
@@ -1158,6 +1317,26 @@ namespace SedenaServices.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Url", DbType="VarChar(30)")]
+		public string Url
+		{
+			get
+			{
+				return this._Url;
+			}
+			set
+			{
+				if ((this._Url != value))
+				{
+					this.OnUrlChanging(value);
+					this.SendPropertyChanging();
+					this._Url = value;
+					this.SendPropertyChanged("Url");
+					this.OnUrlChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuario_Encargado", Storage="_Encargado", ThisKey="Id_Usuario", OtherKey="Id_Usuario")]
 		public EntitySet<Encargado> Encargado
 		{
@@ -1226,92 +1405,6 @@ namespace SedenaServices.Models
 		{
 			this.SendPropertyChanging();
 			entity.Usuario = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Vehiculo")]
-	public partial class Vehiculo : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id_Vehiculo;
-		
-		private string _Caracteristicas;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnId_VehiculoChanging(int value);
-    partial void OnId_VehiculoChanged();
-    partial void OnCaracteristicasChanging(string value);
-    partial void OnCaracteristicasChanged();
-    #endregion
-		
-		public Vehiculo()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Vehiculo", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id_Vehiculo
-		{
-			get
-			{
-				return this._Id_Vehiculo;
-			}
-			set
-			{
-				if ((this._Id_Vehiculo != value))
-				{
-					this.OnId_VehiculoChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Vehiculo = value;
-					this.SendPropertyChanged("Id_Vehiculo");
-					this.OnId_VehiculoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Caracteristicas", DbType="VarChar(MAX)")]
-		public string Caracteristicas
-		{
-			get
-			{
-				return this._Caracteristicas;
-			}
-			set
-			{
-				if ((this._Caracteristicas != value))
-				{
-					this.OnCaracteristicasChanging(value);
-					this.SendPropertyChanging();
-					this._Caracteristicas = value;
-					this.SendPropertyChanged("Caracteristicas");
-					this.OnCaracteristicasChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 }

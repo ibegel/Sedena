@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Sedena" Class="DBSedenaDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-IL8U7D3;Initial Catalog=Sedena;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SedenaConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Arma" Member="Arma">
     <Type Name="Arma">
       <Column Name="Id_Arma" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -11,18 +10,25 @@
     <Type Name="Conductor">
       <Column Name="Id_Funcion" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Id_Vehiculo" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Posicion" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
-      <Column Name="Anomalia" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Observaciones" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Association Name="Funcion_Conductor" Member="Funcion" ThisKey="Id_Funcion" OtherKey="Id_Funcion" Type="Funcion" IsForeignKey="true" />
       <Association Name="Vehiculo_Conductor" Member="Vehiculo" ThisKey="Id_Vehiculo" OtherKey="Id_Vehiculo" Type="Vehiculo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Configuracion" Member="Configuracion">
+    <Type Name="Configuracion">
+      <Column Name="Id_Configuracion" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Dispositivo" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Fecha" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Caracteristicas" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.Disparo" Member="Disparo">
     <Type Name="Disparo">
       <Column Name="Id_Funcion" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Id_Arma" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Posicion" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
-      <Column Name="Acerto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Puntuacion" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Anomalias" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Association Name="Arma_Disparo" Member="Arma" ThisKey="Id_Arma" OtherKey="Id_Arma" Type="Arma" IsForeignKey="true" />
       <Association Name="Funcion_Disparo" Member="Funcion" ThisKey="Id_Funcion" OtherKey="Id_Funcion" Type="Funcion" IsForeignKey="true" />
     </Type>
@@ -60,21 +66,22 @@
       <Association Name="Encargado_Sesion" Member="Encargado" ThisKey="Id_Encargado" OtherKey="Id_Encargado" Type="Encargado" IsForeignKey="true" DeleteRule="CASCADE" />
     </Type>
   </Table>
+  <Table Name="dbo.Vehiculo" Member="Vehiculo">
+    <Type Name="Vehiculo">
+      <Column Name="Id_Vehiculo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Caracteristicas" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="Vehiculo_Conductor" Member="Conductor" ThisKey="Id_Vehiculo" OtherKey="Id_Vehiculo" Type="Conductor" />
+    </Type>
+  </Table>
   <Table Name="dbo.Usuario" Member="Usuario">
     <Type Name="Usuario">
       <Column Name="Id_Usuario" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Clave" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
       <Column Name="Rango" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
       <Column Name="Nombre" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Url" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
       <Association Name="Usuario_Encargado" Member="Encargado" ThisKey="Id_Usuario" OtherKey="Id_Usuario" Type="Encargado" />
       <Association Name="Usuario_Funcion" Member="Funcion" ThisKey="Id_Usuario" OtherKey="Id_Usuario" Type="Funcion" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Vehiculo" Member="Vehiculo">
-    <Type Name="Vehiculo">
-      <Column Name="Id_Vehiculo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Caracteristicas" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Association Name="Vehiculo_Conductor" Member="Conductor" ThisKey="Id_Vehiculo" OtherKey="Id_Vehiculo" Type="Conductor" />
     </Type>
   </Table>
 </Database>

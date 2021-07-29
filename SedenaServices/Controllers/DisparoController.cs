@@ -24,8 +24,8 @@ namespace SedenaServices.Controllers
                                                       {                                                      
                                                           id_Funcion=(int)dispa.Id_Funcion,
                                                           id_Arma=(int)dispa.Id_Arma,
-                                                          posicion=dispa.Posicion,
-                                                          acerto=(int)dispa.Acerto
+                                                          puntuacion=dispa.Puntuacion,
+                                                          anomalias=dispa.Anomalias
 
                                                       }).ToList();
                 return listarDisparo;
@@ -43,13 +43,13 @@ namespace SedenaServices.Controllers
         }
         // localhost/api/Doctor/
         [HttpPost]
-        public int agregarDisparo(int id_funcion, int id_arma, string posicion, int acerto)
+        public int agregarDisparo(int id_funcion, int id_arma, string puntuacion, string anomalias)
         {
             Disparo oDisparo = new Disparo();
             oDisparo.Id_Funcion = id_funcion;
             oDisparo.Id_Arma = id_arma;
-            oDisparo.Posicion = posicion;
-            oDisparo.Acerto = acerto;
+            oDisparo.Puntuacion = puntuacion;
+            oDisparo.Anomalias = anomalias;
             int respuesta = 0;
             try
             {
@@ -80,8 +80,8 @@ namespace SedenaServices.Controllers
                                                          {
                                                              id_Funcion = (int)dispa.Id_Funcion,
                                                              id_Arma = (int)dispa.Id_Arma,
-                                                             posicion = dispa.Posicion,
-                                                             acerto = (int)dispa.Acerto
+                                                             puntuacion = dispa.Puntuacion,
+                                                             anomalias = dispa.Anomalias
 
                                                          }).ToList();
                 return listarDisparo;

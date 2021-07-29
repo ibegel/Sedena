@@ -9,7 +9,7 @@ namespace SedenaServices.Models.Clases
     {
         public int id_Funcion { get; set; }
         public int id_Arma { get; set; }
-        public string posicion { get; set; }
-        public int acerto { get; set; }
+        public string puntuacion { get; set; }
+        public string anomalias { get; set; }
     }
 }

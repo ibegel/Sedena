@@ -26,7 +26,8 @@ namespace SedenaServices.Controllers
                                                           id_Usuario=usuario.Id_Usuario,
                                                           clave=usuario.Clave,
                                                           rango=usuario.Rango,
-                                                          nombre=usuario.Nombre
+                                                          nombre=usuario.Nombre,
+                                                          url=usuario.Url
                                                       }).ToList();
                 return listaUsuario;
             }
@@ -55,13 +56,14 @@ namespace SedenaServices.Controllers
 
 
         [HttpPost]
-        public int agregarUsuario(int id_usuario , string clave ,string rango,string nombre)
+        public int agregarUsuario(int id_usuario , string clave ,string rango,string nombre,string url)
         {
             Usuario oUsuario = new Usuario();
             oUsuario.Id_Usuario = id_usuario;
             oUsuario.Clave = clave;
             oUsuario.Rango = rango;
             oUsuario.Nombre = nombre;
+            oUsuario.Url = url;
             int respuesta = 0;
             try
             {
@@ -76,7 +78,8 @@ namespace SedenaServices.Controllers
                                                                     id_Usuario = usuario.Id_Usuario,
                                                                     clave = usuario.Clave,
                                                                     rango = usuario.Rango,
-                                                                    nombre = usuario.Nombre
+                                                                    nombre = usuario.Nombre,
+                                                                    url=usuario.Url
                                                                 }).ToList();
 
                         oUsuario.Id_Usuario = listaUsuario.Count()+1;
@@ -91,6 +94,7 @@ namespace SedenaServices.Controllers
                         aux.Clave = oUsuario.Clave;
                         aux.Rango = oUsuario.Rango;
                         aux.Nombre = oUsuario.Nombre;
+                        aux.Url = oUsuario.Url;
                         bd.SubmitChanges();
                         respuesta = 1;
 
@@ -115,7 +119,8 @@ namespace SedenaServices.Controllers
                         id_Usuario=p.Id_Usuario,
                         clave=p.Clave,
                         rango=p.Rango,
-                        nombre=p.Nombre
+                        nombre=p.Nombre,
+                        url=p.Url
                     }
                     ).First();
 
