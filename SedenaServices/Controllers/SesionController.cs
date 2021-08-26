@@ -58,14 +58,8 @@ namespace SedenaServices.Controllers
         }
         // localhost/api/Doctor/
         [HttpPost]
-        public int agregarSesion(int id_sesion, string tipo_sesion,string entorno, string fecha,int id_encargado)
+        public int agregarSesion(Sesion oSesion)
         {
-            Sesion oSesion = new Sesion();
-            oSesion.Id_Sesion = id_sesion;
-            oSesion.Tipo_Sesion = tipo_sesion;
-            oSesion.Entorno = entorno;
-            oSesion.Fecha = fecha;
-            oSesion.Id_Encargado = id_encargado;
             int respuesta = 0;
             try
             {

@@ -55,13 +55,10 @@ namespace SedenaServices.Controllers
 
 
         [HttpPost]
-        public int agregarUsuario(int id_usuario , string clave ,string rango,string nombre)
+        public int agregarUsuario(Usuario oUsuario)
         {
-            Usuario oUsuario = new Usuario();
-            oUsuario.Id_Usuario = id_usuario;
-            oUsuario.Clave = clave;
-            oUsuario.Rango = rango;
-            oUsuario.Nombre = nombre;
+            
+            
             int respuesta = 0;
             try
             {

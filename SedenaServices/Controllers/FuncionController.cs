@@ -59,13 +59,9 @@ namespace SedenaServices.Controllers
 
             // localhost/api/Doctor/
             [HttpPost]
-            public int agregarFun(int id_funcion, string fun, int id_usuario , int id_sesion)
+            public int agregarFun(Funcion oFuncion)
                 {
-                Funcion oFuncion = new Funcion();
-                oFuncion.Id_Funcion = id_funcion;
-                oFuncion.Funcion1 = fun;
-                oFuncion.Id_Usuario = id_usuario;
-                oFuncion.Id_Sesion = id_sesion;
+               
                     int respuesta = 0;
                     try
                     {

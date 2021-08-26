@@ -56,13 +56,9 @@ namespace SedenaServices.Controllers
         }
         // localhost/api/Doctor/
         [HttpPost]
-        public int agregarEncargado(int id_encargado,string tipo_encargado,string pass, int id_usuario)
+        public int agregarEncargado(Encargado oEncargado)
         {
-            Encargado oEncargado = new Encargado();
-            oEncargado.Id_Encargado = id_encargado;
-            oEncargado.Tipo_Encargado = tipo_encargado;
-            oEncargado.Pass = pass;
-            oEncargado.Id_Usuario = id_usuario;
+            
             int respuesta = 0;
             try
             {
