@@ -1,12 +1,12 @@
-id_usuario,clave,tipo,nombre 
-1,D-2195489,General De Division,Gabriel Cervantes Sepulveda
-2,D-2186794,General De Brigada,Esau Ibarra Ramirez
-3,D-4213284,Soldado,Sergio Isahi Garrido Castillo
-4,D-5413621,Sargento Primero,Jesus Aldo Paredes Ballesteros
-5,D-8775641,Capitan Primero,Carlos De Jesus Cruz Reyes
-6,D-4654312,Capitan Segundo ,Maria Vianey Mireles Perez
-7,D-1321313,Teniente,Ivan Mauricio Madrid Ramirez
-8,D-6545132,Soldado,Christian Goethy Pasillas Flores
-9,D-5645431,Soldado,Christopher Steven Garcia Martinez 
-10,D-6546513,Soldado,Lillyan Yazmin Ramirez Peralta
-11,D-5646813,Subteniente,Jose aldo Paredes Ballesteros 
+id_usuario,clave,tipo,nombre,url
+1,D-2195489,General De Division,Gabriel Cervantes Sepulveda,Boy,1000
+2,D-2186794,General De Brigada,Esau Ibarra Ramirez,Esau
+3,D-4213284,Soldado,Sergio Isahi Garrido Castillo,Sergio
+4,D-5413621,Sargento Primero,Jesus Aldo Paredes Ballesteros,Aldo
+5,D-8775641,Capitan Primero,Carlos De Jesus Cruz Reyes,Carlos
+6,D-4654312,Capitan Segundo ,Maria Vianey Mireles Perez,Vianey
+7,D-1321313,Teniente,Ivan Mauricio Madrid Ramirez,Wonka
+8,D-6545132,Soldado,Christian Goethy Pasillas Flores,Tamaulipas
+9,D-5645431,Soldado,Christopher Steven Garcia Martinez,Steven
+10,D-6546513,Soldado,Lillyan Yazmin Ramirez Peralta, Lillyan
+11,D-5646813,Subteniente,Jose aldo Paredes Ballesteros, Al2

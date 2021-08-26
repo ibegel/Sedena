@@ -11,13 +11,15 @@ namespace SedenaServices.Models.Clases
         public string clave { get; set; }
         public string rango { get; set; }
         public string nombre { get; set; }
+        public string url { get; set; }
 
-        public UsuarioCLS(int id_Usuario, string clave, string rango, string nombre)
+        public UsuarioCLS(int id_Usuario, string clave, string rango, string nombre, string url)
         {
             this.id_Usuario = id_Usuario;
             this.clave = clave;
             this.rango = rango;
             this.nombre = nombre;
+            this.url = url;
         }
         public UsuarioCLS()
         { 
