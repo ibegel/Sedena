@@ -19,5 +19,9 @@ namespace SedenaServices.Models.Clases
             this.id_Agente = id_Agente;
             this.id_Sesion = id_Sesion;
         }
+        public FuncionCLS()
+        {
+           
+        }
     }
 }

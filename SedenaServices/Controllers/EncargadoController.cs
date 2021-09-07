@@ -20,9 +20,9 @@ namespace SedenaServices.Controllers
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-                IEnumerable<EncargadoCLS> listarEncargado = (from encar in bd.Encargado 
-                                                             join usu in bd.Usuario
-                                                             on encar.Id_Usuario equals usu.Id_Usuario
+                IEnumerable<EncargadoCLS> listarEncargado = (from encar in bd.Encargado
+                                                             join usu in bd.Agente
+                                                             on encar.Id_Agente equals usu.Id_Agente
                                                              select new EncargadoCLS
                                                              {
                                                                  id_Encargado = encar.Id_Encargado,
@@ -84,7 +84,7 @@ namespace SedenaServices.Controllers
                         aux.Id_Encargado = oEncargado.Id_Encargado;
                         aux.Tipo_Encargado = oEncargado.Tipo_Encargado;
                         aux.Pass = oEncargado.Pass;
-                        aux.Id_Usuario = oEncargado.Id_Usuario;
+                        aux.Id_Agente = oEncargado.Id_Agente;
                         bd.SubmitChanges();
                         respuesta = 1;
                     }
@@ -103,18 +103,18 @@ namespace SedenaServices.Controllers
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-                EncargadoCLS oDoctor = bd.Encargado.Where(p => p.Id_Encargado == id_Encargado)
+                EncargadoCLS oEncargado = bd.Encargado.Where(p => p.Id_Encargado == id_Encargado)
                     .Select(p => new EncargadoCLS
                     {
 
                         id_Encargado = p.Id_Encargado,
                         tipo_Encargado = p.Tipo_Encargado,
                         pass = p.Pass,
-                        id_Usuario = (int)p.Id_Usuario
+                        id_Agente = (int)p.Id_Agente
                     }
                     ).First();
 
-                return oDoctor;
+                return oEncargado;
 
 
             }

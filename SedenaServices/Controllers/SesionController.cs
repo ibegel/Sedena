@@ -19,17 +19,17 @@ namespace SedenaServices.Controllers
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-                IEnumerable<SesionCLS> listaDoctor = (from sesion in bd.Sesion
+                IEnumerable<SesionCLS> listaSesion = (from sesion in bd.Sesion
                                                       
                                                       select new SesionCLS
                                                       {
                                                           id_Sesion= sesion.Id_Sesion,
-                                                          tipo_Sesion=sesion.Tipo_Sesion,
+                                                          id_Actividad=(int)sesion.Id_Actividad,
                                                           entorno=sesion.Entorno,
                                                           fecha=sesion.Fecha,
                                                           id_Encargado=(int)sesion.Id_Encargado
                                                       }).ToList();
-                return listaDoctor;
+                return listaSesion;
             }
         }
 
@@ -42,7 +42,7 @@ namespace SedenaServices.Controllers
                 using (DBSedenaDataContext bd = new DBSedenaDataContext())
                 {
                     Sesion oSesion = bd.Sesion.Where(p => p.Id_Sesion == id_sesion).First();
-                    oSesion.Tipo_Sesion = "Borrada";
+                    oSesion.Id_Sesion = 0;
                     bd.SubmitChanges();
                     respuesta = 1;
                 }
@@ -68,7 +68,7 @@ namespace SedenaServices.Controllers
                     if (oSesion.Id_Sesion == 0)
                     {
                             IEnumerable<SesionCLS> listaSesion = (from ses in bd.Sesion
-                                                                        where ses.Tipo_Sesion != "Borrada"
+                                                                        where ses.Id_Actividad != 0
                                                                         select new SesionCLS
                                                                         {
                                                                             id_Sesion = ses.Id_Sesion,
@@ -82,7 +82,7 @@ namespace SedenaServices.Controllers
                     {
                         Sesion aux = bd.Sesion.Where(p => p.Id_Sesion == oSesion.Id_Sesion).First();
                         aux.Id_Sesion = oSesion.Id_Sesion;
-                        aux.Tipo_Sesion = oSesion.Tipo_Sesion;
+                        aux.Id_Actividad = oSesion.Id_Actividad;
                         aux.Entorno = oSesion.Entorno;
                         aux.Fecha = oSesion.Fecha;
                         aux.Id_Encargado = oSesion.Id_Encargado;
@@ -109,7 +109,7 @@ namespace SedenaServices.Controllers
                     {
                         
                         id_Sesion=p.Id_Sesion,
-                        tipo_Sesion=p.Tipo_Sesion,
+                        id_Actividad=(int)p.Id_Actividad,
                         entorno=p.Entorno,
                         fecha=p.Fecha,
                         id_Encargado=(int)p.Id_Encargado

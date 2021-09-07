@@ -36,12 +36,12 @@ namespace SedenaServices.Models
     partial void InsertAgente(Agente instance);
     partial void UpdateAgente(Agente instance);
     partial void DeleteAgente(Agente instance);
-    partial void InsertArma(Arma instance);
-    partial void UpdateArma(Arma instance);
-    partial void DeleteArma(Arma instance);
     partial void InsertCatalogo_IC(Catalogo_IC instance);
     partial void UpdateCatalogo_IC(Catalogo_IC instance);
     partial void DeleteCatalogo_IC(Catalogo_IC instance);
+    partial void InsertArma(Arma instance);
+    partial void UpdateArma(Arma instance);
+    partial void DeleteArma(Arma instance);
     partial void InsertCatalogo_IT(Catalogo_IT instance);
     partial void UpdateCatalogo_IT(Catalogo_IT instance);
     partial void DeleteCatalogo_IT(Catalogo_IT instance);
@@ -70,6 +70,7 @@ namespace SedenaServices.Models
 		{
 			OnCreated();
 		}
+
 		public DBSedenaDataContext() :
 				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SedenaConnectionString"].ConnectionString, mappingSource)
 		{
@@ -110,19 +111,19 @@ namespace SedenaServices.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Arma> Arma
-		{
-			get
-			{
-				return this.GetTable<Arma>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Catalogo_IC> Catalogo_IC
 		{
 			get
 			{
 				return this.GetTable<Catalogo_IC>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Arma> Arma
+		{
+			get
+			{
+				return this.GetTable<Arma>();
 			}
 		}
 		
@@ -591,6 +592,92 @@ namespace SedenaServices.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Catalogo_IC")]
+	public partial class Catalogo_IC : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id_Incidente;
+		
+		private string _Nombre;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnId_IncidenteChanging(int value);
+    partial void OnId_IncidenteChanged();
+    partial void OnNombreChanging(string value);
+    partial void OnNombreChanged();
+    #endregion
+		
+		public Catalogo_IC()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Incidente", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int Id_Incidente
+		{
+			get
+			{
+				return this._Id_Incidente;
+			}
+			set
+			{
+				if ((this._Id_Incidente != value))
+				{
+					this.OnId_IncidenteChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Incidente = value;
+					this.SendPropertyChanged("Id_Incidente");
+					this.OnId_IncidenteChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(30)")]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this.OnNombreChanging(value);
+					this.SendPropertyChanging();
+					this._Nombre = value;
+					this.SendPropertyChanged("Nombre");
+					this.OnNombreChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Arma")]
 	public partial class Arma : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -726,92 +813,6 @@ namespace SedenaServices.Models
 		{
 			this.SendPropertyChanging();
 			entity.Arma = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Catalogo_IC")]
-	public partial class Catalogo_IC : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id_Incidente;
-		
-		private string _Nombre;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnId_IncidenteChanging(int value);
-    partial void OnId_IncidenteChanged();
-    partial void OnNombreChanging(string value);
-    partial void OnNombreChanged();
-    #endregion
-		
-		public Catalogo_IC()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Incidente", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id_Incidente
-		{
-			get
-			{
-				return this._Id_Incidente;
-			}
-			set
-			{
-				if ((this._Id_Incidente != value))
-				{
-					this.OnId_IncidenteChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Incidente = value;
-					this.SendPropertyChanged("Id_Incidente");
-					this.OnId_IncidenteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(30)")]
-		public string Nombre
-		{
-			get
-			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this.OnNombreChanging(value);
-					this.SendPropertyChanging();
-					this._Nombre = value;
-					this.SendPropertyChanged("Nombre");
-					this.OnNombreChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -2218,6 +2219,8 @@ namespace SedenaServices.Models
 		
 		private string _Marca;
 		
+		private string _Nombre;
+		
 		private EntitySet<Conductor> _Conductor;
 		
     #region Definiciones de métodos de extensibilidad
@@ -2232,6 +2235,8 @@ namespace SedenaServices.Models
     partial void OnColorChanged();
     partial void OnMarcaChanging(string value);
     partial void OnMarcaChanged();
+    partial void OnNombreChanging(string value);
+    partial void OnNombreChanged();
     #endregion
 		
 		public Vehiculo()
@@ -2316,6 +2321,26 @@ namespace SedenaServices.Models
 					this._Marca = value;
 					this.SendPropertyChanged("Marca");
 					this.OnMarcaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(30)")]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this.OnNombreChanging(value);
+					this.SendPropertyChanging();
+					this._Nombre = value;
+					this.SendPropertyChanged("Nombre");
+					this.OnNombreChanged();
 				}
 			}
 		}

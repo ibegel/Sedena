@@ -11,6 +11,7 @@ namespace SedenaServices.Models.Clases
         public string tipo_Encargado { get; set; }
         public string pass { get; set; }
         public int id_Agente { get; set; }
+        public string nombre { get; set; }
 
         public EncargadoCLS(int id_Encargado, string tipo_Encargado,string pass,int id_Agente)
         {

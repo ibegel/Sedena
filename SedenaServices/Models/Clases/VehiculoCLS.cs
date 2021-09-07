@@ -21,5 +21,9 @@ namespace SedenaServices.Models.Clases
             this.marca = marca;
             this.nombre = nombre;
         }
+        public VehiculoCLS()
+        {
+           
+        }
     }
 }

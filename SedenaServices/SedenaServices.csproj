@@ -162,14 +162,16 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\ActividadController.cs" />
     <Compile Include="Controllers\AgenteController.cs" />
     <Compile Include="Controllers\ArmaController.cs" />
+    <Compile Include="Controllers\Catalogo_ICController.cs" />
     <Compile Include="Controllers\ConductorController.cs" />
     <Compile Include="Controllers\ConfiguracionController.cs" />
-    <Compile Include="Controllers\DisparoController.cs" />
     <Compile Include="Controllers\EncargadoController.cs" />
     <Compile Include="Controllers\FuncionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Incidentes_ConductorController.cs" />
     <Compile Include="Controllers\SesionController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\VehiculoController.cs" />

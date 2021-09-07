@@ -19,19 +19,19 @@
       <Association Name="Agente_Funcion" Member="Funcion" ThisKey="Id_Agente" OtherKey="Id_Agente" Type="Funcion" />
     </Type>
   </Table>
+  <Table Name="dbo.Catalogo_IC" Member="Catalogo_IC">
+    <Type Name="Catalogo_IC">
+      <Column Name="Id_Incidente" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Association Name="Catalogo_IC_Incidentes_Conductor" Member="Incidentes_Conductor" ThisKey="Id_Incidente" OtherKey="Id_Incidente" Type="Incidentes_Conductor" />
+    </Type>
+  </Table>
   <Table Name="dbo.Arma" Member="Arma">
     <Type Name="Arma">
       <Column Name="Id_Arma" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Nombre" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
       <Column Name="Caracteristicas" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Association Name="Arma_Tirador" Member="Tirador" ThisKey="Id_Arma" OtherKey="Id_Arma" Type="Tirador" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Catalogo_IC" Member="Catalogo_IC">
-    <Type Name="Catalogo_IC">
-      <Column Name="Id_Incidente" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Nombre" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
-      <Association Name="Catalogo_IC_Incidentes_Conductor" Member="Incidentes_Conductor" ThisKey="Id_Incidente" OtherKey="Id_Incidente" Type="Incidentes_Conductor" />
     </Type>
   </Table>
   <Table Name="dbo.Catalogo_IT" Member="Catalogo_IT">
@@ -129,6 +129,7 @@
       <Column Name="Placa" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
       <Column Name="Color" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
       <Column Name="Marca" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
       <Association Name="Vehiculo_Conductor" Member="Conductor" ThisKey="Id_Vehiculo" OtherKey="Id_Vehiculo" Type="Conductor" />
     </Type>
   </Table>

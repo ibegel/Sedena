@@ -20,11 +20,15 @@ namespace SedenaServices.Controllers
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
                 IEnumerable<VehiculoCLS> listarVehiculo = (from veh in bd.Vehiculo
-                                                   select new VehiculoCLS
-                                                   {
-                                                       id_Vehiculo = (int)veh.Id_Vehiculo,
-                                                       caracteristicas = veh.Caracteristicas
-                                                   }).ToList();
+                                                           select new VehiculoCLS
+                                                           {
+                                                               id_Vehiculo = (int)veh.Id_Vehiculo,
+                                                               placa = veh.Placa,
+                                                               color = veh.Color,
+                                                               marca = veh.Marca,
+                                                               nombre = veh.Nombre
+                                                           })
+                .ToList();
                 return listarVehiculo;
             }
         }
@@ -38,11 +42,8 @@ namespace SedenaServices.Controllers
         }
         // localhost/api/Doctor/
         [HttpPost]
-        public int agregarvehiculo(int id_vehiculo, string caracteristicas)
+        public int agregarvehiculo(Vehiculo oVehiculo)
         {
-            Vehiculo oVehiculo = new Vehiculo();
-            oVehiculo.Id_Vehiculo = id_vehiculo;
-            oVehiculo.Caracteristicas = caracteristicas;
             int respuesta = 0;
             try
             {
@@ -70,8 +71,10 @@ namespace SedenaServices.Controllers
                                                    where veh.Id_Vehiculo == id_vehiculo
                                                    select new VehiculoCLS
                                                    {
-                                                       id_Vehiculo = veh.Id_Vehiculo,
-                                                       caracteristicas = veh.Caracteristicas
+                                                       id_Vehiculo = (int)veh.Id_Vehiculo,
+                                                       placa = veh.Placa,
+                                                       color = veh.Color,
+                                                       marca = veh.Marca
                                                    }).ToList();
                 return listarVehiculo;
             }

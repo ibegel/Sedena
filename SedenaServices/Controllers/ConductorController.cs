@@ -23,7 +23,6 @@ namespace SedenaServices.Controllers
                                                          {
                                                              id_Funcion = (int)conduc.Id_Funcion,
                                                              id_Vehiculo = (int)conduc.Id_Vehiculo,
-                                                             observaciones = conduc.Observaciones
                                                          }).ToList();
                 return listarConductor;
             }
@@ -45,7 +44,6 @@ namespace SedenaServices.Controllers
             Conductor oConductor = new Conductor();
             oConductor.Id_Funcion = id_funcion;
             oConductor.Id_Vehiculo = id_vehiculo;
-            oConductor.Observaciones = observaciones;
             int respuesta = 0;
             try
             {
@@ -76,8 +74,6 @@ namespace SedenaServices.Controllers
                                                          {
                                                              id_Funcion = (int)conduc.Id_Funcion,
                                                              id_Vehiculo = (int)conduc.Id_Vehiculo,
-                                                             observaciones=conduc.Observaciones
-
                                                          }).ToList();
                 return listarConductor;
             }

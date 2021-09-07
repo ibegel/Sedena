@@ -15,33 +15,35 @@ namespace SedenaServices.Controllers
     {
         [HttpGet]
         // localhost/api/Doctor
-        public IEnumerable<UsuarioCLS> listaUsuario()
+        public IEnumerable<AgenteCLS> listaUsuario()
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-                IEnumerable<UsuarioCLS> listaUsuario = (from usuario in bd.Usuario
-                                                        where usuario.Clave != null
-                                                        select new UsuarioCLS
+                IEnumerable<AgenteCLS> listaAgente = (from usuario in bd.Agente
+                                                        where usuario.Matricula != null
+                                                        select new AgenteCLS
                                                         {
-                                                            id_Usuario = usuario.Id_Usuario,
-                                                            clave = usuario.Clave,
-                                                            rango = usuario.Rango,
-                                                            nombre = usuario.Nombre
+                                                            id_Agente = usuario.Id_Agente,
+                                                            matricula = usuario.Matricula,
+                                                            grado = usuario.Grado,
+                                                            nombre = usuario.Nombre,
+                                                            distintivo= usuario.Distintivo
+
                                                         }).ToList();
-                return listaUsuario;
+                return listaAgente;
             }
         }
 
         [HttpPut]
-        public int eliminarUsuario(int id_Usuario)
+        public int eliminarUsuario(int id_Agente)
         {
             int respuesta = 0;
             try
             {
                 using (DBSedenaDataContext bd = new DBSedenaDataContext())
                 {
-                    Usuario oUsuario = bd.Usuario.Where(p => p.Id_Usuario == id_Usuario).First();
-                    oUsuario.Clave = null;
+                    Agente oUsuario = bd.Agente.Where(p => p.Id_Agente == id_Agente).First();
+                    oUsuario.Matricula = null;
                     bd.SubmitChanges();
                     respuesta = 1;
                 }
@@ -55,39 +57,39 @@ namespace SedenaServices.Controllers
 
 
         [HttpPost]
-        public int agregarUsuario(Usuario oUsuario)
+        public int agregarUsuario(Agente oUsuario)
         {
-
-
             int respuesta = 0;
             try
             {
                 using (DBSedenaDataContext bd = new DBSedenaDataContext())
                 {
-                    if (oUsuario.Id_Usuario == 0)
+                    if (oUsuario.Id_Agente == 0)
                     {
-                        IEnumerable<UsuarioCLS> listaUsuario = (from usuario in bd.Usuario
-                                                                where usuario.Clave != null
-                                                                select new UsuarioCLS
+                        IEnumerable<AgenteCLS> listaUsuario = (from usuario in bd.Agente
+                                                                where usuario.Matricula != null
+                                                                select new AgenteCLS
                                                                 {
-                                                                    id_Usuario = usuario.Id_Usuario,
-                                                                    clave = usuario.Clave,
-                                                                    rango = usuario.Rango,
-                                                                    nombre = usuario.Nombre
+                                                                    id_Agente = usuario.Id_Agente,
+                                                                    matricula = usuario.Matricula,
+                                                                    grado = usuario.Grado,
+                                                                    nombre = usuario.Nombre,
+                                                                    distintivo = usuario.Distintivo
                                                                 }).ToList();
 
-                        oUsuario.Id_Usuario = listaUsuario.Count() + 1;
-                        bd.Usuario.InsertOnSubmit(oUsuario);
+                        oUsuario.Id_Agente = listaUsuario.Count() + 1;
+                        bd.Agente.InsertOnSubmit(oUsuario);
                         bd.SubmitChanges();
                         respuesta = 1;
                     }
                     else
                     {
-                        Usuario aux = bd.Usuario.Where(p => p.Id_Usuario == oUsuario.Id_Usuario).First();
-                        aux.Id_Usuario = oUsuario.Id_Usuario;
-                        aux.Clave = oUsuario.Clave;
-                        aux.Rango = oUsuario.Rango;
+                        Agente aux = bd.Agente.Where(p => p.Id_Agente == oUsuario.Id_Agente).First();
+                        aux.Id_Agente = oUsuario.Id_Agente;
+                        aux.Matricula = oUsuario.Matricula;
+                        aux.Grado = oUsuario.Grado;
                         aux.Nombre = oUsuario.Nombre;
+                        aux.Distintivo = oUsuario.Distintivo;
                         bd.SubmitChanges();
                         respuesta = 1;
 
@@ -102,17 +104,18 @@ namespace SedenaServices.Controllers
         }
 
         [HttpGet]
-        public UsuarioCLS recuperarUsuario(int id_Usuario)
+        public AgenteCLS recuperarUsuario(int id_Usuario)
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-                UsuarioCLS oUsuario = bd.Usuario.Where(p => p.Id_Usuario == id_Usuario)
-                    .Select(p => new UsuarioCLS
+                AgenteCLS oUsuario = bd.Agente.Where(p => p.Id_Agente == id_Usuario)
+                    .Select(p => new AgenteCLS
                     {
-                        id_Usuario = p.Id_Usuario,
-                        clave = p.Clave,
-                        rango = p.Rango,
-                        nombre = p.Nombre
+                        id_Agente = p.Id_Agente,
+                        matricula = p.Matricula,
+                        grado = p.Grado,
+                        nombre = p.Nombre,
+                        distintivo=p.Distintivo
                     }
                     ).First();
 

@@ -25,7 +25,7 @@ namespace SedenaServices.Controllers
                                                              
                                                              id_Funcion=fun.Id_Funcion,
                                                              funcion=fun.Funcion1,
-                                                             id_Usuario=fun.Id_Funcion,
+                                                             id_Agente=(int)fun.Id_Agente,
                                                              id_Sesion=(int)fun.Id_Sesion
 
                                                           }).ToList();
@@ -85,7 +85,7 @@ namespace SedenaServices.Controllers
                                 Funcion aux = bd.Funcion.Where(p => p.Id_Funcion == oFuncion.Id_Funcion).First();
                                 aux.Id_Funcion = oFuncion.Id_Funcion;
                                 aux.Funcion1 = oFuncion.Funcion1;
-                                aux.Id_Usuario = oFuncion.Id_Usuario;
+                                aux.Id_Agente = oFuncion.Id_Agente;
                                 aux.Id_Sesion = oFuncion.Id_Sesion;
                                 bd.SubmitChanges();
                                 respuesta = 1;
@@ -110,7 +110,7 @@ namespace SedenaServices.Controllers
                         {
                             id_Funcion=p.Id_Funcion,
                             funcion=p.Funcion1,
-                            id_Usuario=(int)p.Id_Usuario,
+                            id_Agente=(int)p.Id_Agente,
                             id_Sesion=(int)p.Id_Sesion
                         }
                         ).First();

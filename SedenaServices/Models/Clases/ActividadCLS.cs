@@ -19,5 +19,9 @@ namespace SedenaServices.Models.Clases
             this.dificultad = dificultad;
             this.tipo = tipo;
         }
+        public ActividadCLS()
+        {
+            
+        }
     }
 }
