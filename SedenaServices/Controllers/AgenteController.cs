@@ -11,7 +11,7 @@ using System.Web.Http.Cors;
 namespace SedenaServices.Controllers
 {
     [EnableCors(headers: "*", origins: "*", methods: "*")]
-    public class UsuarioController : ApiController
+    public class AgenteController : ApiController
     {
         [HttpGet]
         // localhost/api/Doctor
@@ -20,14 +20,14 @@ namespace SedenaServices.Controllers
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
                 IEnumerable<UsuarioCLS> listaUsuario = (from usuario in bd.Usuario
-                                                        where usuario.Clave!=null
-                                                      select new UsuarioCLS
-                                                      {
-                                                          id_Usuario=usuario.Id_Usuario,
-                                                          clave=usuario.Clave,
-                                                          rango=usuario.Rango,
-                                                          nombre=usuario.Nombre
-                                                      }).ToList();
+                                                        where usuario.Clave != null
+                                                        select new UsuarioCLS
+                                                        {
+                                                            id_Usuario = usuario.Id_Usuario,
+                                                            clave = usuario.Clave,
+                                                            rango = usuario.Rango,
+                                                            nombre = usuario.Nombre
+                                                        }).ToList();
                 return listaUsuario;
             }
         }
@@ -57,8 +57,8 @@ namespace SedenaServices.Controllers
         [HttpPost]
         public int agregarUsuario(Usuario oUsuario)
         {
-            
-            
+
+
             int respuesta = 0;
             try
             {
@@ -76,7 +76,7 @@ namespace SedenaServices.Controllers
                                                                     nombre = usuario.Nombre
                                                                 }).ToList();
 
-                        oUsuario.Id_Usuario = listaUsuario.Count()+1;
+                        oUsuario.Id_Usuario = listaUsuario.Count() + 1;
                         bd.Usuario.InsertOnSubmit(oUsuario);
                         bd.SubmitChanges();
                         respuesta = 1;
@@ -100,7 +100,7 @@ namespace SedenaServices.Controllers
             }
             return respuesta;
         }
-        
+
         [HttpGet]
         public UsuarioCLS recuperarUsuario(int id_Usuario)
         {
@@ -109,10 +109,10 @@ namespace SedenaServices.Controllers
                 UsuarioCLS oUsuario = bd.Usuario.Where(p => p.Id_Usuario == id_Usuario)
                     .Select(p => new UsuarioCLS
                     {
-                        id_Usuario=p.Id_Usuario,
-                        clave=p.Clave,
-                        rango=p.Rango,
-                        nombre=p.Nombre
+                        id_Usuario = p.Id_Usuario,
+                        clave = p.Clave,
+                        rango = p.Rango,
+                        nombre = p.Nombre
                     }
                     ).First();
 

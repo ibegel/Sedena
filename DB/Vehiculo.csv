@@ -1,4 +1,4 @@
-id_vehiculo,caracteristicas
-1,Tomcat
-2,Tanque
-3,Tsuru
+id_vehiculo,Placa,Color,Marca,caracteristicas
+1,sadna,Verde,cambiar,Tomcat
+2,adsdm,Verde,cambiar,Tanque
+3,opkwep,Blanco,cambiar,Tsuru

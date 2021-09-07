@@ -1,0 +1,21 @@
+id_actividad ,nombre,Dificultad,Tipo
+1,Punto A-B,Facil,Conduccion
+2,Linea Recta,Facil,Conduccion
+3,Reversa,Facil,Conduccion
+4,Estacionamiento,Facil,Conduccion
+5,Serpenteo,Facil,Conduccion
+6,Zigzag,Facil,Conduccion
+7,Maniobra 2 puntos,Medio,Conduccion
+8,Maniobra 3 Puntos,Medio,Conduccion
+9,Vuelta en U,Medio,Conduccion
+10,Maniobras Evasivas,Dificil,Conduccion
+11,Maniobra Huevo,Dificil,Conduccion
+12,Llanta Ponchada,Dificil,Conduccion
+13,Tiro ,Facil,Tiro
+14,Identificacion Blancos,Facil,Tiro
+15,Campo de Tiro,Facil,Tiro
+16,Reaccion Emboscada ,Dificil,Tiro
+17,Despeje,Dificil,Tiro
+18,Persecusion y Asalto,Dificil,Ambos
+19,Trabajo En Conjunto,Dificil,Ambos
+20,Identificacion en Movimiento,Medio,Ambos

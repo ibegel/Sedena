@@ -1,4 +1,4 @@
-id_arma,caracteristicas
-1,Metralleta
-2,Torreta
-3,Resortera
+id_arma,nombre,caracteristicas
+1,Metralleta,abc
+2,Torreta,cdf
+3,Resortera,ghi
