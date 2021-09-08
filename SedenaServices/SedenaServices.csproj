@@ -175,6 +175,7 @@
     <Compile Include="Controllers\Incidentes_ConductorController.cs" />
     <Compile Include="Controllers\Incidente_TiradorController.cs" />
     <Compile Include="Controllers\SesionController.cs" />
+    <Compile Include="Controllers\TiradorController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\VehiculoController.cs" />
     <Compile Include="Global.asax.cs">
@@ -186,14 +187,12 @@
     <Compile Include="Models\Clases\Catalogo_ICCLS.cs" />
     <Compile Include="Models\Clases\Catalogo_ITCLS.cs" />
     <Compile Include="Models\Clases\ConductorCLS.cs" />
-    <Compile Include="Models\Clases\DisparoCLS.cs" />
     <Compile Include="Models\Clases\EncargadoCLS.cs" />
     <Compile Include="Models\Clases\FuncionCLS.cs" />
     <Compile Include="Models\Clases\Incidentes_ConductorCLS.cs" />
     <Compile Include="Models\Clases\Incidentes_TiradorCLS.cs" />
     <Compile Include="Models\Clases\SesionCLS.cs" />
     <Compile Include="Models\Clases\TiradorCLS.cs" />
-    <Compile Include="Models\Clases\UsuarioCLS.cs" />
     <Compile Include="Models\Clases\VehiculoCLS.cs" />
     <Compile Include="Models\DBSedena.designer.cs">
       <AutoGen>True</AutoGen>

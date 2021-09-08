@@ -34,7 +34,7 @@ namespace SedenaServices.Controllers
         }
 
         [HttpPut]
-        public int eliminarVehiculo(int id_vehiculo)
+        public int eliminarVehiculo(int id_Vehiculo)
         {
             int respuesta = 0;
             return respuesta;
@@ -63,12 +63,12 @@ namespace SedenaServices.Controllers
 
         // localhost/api/Doctor/?iidDoctor=
         [HttpGet]
-        public IEnumerable<VehiculoCLS> RecuperarVehiculo(int id_vehiculo)
+        public IEnumerable<VehiculoCLS> RecuperarVehiculo(int id_Vehiculo)
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
                 IEnumerable<VehiculoCLS> listarVehiculo = (from veh in bd.Vehiculo
-                                                   where veh.Id_Vehiculo == id_vehiculo
+                                                   where veh.Id_Vehiculo == id_Vehiculo
                                                    select new VehiculoCLS
                                                    {
                                                        id_Vehiculo = (int)veh.Id_Vehiculo,

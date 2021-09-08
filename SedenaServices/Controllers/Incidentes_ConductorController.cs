@@ -98,12 +98,12 @@ namespace SedenaServices.Controllers
 
         // localhost/api/Doctor/?iidDoctor=
         [HttpGet]
-        public IEnumerable<Incidentes_ConductorCLS> recuperarIncidente(int id_incidente)
+        public IEnumerable<Incidentes_ConductorCLS> recuperarIncidente(int id_Incidente)
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
                 IEnumerable<Incidentes_ConductorCLS> listarIncidentes = (from inci in bd.Incidentes_Conductor
-                                                              where inci.Id_Incidente == id_incidente
+                                                              where inci.Id_Incidente == id_Incidente
                                                               select new Incidentes_ConductorCLS
                                                               {
                                                                   id_Incidente = (int)inci.Id_Incidente,

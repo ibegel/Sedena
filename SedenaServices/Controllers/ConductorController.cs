@@ -29,7 +29,7 @@ namespace SedenaServices.Controllers
         }
 
         [HttpPut]
-        public int eliminarConductor(int id_Conductor)
+        public int eliminarConductor(int id_Funcion)
         {
             int respuesta = 0;
 
@@ -39,11 +39,8 @@ namespace SedenaServices.Controllers
         }
         // localhost/api/Doctor/
         [HttpPost]
-        public int agregarConductor(int id_funcion, int id_vehiculo, string observaciones)
+        public int agregarConductor(Conductor oConductor)
         {
-            Conductor oConductor = new Conductor();
-            oConductor.Id_Funcion = id_funcion;
-            oConductor.Id_Vehiculo = id_vehiculo;
             int respuesta = 0;
             try
             {
@@ -63,13 +60,12 @@ namespace SedenaServices.Controllers
 
         // localhost/api/Doctor/?iidDoctor=
         [HttpGet]
-        public IEnumerable<ConductorCLS> RecuperarConductor(int id_Funcion, int id_Vehiculo)
+        public IEnumerable<ConductorCLS> RecuperarConductor(int id_Funcion)
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
                 IEnumerable<ConductorCLS> listarConductor = (from conduc in bd.Conductor
-                                                         where conduc.Id_Funcion == id_Funcion &&
-                                                         conduc.Id_Vehiculo == id_Vehiculo
+                                                         where conduc.Id_Funcion == id_Funcion
                                                          select new ConductorCLS
                                                          {
                                                              id_Funcion = (int)conduc.Id_Funcion,

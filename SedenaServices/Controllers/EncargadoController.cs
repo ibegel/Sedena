@@ -35,14 +35,14 @@ namespace SedenaServices.Controllers
         }
 
         [HttpPut]
-        public int eliminarEncargado(int id_encargado)
+        public int eliminarEncargado(int id_Encargado)
         {
             int respuesta = 0;
             try
             {
                 using (DBSedenaDataContext bd = new DBSedenaDataContext())
                 {
-                    Encargado oEncargado = bd.Encargado.Where(p => p.Id_Encargado == id_encargado).First();
+                    Encargado oEncargado = bd.Encargado.Where(p => p.Id_Encargado == id_Encargado).First();
                     oEncargado.Tipo_Encargado = "Inhabilitado";
                     bd.SubmitChanges();
                     respuesta = 1;

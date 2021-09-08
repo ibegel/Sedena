@@ -34,14 +34,14 @@ namespace SedenaServices.Controllers
         }
 
         [HttpPut]
-        public int eliminarSesion(int id_sesion)
+        public int eliminarSesion(int id_Sesion)
         {
             int respuesta = 0;
             try
             {
                 using (DBSedenaDataContext bd = new DBSedenaDataContext())
                 {
-                    Sesion oSesion = bd.Sesion.Where(p => p.Id_Sesion == id_sesion).First();
+                    Sesion oSesion = bd.Sesion.Where(p => p.Id_Sesion == id_Sesion).First();
                     oSesion.Id_Sesion = 0;
                     bd.SubmitChanges();
                     respuesta = 1;
@@ -100,11 +100,11 @@ namespace SedenaServices.Controllers
 
         // localhost/api/Doctor/?iidDoctor=
         [HttpGet]
-        public SesionCLS recuperarSesion(int id_sesion)
+        public SesionCLS recuperarSesion(int id_Sesion)
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-                SesionCLS oSesion = bd.Sesion.Where(p => p.Id_Sesion == id_sesion)
+                SesionCLS oSesion = bd.Sesion.Where(p => p.Id_Sesion == id_Sesion)
                     .Select(p => new SesionCLS
                     {
                         

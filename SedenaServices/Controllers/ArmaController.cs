@@ -30,7 +30,7 @@ namespace SedenaServices.Controllers
         }
 
         [HttpPut]
-        public int eliminarArma(int id_Disparo)
+        public int eliminarArma(int id_Arma)
         {
             int respuesta = 0;
             return respuesta;
@@ -38,11 +38,9 @@ namespace SedenaServices.Controllers
         }
         // localhost/api/Doctor/
         [HttpPost]
-        public int agregarArma(int id_arma, string caracteristicas)
+        public int agregarArma(Arma oArma)
         {
-            Arma oArma = new Arma();
-            oArma.Id_Arma = id_arma;
-            oArma.Caracteristicas = caracteristicas;
+         
             int respuesta = 0;
             try
             {
@@ -62,12 +60,12 @@ namespace SedenaServices.Controllers
 
         // localhost/api/Doctor/?iidDoctor=
         [HttpGet]
-        public IEnumerable<ArmaCLS> RecuperarArma(int id_arma)
+        public IEnumerable<ArmaCLS> RecuperarArma(int id_Arma)
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
                 IEnumerable<ArmaCLS> listarArma = (from arm in bd.Arma
-                                                         where arm.Id_Arma == id_arma
+                                                         where arm.Id_Arma == id_Arma
                                                          select new ArmaCLS
                                                          {
                                                              id_Arma = arm.Id_Arma,

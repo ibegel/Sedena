@@ -100,12 +100,12 @@ namespace SedenaServices.Controllers
 
         // localhost/api/Doctor/?iidDoctor=
         [HttpGet]
-        public IEnumerable<ActividadCLS> recuperarActividad(int id_actividad)
+        public IEnumerable<ActividadCLS> recuperarActividad(int id_Actividad)
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
                 IEnumerable<ActividadCLS> listarActividad = (from act in bd.Actividad
-                                                   where act.Id_Actividad == id_actividad
+                                                   where act.Id_Actividad == id_Actividad
                                                    select new ActividadCLS
                                                    {
                                                        id_Actividad = act.Id_Actividad,

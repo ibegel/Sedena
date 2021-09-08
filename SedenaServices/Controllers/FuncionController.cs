@@ -34,14 +34,14 @@ namespace SedenaServices.Controllers
             }
 
             [HttpPut]
-            public int eliminarFuncion(int id_funcion)
+            public int eliminarFuncion(int id_Funcion)
             {
                 int respuesta = 0;
                 try
                 {
                     using (DBSedenaDataContext bd = new DBSedenaDataContext())
                     {
-                        Funcion oFuncion = bd.Funcion.Where(p => p.Id_Funcion == id_funcion).First();
+                        Funcion oFuncion = bd.Funcion.Where(p => p.Id_Funcion == id_Funcion).First();
                         oFuncion.Funcion1 = "Inhabilitado";
                         bd.SubmitChanges();
                         respuesta = 1;
@@ -101,11 +101,11 @@ namespace SedenaServices.Controllers
         
             // localhost/api/Doctor/?iidDoctor=
             [HttpGet]
-            public FuncionCLS recuperarFuncion(int id_funcion)
+            public FuncionCLS recuperarFuncion(int id_Funcion)
             {
                 using (DBSedenaDataContext bd = new DBSedenaDataContext())
                 {
-                    FuncionCLS oDoctor = bd.Funcion.Where(p => p.Id_Funcion == id_funcion)
+                    FuncionCLS oDoctor = bd.Funcion.Where(p => p.Id_Funcion == id_Funcion)
                         .Select(p => new FuncionCLS
                         {
                             id_Funcion=p.Id_Funcion,

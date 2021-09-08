@@ -95,12 +95,12 @@ namespace SedenaServices.Controllers
 
         // localhost/api/Doctor/?iidDoctor=
         [HttpGet]
-        public IEnumerable<Catalogo_ICCLS> recuperarCatalogo(int id_incidente)
+        public IEnumerable<Catalogo_ICCLS> recuperarCatalogo(int id_Incidente)
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
                 IEnumerable<Catalogo_ICCLS> listarCatalogo = (from cat in bd.Catalogo_IC
-                                                             where cat.Id_Incidente == id_incidente
+                                                             where cat.Id_Incidente == id_Incidente
                                                              select new Catalogo_ICCLS
                                                              {
                                                                  id_Incidente=cat.Id_Incidente,

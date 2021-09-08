@@ -104,11 +104,11 @@ namespace SedenaServices.Controllers
         }
 
         [HttpGet]
-        public AgenteCLS recuperarUsuario(int id_Usuario)
+        public AgenteCLS recuperarUsuario(int id_Agente)
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-                AgenteCLS oUsuario = bd.Agente.Where(p => p.Id_Agente == id_Usuario)
+                AgenteCLS oUsuario = bd.Agente.Where(p => p.Id_Agente == id_Agente)
                     .Select(p => new AgenteCLS
                     {
                         id_Agente = p.Id_Agente,
