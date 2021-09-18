@@ -17,12 +17,22 @@ namespace SedenaServices.Models.Clases
         {
             this.id_Agente = id_Agente;
             this.matricula = matricula;
-            this.grado= grado;
+            this.grado = grado;
             this.nombre = nombre;
             this.distintivo = distintivo;
         }
         public AgenteCLS()
         {
         }
+
+
     }
+
+    [Serializable]
+    public class AgentesCLS
+        {
+            public AgenteCLS[] agentes;
+            
+
+        }
 }

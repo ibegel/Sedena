@@ -13,7 +13,7 @@ namespace SedenaServices.Models.Clases
         public int id_Agente { get; set; }
         public string nombre { get; set; }
 
-        public EncargadoCLS(int id_Encargado, string tipo_Encargado,string pass,int id_Agente)
+        public EncargadoCLS(int id_Encargado, string tipo_Encargado, string pass, int id_Agente)
         {
             this.id_Encargado = id_Encargado;
             this.tipo_Encargado = tipo_Encargado;
@@ -26,6 +26,12 @@ namespace SedenaServices.Models.Clases
 
         }
     }
+
+    public class EncargadosCLS
+        {
+        public EncargadoCLS[] encargados;
+
+        }
 
     
 }

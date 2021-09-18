@@ -16,11 +16,11 @@ namespace SedenaServices.Controllers
     {
         [HttpGet]
         // localhost/api/Doctor
-        public IEnumerable<EncargadoCLS> listaEncargado()
+        public EncargadosCLS listaEncargado()
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-                IEnumerable<EncargadoCLS> listarEncargado = (from encar in bd.Encargado
+                List<EncargadoCLS> listarEncargado = (from encar in bd.Encargado
                                                              join usu in bd.Agente
                                                              on encar.Id_Agente equals usu.Id_Agente
                                                              select new EncargadoCLS
@@ -28,9 +28,12 @@ namespace SedenaServices.Controllers
                                                                  id_Encargado = encar.Id_Encargado,
                                                                  tipo_Encargado = encar.Tipo_Encargado,
                                                                  pass = encar.Pass,
-                                                                 nombre=usu.Nombre
+                                                                 nombre=usu.Nombre,
+                                                                 id_Agente=usu.Id_Agente
                                                              }).ToList();
-                return listarEncargado;
+                EncargadosCLS encargados= new EncargadosCLS();
+                encargados.encargados = listarEncargado.ToArray();
+                return encargados;
             }
         }
 
@@ -66,7 +69,7 @@ namespace SedenaServices.Controllers
                 {
                     if (oEncargado.Id_Encargado == 0)
                     {
-                        IEnumerable<EncargadoCLS> listaEncargado = (from encarga in bd.Encargado
+                        List<EncargadoCLS>listaEncargado = (from encarga in bd.Encargado
                                                                 where encarga.Tipo_Encargado != "Inhabilitado"
                                                                   select new EncargadoCLS
                                                                 {
@@ -115,9 +118,36 @@ namespace SedenaServices.Controllers
                     ).First();
 
                 return oEncargado;
-
-
             }
         }
+        
+        [HttpGet]
+        public EncargadoCLS recuperarNombre(string nombre)
+        {
+            using (DBSedenaDataContext bd = new DBSedenaDataContext())
+            {
+                List<EncargadoCLS> listarEncargado = (from encar in bd.Encargado
+                                                      join usu in bd.Agente
+                                                      on encar.Id_Agente equals usu.Id_Agente
+                                                      select new EncargadoCLS
+                                                      {
+                                                          id_Encargado = encar.Id_Encargado,
+                                                          tipo_Encargado = encar.Tipo_Encargado,
+                                                          pass = encar.Pass,
+                                                          nombre = usu.Nombre
+                                                      }).ToList();
+                EncargadoCLS aux = new EncargadoCLS();
+                foreach(var a in listarEncargado)
+                {
+                    if (a.nombre.Equals(nombre))
+                    {
+                        aux = a;
+                        break;
+                    }
+                }
+                return aux;
+            }
+        }
+        
     }
 }
