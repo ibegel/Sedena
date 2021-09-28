@@ -37,8 +37,30 @@ namespace SedenaServices.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpDelete]
         public int eliminarEncargado(int id_Encargado)
+        {
+            int respuesta = 0;
+            try
+            {
+                using (DBSedenaDataContext bd = new DBSedenaDataContext())
+                {
+                    Encargado oEncargado = bd.Encargado.Where(p => p.Id_Encargado == id_Encargado).First();
+                    bd.Encargado.DeleteOnSubmit(oEncargado);
+                    bd.SubmitChanges();
+                    respuesta = 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                respuesta = 0;
+            }
+            return respuesta;
+        }
+
+
+        [HttpPut]
+        public int inhabilitarEncargado(int id_Encargado)
         {
             int respuesta = 0;
             try

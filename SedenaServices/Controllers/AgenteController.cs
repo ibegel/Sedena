@@ -20,7 +20,7 @@ namespace SedenaServices.Controllers
             {
                 AgentesCLS agentes = new AgentesCLS();
                 List<AgenteCLS> listaAgente = (from usuario in bd.Agente
-                                                        where usuario.Matricula != null
+                                                        where usuario.Nombre != "Inhabilitado"
                                                         select new AgenteCLS
                                                         {
                                                             id_Agente = usuario.Id_Agente,
@@ -56,6 +56,27 @@ namespace SedenaServices.Controllers
             return respuesta;
         }
 
+        [HttpPut]
+        public int deshabilitarAgente(int id_Agente)
+        {
+            int respuesta = 0;
+            try
+            {
+                using (DBSedenaDataContext bd = new DBSedenaDataContext())
+                {
+                    Agente oAgente = bd.Agente.Where(p => p.Id_Agente == id_Agente).First();
+                    oAgente.Nombre = "Inhabilitado";
+                    bd.SubmitChanges();
+                    respuesta = 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                respuesta = 0;
+            }
+            return respuesta;
+        }
+
 
         [HttpPost]
         public int agregarAgente(Agente oUsuario)
@@ -68,8 +89,8 @@ namespace SedenaServices.Controllers
                     if (oUsuario.Id_Agente == 0)
                     {
                         IEnumerable<AgenteCLS> listaUsuario = (from usuario in bd.Agente
-                                                                where usuario.Matricula != null
-                                                                select new AgenteCLS
+                                                               where usuario.Nombre != "Inhabilitado"
+                                                               select new AgenteCLS
                                                                 {
                                                                     id_Agente = usuario.Id_Agente,
                                                                     matricula = usuario.Matricula,
