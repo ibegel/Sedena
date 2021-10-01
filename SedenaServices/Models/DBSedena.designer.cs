@@ -70,13 +70,7 @@ namespace SedenaServices.Models
 		{
 			OnCreated();
 		}
-
-		public DBSedenaDataContext() :
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SedenaConnectionString"].ConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
-
+		
 		public DBSedenaDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{

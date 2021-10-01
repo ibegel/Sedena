@@ -14,7 +14,7 @@ namespace SedenaServices.Controllers
     public class AgenteController : ApiController
     {
         [HttpGet]
-        public AgentesCLS listaUsuario()
+        public AgentesCLS listaAgente()
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
@@ -114,7 +114,6 @@ namespace SedenaServices.Controllers
                         aux.Distintivo = oUsuario.Distintivo;
                         bd.SubmitChanges();
                         respuesta = 1;
-
                     }
                 }
             }
@@ -140,10 +139,7 @@ namespace SedenaServices.Controllers
                         distintivo=p.Distintivo
                     }
                     ).First();
-
                 return oUsuario;
-
-
             }
         }
 
