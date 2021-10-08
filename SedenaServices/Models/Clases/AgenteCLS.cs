@@ -32,7 +32,7 @@ namespace SedenaServices.Models.Clases
     public class AgentesCLS
         {
             public AgenteCLS[] agentes;
-            
-
         }
+  
+
 }

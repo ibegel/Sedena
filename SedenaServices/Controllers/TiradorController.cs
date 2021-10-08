@@ -18,11 +18,20 @@ namespace SedenaServices.Controllers
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-                IEnumerable<TiradorCLS> listarTirador = (from conduc in bd.Tirador
+                IEnumerable<TiradorCLS> listarTirador = (from tira in bd.Tirador
                                                          select new TiradorCLS
                                                          {
-                                                                 id_Funcion = (int)conduc.Id_Funcion,
-                                                                 id_Arma = (int)conduc.Id_Arma
+                                                                 id_Funcion = (int)tira.Id_Funcion,
+                                                                 id_Arma = (int)tira.Id_Arma,
+                                                                 disparos_Realizados=(int)tira.Disparos_Realizados,
+                                                                 disparos_Acertados=(int)tira.Disparos_Acertados,
+                                                                 disparos_Colateral=(int)tira.Disparos_Colateral,
+                                                                 bajas_Colaterales=(int)tira.Bajas_Colaterales,
+                                                                 bajas_Enemigos=(int)tira.Bajas_Enemigos,
+                                                                 bajas_Militares=(int)tira.Bajas_Militares,
+
+                                                                 uso_Correcto=(bool)tira.Uso_Correcto,
+                                                                 mision_Cumplida=(bool)tira.Mision_Cumplida
                                                              }).ToList();
                 return listarTirador;
             }
@@ -65,13 +74,21 @@ namespace SedenaServices.Controllers
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-                IEnumerable<TiradorCLS> listarTirador = (from conduc in bd.Tirador
-                                                         where conduc.Id_Funcion == id_Funcion 
+                IEnumerable<TiradorCLS> listarTirador = (from tira in bd.Tirador
+                                                         where tira.Id_Funcion == id_Funcion 
                                                          select new TiradorCLS
                                                              {
-                                                                 id_Funcion = (int)conduc.Id_Funcion,
-                                                                 id_Arma = (int)conduc.Id_Arma
-                                                             }).ToList();
+                                                                 id_Funcion = (int)tira.Id_Funcion,
+                                                                 id_Arma = (int)tira.Id_Arma,
+                                                             disparos_Realizados = (int)tira.Disparos_Realizados,
+                                                             disparos_Acertados = (int)tira.Disparos_Acertados,
+                                                             disparos_Colateral = (int)tira.Disparos_Colateral,
+                                                             bajas_Colaterales = (int)tira.Bajas_Colaterales,
+                                                             bajas_Enemigos = (int)tira.Bajas_Enemigos,
+                                                             bajas_Militares = (int)tira.Bajas_Militares,
+                                                             uso_Correcto = (bool)tira.Uso_Correcto,
+                                                             mision_Cumplida = (bool)tira.Mision_Cumplida
+                                                         }).ToList();
                 return listarTirador;
             }
         }

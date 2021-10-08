@@ -166,14 +166,13 @@
     <Compile Include="Controllers\AgenteController.cs" />
     <Compile Include="Controllers\ArmaController.cs" />
     <Compile Include="Controllers\Catalogo_ICController.cs" />
-    <Compile Include="Controllers\Catalogo_ITController.cs" />
     <Compile Include="Controllers\ConductorController.cs" />
     <Compile Include="Controllers\ConfiguracionController.cs" />
     <Compile Include="Controllers\EncargadoController.cs" />
+    <Compile Include="Controllers\EvaluacionController.cs" />
     <Compile Include="Controllers\FuncionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Incidentes_ConductorController.cs" />
-    <Compile Include="Controllers\Incidente_TiradorController.cs" />
     <Compile Include="Controllers\SesionController.cs" />
     <Compile Include="Controllers\TiradorController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -188,6 +187,7 @@
     <Compile Include="Models\Clases\Catalogo_ITCLS.cs" />
     <Compile Include="Models\Clases\ConductorCLS.cs" />
     <Compile Include="Models\Clases\EncargadoCLS.cs" />
+    <Compile Include="Models\Clases\EvaluacionCLS.cs" />
     <Compile Include="Models\Clases\FuncionCLS.cs" />
     <Compile Include="Models\Clases\Incidentes_ConductorCLS.cs" />
     <Compile Include="Models\Clases\Incidentes_TiradorCLS.cs" />
@@ -262,6 +262,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Configuracion\" />
+    <Folder Include="Views\Evaluacion\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

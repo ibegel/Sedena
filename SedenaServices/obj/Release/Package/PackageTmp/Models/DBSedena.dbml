@@ -19,13 +19,6 @@
       <Association Name="Agente_Funcion" Member="Funcion" ThisKey="Id_Agente" OtherKey="Id_Agente" Type="Funcion" />
     </Type>
   </Table>
-  <Table Name="dbo.Catalogo_IC" Member="Catalogo_IC">
-    <Type Name="Catalogo_IC">
-      <Column Name="Id_Incidente" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Nombre" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
-      <Association Name="Catalogo_IC_Incidentes_Conductor" Member="Incidentes_Conductor" ThisKey="Id_Incidente" OtherKey="Id_Incidente" Type="Incidentes_Conductor" />
-    </Type>
-  </Table>
   <Table Name="dbo.Arma" Member="Arma">
     <Type Name="Arma">
       <Column Name="Id_Arma" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -34,20 +27,11 @@
       <Association Name="Arma_Tirador" Member="Tirador" ThisKey="Id_Arma" OtherKey="Id_Arma" Type="Tirador" />
     </Type>
   </Table>
-  <Table Name="dbo.Catalogo_IT" Member="Catalogo_IT">
-    <Type Name="Catalogo_IT">
+  <Table Name="dbo.Catalogo_IC" Member="Catalogo_IC">
+    <Type Name="Catalogo_IC">
       <Column Name="Id_Incidente" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Nombre" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
-      <Association Name="Catalogo_IT_Incidentes_Tirador" Member="Incidentes_Tirador" ThisKey="Id_Incidente" OtherKey="Id_Incidente" Type="Incidentes_Tirador" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Conductor" Member="Conductor">
-    <Type Name="Conductor">
-      <Column Name="Id_Funcion" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Id_Vehiculo" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Conductor_Incidentes_Conductor" Member="Incidentes_Conductor" ThisKey="Id_Funcion" OtherKey="Id_Funcion" Type="Incidentes_Conductor" />
-      <Association Name="Funcion_Conductor" Member="Funcion" ThisKey="Id_Funcion" OtherKey="Id_Funcion" Type="Funcion" IsForeignKey="true" />
-      <Association Name="Vehiculo_Conductor" Member="Vehiculo" ThisKey="Id_Vehiculo" OtherKey="Id_Vehiculo" Type="Vehiculo" IsForeignKey="true" />
+      <Association Name="Catalogo_IC_Incidentes_Conductor" Member="Incidentes_Conductor" ThisKey="Id_Incidente" OtherKey="Id_Incidente" Type="Incidentes_Conductor" />
     </Type>
   </Table>
   <Table Name="dbo.Encargado" Member="Encargado">
@@ -58,6 +42,15 @@
       <Column Name="Id_Agente" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Encargado_Sesion" Member="Sesion" ThisKey="Id_Encargado" OtherKey="Id_Encargado" Type="Sesion" />
       <Association Name="Agente_Encargado" Member="Agente" ThisKey="Id_Agente" OtherKey="Id_Agente" Type="Agente" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Conductor" Member="Conductor">
+    <Type Name="Conductor">
+      <Column Name="Id_Funcion" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Id_Vehiculo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Conductor_Incidentes_Conductor" Member="Incidentes_Conductor" ThisKey="Id_Funcion" OtherKey="Id_Funcion" Type="Incidentes_Conductor" />
+      <Association Name="Funcion_Conductor" Member="Funcion" ThisKey="Id_Funcion" OtherKey="Id_Funcion" Type="Funcion" IsForeignKey="true" />
+      <Association Name="Vehiculo_Conductor" Member="Vehiculo" ThisKey="Id_Vehiculo" OtherKey="Id_Vehiculo" Type="Vehiculo" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Funcion" Member="Funcion">
@@ -81,25 +74,16 @@
       <Association Name="Conductor_Incidentes_Conductor" Member="Conductor" ThisKey="Id_Funcion" OtherKey="Id_Funcion" Type="Conductor" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Incidentes_Tirador" Member="Incidentes_Tirador">
-    <Type Name="Incidentes_Tirador">
+  <Table Name="dbo.Logros_IT" Member="Logros_IT">
+    <Type Name="Logros_IT">
       <Column Name="Id_Funcion" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Id_Incidente" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Numero_Incidente" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Catalogo_IT_Incidentes_Tirador" Member="Catalogo_IT" ThisKey="Id_Incidente" OtherKey="Id_Incidente" Type="Catalogo_IT" IsForeignKey="true" />
-      <Association Name="Tirador_Incidentes_Tirador" Member="Tirador" ThisKey="Id_Funcion" OtherKey="Id_Funcion" Type="Tirador" IsForeignKey="true" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.Logros_IC" Member="Logros_IC">
     <Type Name="Logros_IC">
       <Column Name="Id_Funcion" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Nombre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Logros_IT" Member="Logros_IT">
-    <Type Name="Logros_IT">
-      <Column Name="Id_Funcion" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Nombre" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.Sesion" Member="Sesion">
@@ -118,7 +102,14 @@
     <Type Name="Tirador">
       <Column Name="Id_Funcion" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Id_Arma" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Tirador_Incidentes_Tirador" Member="Incidentes_Tirador" ThisKey="Id_Funcion" OtherKey="Id_Funcion" Type="Incidentes_Tirador" />
+      <Column Name="Uso_Correcto" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Mision_Cumplida" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Disparos_Realizados" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Disparos_Acertados" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Disparos_Colateral" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Bajas_Militares" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Bajas_Colaterales" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Bajas_Enemigos" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Funcion_Tirador" Member="Funcion" ThisKey="Id_Funcion" OtherKey="Id_Funcion" Type="Funcion" IsForeignKey="true" />
       <Association Name="Arma_Tirador" Member="Arma" ThisKey="Id_Arma" OtherKey="Id_Arma" Type="Arma" IsForeignKey="true" />
     </Type>

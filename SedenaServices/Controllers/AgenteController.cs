@@ -89,7 +89,6 @@ namespace SedenaServices.Controllers
                     if (oUsuario.Id_Agente == 0)
                     {
                         IEnumerable<AgenteCLS> listaUsuario = (from usuario in bd.Agente
-                                                               where usuario.Nombre != "Inhabilitado"
                                                                select new AgenteCLS
                                                                 {
                                                                     id_Agente = usuario.Id_Agente,
@@ -119,7 +118,7 @@ namespace SedenaServices.Controllers
             }
             catch (Exception ex)
             {
-                respuesta = 0;
+                respuesta = 10;
             }
             return respuesta;
         }

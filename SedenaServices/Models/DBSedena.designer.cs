@@ -36,21 +36,18 @@ namespace SedenaServices.Models
     partial void InsertAgente(Agente instance);
     partial void UpdateAgente(Agente instance);
     partial void DeleteAgente(Agente instance);
-    partial void InsertCatalogo_IC(Catalogo_IC instance);
-    partial void UpdateCatalogo_IC(Catalogo_IC instance);
-    partial void DeleteCatalogo_IC(Catalogo_IC instance);
     partial void InsertArma(Arma instance);
     partial void UpdateArma(Arma instance);
     partial void DeleteArma(Arma instance);
-    partial void InsertCatalogo_IT(Catalogo_IT instance);
-    partial void UpdateCatalogo_IT(Catalogo_IT instance);
-    partial void DeleteCatalogo_IT(Catalogo_IT instance);
-    partial void InsertConductor(Conductor instance);
-    partial void UpdateConductor(Conductor instance);
-    partial void DeleteConductor(Conductor instance);
+    partial void InsertCatalogo_IC(Catalogo_IC instance);
+    partial void UpdateCatalogo_IC(Catalogo_IC instance);
+    partial void DeleteCatalogo_IC(Catalogo_IC instance);
     partial void InsertEncargado(Encargado instance);
     partial void UpdateEncargado(Encargado instance);
     partial void DeleteEncargado(Encargado instance);
+    partial void InsertConductor(Conductor instance);
+    partial void UpdateConductor(Conductor instance);
+    partial void DeleteConductor(Conductor instance);
     partial void InsertFuncion(Funcion instance);
     partial void UpdateFuncion(Funcion instance);
     partial void DeleteFuncion(Funcion instance);
@@ -63,14 +60,19 @@ namespace SedenaServices.Models
     partial void InsertVehiculo(Vehiculo instance);
     partial void UpdateVehiculo(Vehiculo instance);
     partial void DeleteVehiculo(Vehiculo instance);
-    #endregion
-		
-		public DBSedenaDataContext(string connection) : 
-				base(connection, mappingSource)
+        #endregion
+
+        public DBSedenaDataContext(string connection) :
+                base(connection, mappingSource)
+        {
+            OnCreated();
+        }
+		public DBSedenaDataContext() :
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SedenaConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
-		
+
 		public DBSedenaDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
@@ -105,14 +107,6 @@ namespace SedenaServices.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Catalogo_IC> Catalogo_IC
-		{
-			get
-			{
-				return this.GetTable<Catalogo_IC>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Arma> Arma
 		{
 			get
@@ -121,19 +115,11 @@ namespace SedenaServices.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Catalogo_IT> Catalogo_IT
+		public System.Data.Linq.Table<Catalogo_IC> Catalogo_IC
 		{
 			get
 			{
-				return this.GetTable<Catalogo_IT>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Conductor> Conductor
-		{
-			get
-			{
-				return this.GetTable<Conductor>();
+				return this.GetTable<Catalogo_IC>();
 			}
 		}
 		
@@ -142,6 +128,14 @@ namespace SedenaServices.Models
 			get
 			{
 				return this.GetTable<Encargado>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Conductor> Conductor
+		{
+			get
+			{
+				return this.GetTable<Conductor>();
 			}
 		}
 		
@@ -161,11 +155,11 @@ namespace SedenaServices.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Incidentes_Tirador> Incidentes_Tirador
+		public System.Data.Linq.Table<Logros_IT> Logros_IT
 		{
 			get
 			{
-				return this.GetTable<Incidentes_Tirador>();
+				return this.GetTable<Logros_IT>();
 			}
 		}
 		
@@ -174,14 +168,6 @@ namespace SedenaServices.Models
 			get
 			{
 				return this.GetTable<Logros_IC>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Logros_IT> Logros_IT
-		{
-			get
-			{
-				return this.GetTable<Logros_IT>();
 			}
 		}
 		
@@ -586,92 +572,6 @@ namespace SedenaServices.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Catalogo_IC")]
-	public partial class Catalogo_IC : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id_Incidente;
-		
-		private string _Nombre;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnId_IncidenteChanging(int value);
-    partial void OnId_IncidenteChanged();
-    partial void OnNombreChanging(string value);
-    partial void OnNombreChanged();
-    #endregion
-		
-		public Catalogo_IC()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Incidente", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id_Incidente
-		{
-			get
-			{
-				return this._Id_Incidente;
-			}
-			set
-			{
-				if ((this._Id_Incidente != value))
-				{
-					this.OnId_IncidenteChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Incidente = value;
-					this.SendPropertyChanged("Id_Incidente");
-					this.OnId_IncidenteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(30)")]
-		public string Nombre
-		{
-			get
-			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this.OnNombreChanging(value);
-					this.SendPropertyChanging();
-					this._Nombre = value;
-					this.SendPropertyChanged("Nombre");
-					this.OnNombreChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Arma")]
 	public partial class Arma : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -810,8 +710,8 @@ namespace SedenaServices.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Catalogo_IT")]
-	public partial class Catalogo_IT : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Catalogo_IC")]
+	public partial class Catalogo_IC : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -830,7 +730,7 @@ namespace SedenaServices.Models
     partial void OnNombreChanged();
     #endregion
 		
-		public Catalogo_IT()
+		public Catalogo_IC()
 		{
 			OnCreated();
 		}
@@ -871,174 +771,6 @@ namespace SedenaServices.Models
 					this._Nombre = value;
 					this.SendPropertyChanged("Nombre");
 					this.OnNombreChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Conductor")]
-	public partial class Conductor : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id_Funcion;
-		
-		private System.Nullable<int> _Id_Vehiculo;
-		
-		private EntityRef<Funcion> _Funcion;
-		
-		private EntityRef<Vehiculo> _Vehiculo;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnId_FuncionChanging(int value);
-    partial void OnId_FuncionChanged();
-    partial void OnId_VehiculoChanging(System.Nullable<int> value);
-    partial void OnId_VehiculoChanged();
-    #endregion
-		
-		public Conductor()
-		{
-			this._Funcion = default(EntityRef<Funcion>);
-			this._Vehiculo = default(EntityRef<Vehiculo>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Funcion", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id_Funcion
-		{
-			get
-			{
-				return this._Id_Funcion;
-			}
-			set
-			{
-				if ((this._Id_Funcion != value))
-				{
-					if (this._Funcion.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_FuncionChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Funcion = value;
-					this.SendPropertyChanged("Id_Funcion");
-					this.OnId_FuncionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Vehiculo", DbType="Int")]
-		public System.Nullable<int> Id_Vehiculo
-		{
-			get
-			{
-				return this._Id_Vehiculo;
-			}
-			set
-			{
-				if ((this._Id_Vehiculo != value))
-				{
-					if (this._Vehiculo.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_VehiculoChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Vehiculo = value;
-					this.SendPropertyChanged("Id_Vehiculo");
-					this.OnId_VehiculoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Funcion_Conductor", Storage="_Funcion", ThisKey="Id_Funcion", OtherKey="Id_Funcion", IsForeignKey=true)]
-		public Funcion Funcion
-		{
-			get
-			{
-				return this._Funcion.Entity;
-			}
-			set
-			{
-				Funcion previousValue = this._Funcion.Entity;
-				if (((previousValue != value) 
-							|| (this._Funcion.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Funcion.Entity = null;
-						previousValue.Conductor = null;
-					}
-					this._Funcion.Entity = value;
-					if ((value != null))
-					{
-						value.Conductor = this;
-						this._Id_Funcion = value.Id_Funcion;
-					}
-					else
-					{
-						this._Id_Funcion = default(int);
-					}
-					this.SendPropertyChanged("Funcion");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Vehiculo_Conductor", Storage="_Vehiculo", ThisKey="Id_Vehiculo", OtherKey="Id_Vehiculo", IsForeignKey=true)]
-		public Vehiculo Vehiculo
-		{
-			get
-			{
-				return this._Vehiculo.Entity;
-			}
-			set
-			{
-				Vehiculo previousValue = this._Vehiculo.Entity;
-				if (((previousValue != value) 
-							|| (this._Vehiculo.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Vehiculo.Entity = null;
-						previousValue.Conductor.Remove(this);
-					}
-					this._Vehiculo.Entity = value;
-					if ((value != null))
-					{
-						value.Conductor.Add(this);
-						this._Id_Vehiculo = value.Id_Vehiculo;
-					}
-					else
-					{
-						this._Id_Vehiculo = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Vehiculo");
 				}
 			}
 		}
@@ -1264,6 +996,174 @@ namespace SedenaServices.Models
 		{
 			this.SendPropertyChanging();
 			entity.Encargado = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Conductor")]
+	public partial class Conductor : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id_Funcion;
+		
+		private System.Nullable<int> _Id_Vehiculo;
+		
+		private EntityRef<Funcion> _Funcion;
+		
+		private EntityRef<Vehiculo> _Vehiculo;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnId_FuncionChanging(int value);
+    partial void OnId_FuncionChanged();
+    partial void OnId_VehiculoChanging(System.Nullable<int> value);
+    partial void OnId_VehiculoChanged();
+    #endregion
+		
+		public Conductor()
+		{
+			this._Funcion = default(EntityRef<Funcion>);
+			this._Vehiculo = default(EntityRef<Vehiculo>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Funcion", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int Id_Funcion
+		{
+			get
+			{
+				return this._Id_Funcion;
+			}
+			set
+			{
+				if ((this._Id_Funcion != value))
+				{
+					if (this._Funcion.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnId_FuncionChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Funcion = value;
+					this.SendPropertyChanged("Id_Funcion");
+					this.OnId_FuncionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Vehiculo", DbType="Int")]
+		public System.Nullable<int> Id_Vehiculo
+		{
+			get
+			{
+				return this._Id_Vehiculo;
+			}
+			set
+			{
+				if ((this._Id_Vehiculo != value))
+				{
+					if (this._Vehiculo.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnId_VehiculoChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Vehiculo = value;
+					this.SendPropertyChanged("Id_Vehiculo");
+					this.OnId_VehiculoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Funcion_Conductor", Storage="_Funcion", ThisKey="Id_Funcion", OtherKey="Id_Funcion", IsForeignKey=true)]
+		public Funcion Funcion
+		{
+			get
+			{
+				return this._Funcion.Entity;
+			}
+			set
+			{
+				Funcion previousValue = this._Funcion.Entity;
+				if (((previousValue != value) 
+							|| (this._Funcion.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Funcion.Entity = null;
+						previousValue.Conductor = null;
+					}
+					this._Funcion.Entity = value;
+					if ((value != null))
+					{
+						value.Conductor = this;
+						this._Id_Funcion = value.Id_Funcion;
+					}
+					else
+					{
+						this._Id_Funcion = default(int);
+					}
+					this.SendPropertyChanged("Funcion");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Vehiculo_Conductor", Storage="_Vehiculo", ThisKey="Id_Vehiculo", OtherKey="Id_Vehiculo", IsForeignKey=true)]
+		public Vehiculo Vehiculo
+		{
+			get
+			{
+				return this._Vehiculo.Entity;
+			}
+			set
+			{
+				Vehiculo previousValue = this._Vehiculo.Entity;
+				if (((previousValue != value) 
+							|| (this._Vehiculo.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Vehiculo.Entity = null;
+						previousValue.Conductor.Remove(this);
+					}
+					this._Vehiculo.Entity = value;
+					if ((value != null))
+					{
+						value.Conductor.Add(this);
+						this._Id_Vehiculo = value.Id_Vehiculo;
+					}
+					else
+					{
+						this._Id_Vehiculo = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Vehiculo");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	
@@ -1610,17 +1510,15 @@ namespace SedenaServices.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Incidentes_Tirador")]
-	public partial class Incidentes_Tirador
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Logros_IT")]
+	public partial class Logros_IT
 	{
 		
 		private System.Nullable<int> _Id_Funcion;
 		
-		private System.Nullable<int> _Id_Incidente;
+		private string _Nombre;
 		
-		private System.Nullable<int> _Numero_Incidente;
-		
-		public Incidentes_Tirador()
+		public Logros_IT()
 		{
 		}
 		
@@ -1640,34 +1538,18 @@ namespace SedenaServices.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Incidente", DbType="Int")]
-		public System.Nullable<int> Id_Incidente
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(30)")]
+		public string Nombre
 		{
 			get
 			{
-				return this._Id_Incidente;
+				return this._Nombre;
 			}
 			set
 			{
-				if ((this._Id_Incidente != value))
+				if ((this._Nombre != value))
 				{
-					this._Id_Incidente = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Numero_Incidente", DbType="Int")]
-		public System.Nullable<int> Numero_Incidente
-		{
-			get
-			{
-				return this._Numero_Incidente;
-			}
-			set
-			{
-				if ((this._Numero_Incidente != value))
-				{
-					this._Numero_Incidente = value;
+					this._Nombre = value;
 				}
 			}
 		}
@@ -1702,51 +1584,6 @@ namespace SedenaServices.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50)")]
-		public string Nombre
-		{
-			get
-			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this._Nombre = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Logros_IT")]
-	public partial class Logros_IT
-	{
-		
-		private System.Nullable<int> _Id_Funcion;
-		
-		private string _Nombre;
-		
-		public Logros_IT()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Funcion", DbType="Int")]
-		public System.Nullable<int> Id_Funcion
-		{
-			get
-			{
-				return this._Id_Funcion;
-			}
-			set
-			{
-				if ((this._Id_Funcion != value))
-				{
-					this._Id_Funcion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(30)")]
 		public string Nombre
 		{
 			get
@@ -2041,6 +1878,22 @@ namespace SedenaServices.Models
 		
 		private System.Nullable<int> _Id_Arma;
 		
+		private System.Nullable<bool> _Uso_Correcto;
+		
+		private System.Nullable<bool> _Mision_Cumplida;
+		
+		private System.Nullable<int> _Disparos_Realizados;
+		
+		private System.Nullable<int> _Disparos_Acertados;
+		
+		private System.Nullable<int> _Disparos_Colateral;
+		
+		private System.Nullable<int> _Bajas_Militares;
+		
+		private System.Nullable<int> _Bajas_Colaterales;
+		
+		private System.Nullable<int> _Bajas_Enemigos;
+		
 		private EntityRef<Funcion> _Funcion;
 		
 		private EntityRef<Arma> _Arma;
@@ -2053,6 +1906,22 @@ namespace SedenaServices.Models
     partial void OnId_FuncionChanged();
     partial void OnId_ArmaChanging(System.Nullable<int> value);
     partial void OnId_ArmaChanged();
+    partial void OnUso_CorrectoChanging(System.Nullable<bool> value);
+    partial void OnUso_CorrectoChanged();
+    partial void OnMision_CumplidaChanging(System.Nullable<bool> value);
+    partial void OnMision_CumplidaChanged();
+    partial void OnDisparos_RealizadosChanging(System.Nullable<int> value);
+    partial void OnDisparos_RealizadosChanged();
+    partial void OnDisparos_AcertadosChanging(System.Nullable<int> value);
+    partial void OnDisparos_AcertadosChanged();
+    partial void OnDisparos_ColateralChanging(System.Nullable<int> value);
+    partial void OnDisparos_ColateralChanged();
+    partial void OnBajas_MilitaresChanging(System.Nullable<int> value);
+    partial void OnBajas_MilitaresChanged();
+    partial void OnBajas_ColateralesChanging(System.Nullable<int> value);
+    partial void OnBajas_ColateralesChanged();
+    partial void OnBajas_EnemigosChanging(System.Nullable<int> value);
+    partial void OnBajas_EnemigosChanged();
     #endregion
 		
 		public Tirador()
@@ -2106,6 +1975,166 @@ namespace SedenaServices.Models
 					this._Id_Arma = value;
 					this.SendPropertyChanged("Id_Arma");
 					this.OnId_ArmaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Uso_Correcto", DbType="Bit")]
+		public System.Nullable<bool> Uso_Correcto
+		{
+			get
+			{
+				return this._Uso_Correcto;
+			}
+			set
+			{
+				if ((this._Uso_Correcto != value))
+				{
+					this.OnUso_CorrectoChanging(value);
+					this.SendPropertyChanging();
+					this._Uso_Correcto = value;
+					this.SendPropertyChanged("Uso_Correcto");
+					this.OnUso_CorrectoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Mision_Cumplida", DbType="Bit")]
+		public System.Nullable<bool> Mision_Cumplida
+		{
+			get
+			{
+				return this._Mision_Cumplida;
+			}
+			set
+			{
+				if ((this._Mision_Cumplida != value))
+				{
+					this.OnMision_CumplidaChanging(value);
+					this.SendPropertyChanging();
+					this._Mision_Cumplida = value;
+					this.SendPropertyChanged("Mision_Cumplida");
+					this.OnMision_CumplidaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Disparos_Realizados", DbType="Int")]
+		public System.Nullable<int> Disparos_Realizados
+		{
+			get
+			{
+				return this._Disparos_Realizados;
+			}
+			set
+			{
+				if ((this._Disparos_Realizados != value))
+				{
+					this.OnDisparos_RealizadosChanging(value);
+					this.SendPropertyChanging();
+					this._Disparos_Realizados = value;
+					this.SendPropertyChanged("Disparos_Realizados");
+					this.OnDisparos_RealizadosChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Disparos_Acertados", DbType="Int")]
+		public System.Nullable<int> Disparos_Acertados
+		{
+			get
+			{
+				return this._Disparos_Acertados;
+			}
+			set
+			{
+				if ((this._Disparos_Acertados != value))
+				{
+					this.OnDisparos_AcertadosChanging(value);
+					this.SendPropertyChanging();
+					this._Disparos_Acertados = value;
+					this.SendPropertyChanged("Disparos_Acertados");
+					this.OnDisparos_AcertadosChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Disparos_Colateral", DbType="Int")]
+		public System.Nullable<int> Disparos_Colateral
+		{
+			get
+			{
+				return this._Disparos_Colateral;
+			}
+			set
+			{
+				if ((this._Disparos_Colateral != value))
+				{
+					this.OnDisparos_ColateralChanging(value);
+					this.SendPropertyChanging();
+					this._Disparos_Colateral = value;
+					this.SendPropertyChanged("Disparos_Colateral");
+					this.OnDisparos_ColateralChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Bajas_Militares", DbType="Int")]
+		public System.Nullable<int> Bajas_Militares
+		{
+			get
+			{
+				return this._Bajas_Militares;
+			}
+			set
+			{
+				if ((this._Bajas_Militares != value))
+				{
+					this.OnBajas_MilitaresChanging(value);
+					this.SendPropertyChanging();
+					this._Bajas_Militares = value;
+					this.SendPropertyChanged("Bajas_Militares");
+					this.OnBajas_MilitaresChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Bajas_Colaterales", DbType="Int")]
+		public System.Nullable<int> Bajas_Colaterales
+		{
+			get
+			{
+				return this._Bajas_Colaterales;
+			}
+			set
+			{
+				if ((this._Bajas_Colaterales != value))
+				{
+					this.OnBajas_ColateralesChanging(value);
+					this.SendPropertyChanging();
+					this._Bajas_Colaterales = value;
+					this.SendPropertyChanged("Bajas_Colaterales");
+					this.OnBajas_ColateralesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Bajas_Enemigos", DbType="Int")]
+		public System.Nullable<int> Bajas_Enemigos
+		{
+			get
+			{
+				return this._Bajas_Enemigos;
+			}
+			set
+			{
+				if ((this._Bajas_Enemigos != value))
+				{
+					this.OnBajas_EnemigosChanging(value);
+					this.SendPropertyChanging();
+					this._Bajas_Enemigos = value;
+					this.SendPropertyChanged("Bajas_Enemigos");
+					this.OnBajas_EnemigosChanged();
 				}
 			}
 		}
