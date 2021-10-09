@@ -14,30 +14,118 @@ namespace SedenaServices.Controllers
     public class EvaluacionController : ApiController
     {
 
-        /* [HttpGet]
-         public EvaluacionesCLS listaAgente()
+        [HttpGet]
+         public EvaluacionCLS getEvaluacionFuncion(int id_funcion)
          {
              using (DBSedenaDataContext bd = new DBSedenaDataContext())
              {
-                 EvaluacionesCLS lista = new EvaluacionesCLS();
-                 List<EvaluacionCLS> listaAgente = (from age in bd.Agente 
-                                                join fun in bd.Funcion on age.Id_Agente equals fun.Id_Agente
+                 
+                 IEnumerable<EvaluacionCLS> evaluado = (from fun in bd.Funcion 
+                                                join age in bd.Agente on fun.Id_Agente equals age.Id_Agente
                                                 join tira in bd.Tirador on fun.Id_Funcion equals tira.Id_Funcion
-                                                join inci in bd.Incidentes_Tirador on tira.Id_Funcion equals inci.Id_Funcion
-                                                join cat in bd.Catalogo_IT on 
                                                 select new EvaluacionCLS
                                                 {
+                                                    id_funcion=fun.Id_Funcion,
                                                     nombre= age.Nombre,
                                                     matricula=age.Matricula,
-                                                    disparos_Realizados=inci.
+                                                    disparos_Realizados=(int)tira.Disparos_Realizados,
+                                                    disparos_Acertados=(int)tira.Disparos_Acertados,
+                                                    disparos_Colateral=(int)tira.Disparos_Colateral,
+                                                    bajas_Militares=(int)tira.Bajas_Militares,
+                                                    bajas_Colaterales=(int)tira.Bajas_Colaterales,
+                                                    bajas_Enemigos=(int)tira.Bajas_Enemigos
+                                                    
 
                                                 }).ToList();
-                 lista.lista = listaAgente.ToArray();
-                 return lista;
+                EvaluacionCLS final = new EvaluacionCLS();
+                foreach (var x in evaluado) 
+                {
+                    if (x.id_funcion == id_funcion)
+                    {
+                        return x;
+                        
+                    }
+                }
+                 return final;
 
              }
-         }*/
-        
+         }
+
+
+        [HttpGet]
+        public EvaluacionesCLS getEvaluacion()
+        {
+            using (DBSedenaDataContext bd = new DBSedenaDataContext())
+            {
+
+                EvaluacionCLS[] evaluado = (from fun in bd.Funcion
+                                                       join age in bd.Agente on fun.Id_Agente equals age.Id_Agente
+                                                       join tira in bd.Tirador on fun.Id_Funcion equals tira.Id_Funcion
+                                                       select new EvaluacionCLS
+                                                       {
+                                                           id_funcion = fun.Id_Funcion,
+                                                           nombre = age.Nombre,
+                                                           matricula = age.Matricula,
+                                                           disparos_Realizados = (int)tira.Disparos_Realizados,
+                                                           disparos_Acertados = (int)tira.Disparos_Acertados,
+                                                           disparos_Colateral = (int)tira.Disparos_Colateral,
+                                                           bajas_Militares = (int)tira.Bajas_Militares,
+                                                           bajas_Colaterales = (int)tira.Bajas_Colaterales,
+                                                           bajas_Enemigos = (int)tira.Bajas_Enemigos
+
+
+                                                       }).ToArray();
+                EvaluacionesCLS final = new EvaluacionesCLS();
+                final.lista = evaluado;
+                
+                return final;
+
+            }
+        }
+
+
+        [HttpGet]
+        public EvaluacionesCLS getEvaluacionMatricula(string matricula)
+        {
+            using (DBSedenaDataContext bd = new DBSedenaDataContext())
+            {
+
+                IEnumerable<EvaluacionCLS> evaluado = (from fun in bd.Funcion
+                                                       join age in bd.Agente on fun.Id_Agente equals age.Id_Agente
+                                                       join tira in bd.Tirador on fun.Id_Funcion equals tira.Id_Funcion
+                                                       select new EvaluacionCLS
+                                                       {
+                                                           id_funcion = fun.Id_Funcion,
+                                                           nombre = age.Nombre,
+                                                           matricula = age.Matricula,
+                                                           disparos_Realizados = (int)tira.Disparos_Realizados,
+                                                           disparos_Acertados = (int)tira.Disparos_Acertados,
+                                                           disparos_Colateral = (int)tira.Disparos_Colateral,
+                                                           bajas_Militares = (int)tira.Bajas_Militares,
+                                                           bajas_Colaterales = (int)tira.Bajas_Colaterales,
+                                                           bajas_Enemigos = (int)tira.Bajas_Enemigos
+
+
+                                                       }).ToList();
+                EvaluacionesCLS final = new EvaluacionesCLS();
+                List<EvaluacionCLS> aux = new List<EvaluacionCLS>();
+             
+                foreach (var x in evaluado)
+                {
+                    if (x.matricula == matricula)
+                    {
+                        aux.Add(x);
+
+                    }
+                }
+                final.lista = aux.ToArray();
+                return final;
+
+            }
+        }
+
+
+
         [HttpPost]
         public int agregarEvaluacion(EvaluacionCLS oEvaluacion)
         {
@@ -58,7 +146,6 @@ namespace SedenaServices.Controllers
 
 
                     IEnumerable<FuncionCLS> listaFuncion = (from funci in bd.Funcion
-                                                            where funci.Funcion1 != "Inhabilitado"
                                                             select new FuncionCLS
                                                             {
                                                                 id_Funcion = funci.Id_Funcion,

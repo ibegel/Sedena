@@ -7,6 +7,7 @@ namespace SedenaServices.Models.Clases
 {
     public class EvaluacionCLS
     {
+        public int id_funcion { get; set; }
         public string nombre { get; set; }
         public string matricula { get; set; }
         public int disparos_Realizados { get; set; }
@@ -23,6 +24,21 @@ namespace SedenaServices.Models.Clases
 
 
 
+        }
+
+        public EvaluacionCLS(EvaluacionCLS Otro)
+        {
+            id_funcion = Otro.id_funcion;
+            nombre = Otro.nombre;
+            matricula = Otro.matricula;
+            disparos_Acertados = Otro.disparos_Acertados;
+            disparos_Colateral = Otro.disparos_Colateral;
+            disparos_Realizados = Otro.disparos_Realizados;
+            bajas_Militares = Otro.bajas_Militares;
+            bajas_Enemigos = Otro.bajas_Enemigos;
+            bajas_Colaterales = Otro.bajas_Colaterales;
+            uso_Correcto = Otro.uso_Correcto;
+            mision_Cumplida = Otro.mision_Cumplida;
         }
     }
     [Serializable]
