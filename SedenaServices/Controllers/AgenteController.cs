@@ -20,14 +20,16 @@ namespace SedenaServices.Controllers
             {
                 AgentesCLS agentes = new AgentesCLS();
                 List<AgenteCLS> listaAgente = (from usuario in bd.Agente
-                                                        where usuario.Nombre != "Inhabilitado"
+                                                       
                                                         select new AgenteCLS
                                                         {
                                                             id_Agente = usuario.Id_Agente,
                                                             matricula = usuario.Matricula,
                                                             grado = usuario.Grado,
                                                             nombre = usuario.Nombre,
-                                                            distintivo= usuario.Distintivo
+                                                            distintivo= usuario.Distintivo,
+                                                            arma=usuario.Arma,
+                                                            existencia=(int)usuario.Existencia
                                                         }).ToList();
                 agentes.agentes = listaAgente.ToArray();
                 return agentes;
@@ -79,14 +81,14 @@ namespace SedenaServices.Controllers
 
 
         [HttpPost]
-        public int agregarAgente(Agente oUsuario)
+        public string agregarAgente(AgenteCLS oUsuario)
         {
-            int respuesta = 0;
+            string respuesta ="";
             try
             {
                 using (DBSedenaDataContext bd = new DBSedenaDataContext())
                 {
-                    if (oUsuario.Id_Agente == 0)
+                    if (oUsuario.id_Agente == 0)
                     {
                         IEnumerable<AgenteCLS> listaUsuario = (from usuario in bd.Agente
                                                                select new AgenteCLS
@@ -95,32 +97,44 @@ namespace SedenaServices.Controllers
                                                                     matricula = usuario.Matricula,
                                                                     grado = usuario.Grado,
                                                                     nombre = usuario.Nombre,
-                                                                    distintivo = usuario.Distintivo
+                                                                    distintivo = usuario.Distintivo,
+                                                                    arma=usuario.Arma
                                                                 }).ToList();
-
-                        oUsuario.Id_Agente = listaUsuario.Count() + 1;
-                        bd.Agente.InsertOnSubmit(oUsuario);
+                        
+                        oUsuario.id_Agente = listaUsuario.Last().id_Agente + 1;
+                        Agente nuevoAgente = new Agente();
+                        nuevoAgente.Id_Agente = oUsuario.id_Agente;
+                        nuevoAgente.Matricula = oUsuario.matricula;
+                        nuevoAgente.Grado = oUsuario.grado;
+                        nuevoAgente.Nombre = oUsuario.nombre;
+                        nuevoAgente.Distintivo = oUsuario.distintivo;
+                        nuevoAgente.Arma = oUsuario.arma;
+                        nuevoAgente.Existencia = oUsuario.existencia;
+                        bd.Agente.InsertOnSubmit(nuevoAgente);
                         bd.SubmitChanges();
-                        respuesta = 1;
+                        respuesta = "Insertado";
                     }
                     else
                     {
-                        Agente aux = bd.Agente.Where(p => p.Id_Agente == oUsuario.Id_Agente).First();
-                        aux.Id_Agente = oUsuario.Id_Agente;
-                        aux.Matricula = oUsuario.Matricula;
-                        aux.Grado = oUsuario.Grado;
-                        aux.Nombre = oUsuario.Nombre;
-                        aux.Distintivo = oUsuario.Distintivo;
+                        Agente aux = bd.Agente.Where(p => p.Id_Agente == oUsuario.id_Agente).First();
+                        aux.Id_Agente = oUsuario.id_Agente;
+                        aux.Matricula = oUsuario.matricula;
+                        aux.Grado = oUsuario.grado;
+                        aux.Nombre = oUsuario.nombre;
+                        aux.Distintivo = oUsuario.distintivo;
+                        aux.Arma = oUsuario.arma;
                         bd.SubmitChanges();
-                        respuesta = 1;
+                        respuesta = "Actualizado";
                     }
                 }
             }
             catch (Exception ex)
             {
-                respuesta = 10;
+                respuesta = ex.Message;
             }
             return respuesta;
+
+           // return "Estos me enviaste"+oUsuario.id_Agente+" , " + oUsuario.matricula + " , " + oUsuario.grado + " , " + oUsuario.nombre + " , " + oUsuario.distintivo + " , " + oUsuario.arma + " , " + oUsuario.existencia;
         }
 
         [HttpGet]
@@ -135,7 +149,10 @@ namespace SedenaServices.Controllers
                         matricula = p.Matricula,
                         grado = p.Grado,
                         nombre = p.Nombre,
-                        distintivo=p.Distintivo
+                        distintivo=p.Distintivo,
+                        arma=p.Arma,
+                        existencia = (int)p.Existencia
+
                     }
                     ).First();
                 return oUsuario;
@@ -154,7 +171,9 @@ namespace SedenaServices.Controllers
                         matricula = p.Matricula,
                         grado = p.Grado,
                         nombre = p.Nombre,
-                        distintivo = p.Distintivo
+                        distintivo = p.Distintivo,
+                        arma=p.Arma,
+                        existencia = (int)p.Existencia
                     }
                     ).First();
                 return oUsuario;
@@ -173,7 +192,9 @@ namespace SedenaServices.Controllers
                         matricula = p.Matricula,
                         grado = p.Grado,
                         nombre = p.Nombre,
-                        distintivo = p.Distintivo
+                        distintivo = p.Distintivo,
+                        arma=p.Arma,
+                        existencia = (int)p.Existencia
                     }
                     ).First();
                 return oUsuario;
@@ -192,7 +213,9 @@ namespace SedenaServices.Controllers
                         matricula = p.Matricula,
                         grado = p.Grado,
                         nombre = p.Nombre,
-                        distintivo = p.Distintivo
+                        distintivo = p.Distintivo,
+                        arma=p.Arma,
+                        existencia=(int)p.Existencia
                     }
                     ).First();
                 return oUsuario;

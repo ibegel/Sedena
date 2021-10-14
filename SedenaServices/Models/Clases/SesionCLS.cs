@@ -8,7 +8,7 @@ namespace SedenaServices.Models.Clases
     public class SesionCLS
     {
         public int id_Sesion { get; set; }
-        public int id_Actividad { get; set; }
+        public string actividad { get; set; }
         public string entorno { get; set; }
         public string fecha { get; set; }
         public int id_Encargado { get; set; }
@@ -18,10 +18,10 @@ namespace SedenaServices.Models.Clases
             
         }
 
-        public SesionCLS(int id_Sesion, int id_Actividad, string entorno, string fecha,int encargado)
+        public SesionCLS(int id_Sesion, string actividad, string entorno, string fecha,int encargado)
         {
             this.id_Sesion = id_Sesion;
-            this.id_Actividad = id_Actividad;
+            this.actividad = actividad;
             this.entorno = entorno;
             this.fecha = fecha;
             this.id_Encargado = id_Encargado;

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SedenaServices.Models.Clases
 {
-    public class EncargadoCLS
+    public class PersonaCLS
     {
         public int id_Encargado { get; set; }
         public string tipo_Encargado { get; set; }
@@ -16,27 +16,11 @@ namespace SedenaServices.Models.Clases
         public string grado { get; set; }
         public string distintivo { get; set; }
         public string arma { get; set; }
-        public int existencia { get; set; }
+        public int existencia {get; set;}
 
-        public EncargadoCLS(int id_Encargado, string tipo_Encargado, string pass, int id_Agente)
-        {
-            this.id_Encargado = id_Encargado;
-            this.tipo_Encargado = tipo_Encargado;
-            this.pass = pass;
-            this.id_Agente = id_Agente;
-        }
-
-        public EncargadoCLS()
+        public PersonaCLS() 
         {
 
         }
-    }
-
-    public class EncargadosCLS
-        {
-        public EncargadoCLS[] encargados;
-
-        }
-
-    
+}
 }

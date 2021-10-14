@@ -26,9 +26,15 @@ namespace SedenaServices.Controllers
                                                              select new EncargadoCLS
                                                              {
                                                                  id_Encargado = encar.Id_Encargado,
+                                                                 matricula=usu.Matricula,
+                                                                 grado=usu.Grado,
+                                                                 nombre = usu.Nombre,
+                                                                 distintivo=usu.Distintivo,
+                                                                 arma=usu.Arma,
+                                                                 existencia=(int)usu.Existencia,
                                                                  tipo_Encargado = encar.Tipo_Encargado,
                                                                  pass = encar.Pass,
-                                                                 nombre=usu.Nombre,
+                                                                 
                                                                  id_Agente=usu.Id_Agente
                                                              }).ToList();
                 EncargadosCLS encargados= new EncargadosCLS();
@@ -128,16 +134,24 @@ namespace SedenaServices.Controllers
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-                EncargadoCLS oEncargado = bd.Encargado.Where(p => p.Id_Encargado == id_Encargado)
-                    .Select(p => new EncargadoCLS
-                    {
+                EncargadoCLS oEncargado = (from encar in bd.Encargado
+                                                          join usu in bd.Agente
+                                                          on encar.Id_Agente equals usu.Id_Agente
+                                                          where encar.Id_Encargado==id_Encargado
+                                                          select new EncargadoCLS
+                                                          {
+                                                              id_Encargado = encar.Id_Encargado,
+                                                              matricula = usu.Matricula,
+                                                              grado = usu.Grado,
+                                                              nombre = usu.Nombre,
+                                                              distintivo = usu.Distintivo,
+                                                              arma = usu.Arma,
+                                                              existencia = (int)usu.Existencia,
+                                                              tipo_Encargado = encar.Tipo_Encargado,
+                                                              pass = encar.Pass,
 
-                        id_Encargado = p.Id_Encargado,
-                        tipo_Encargado = p.Tipo_Encargado,
-                        pass = p.Pass,
-                        id_Agente = (int)p.Id_Agente
-                    }
-                    ).First();
+                                                              id_Agente = usu.Id_Agente
+                                                          }).First();
 
                 return oEncargado;
             }
@@ -154,9 +168,16 @@ namespace SedenaServices.Controllers
                                                       select new EncargadoCLS
                                                       {
                                                           id_Encargado = encar.Id_Encargado,
+                                                          matricula = usu.Matricula,
+                                                          grado = usu.Grado,
+                                                          nombre = usu.Nombre,
+                                                          distintivo = usu.Distintivo,
+                                                          arma = usu.Arma,
+                                                          existencia = (int)usu.Existencia,
                                                           tipo_Encargado = encar.Tipo_Encargado,
                                                           pass = encar.Pass,
-                                                          nombre = usu.Nombre
+
+                                                          id_Agente = usu.Id_Agente
                                                       }).ToList();
                 EncargadoCLS aux = new EncargadoCLS();
                 foreach(var a in listarEncargado)

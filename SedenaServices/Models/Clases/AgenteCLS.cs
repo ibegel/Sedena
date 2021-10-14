@@ -12,14 +12,17 @@ namespace SedenaServices.Models.Clases
         public string grado { get; set; }
         public string nombre { get; set; }
         public string distintivo { get; set; }
+        public string arma { get; set; }
+        public int existencia { get; set; }
 
-        public AgenteCLS(int id_Agente, string matricula, string grado, string nombre, string distintivo)
+        public AgenteCLS(int id_Agente, string matricula, string grado, string nombre, string distintivo, string especialidad)
         {
             this.id_Agente = id_Agente;
             this.matricula = matricula;
             this.grado = grado;
             this.nombre = nombre;
             this.distintivo = distintivo;
+            this.arma = especialidad;
         }
         public AgenteCLS()
         {

@@ -7,6 +7,7 @@ using System.Web.Http;
 using SedenaServices.Models.Clases;
 using SedenaServices.Models;
 using System.Web.Http.Cors;
+using Newtonsoft.Json.Linq;
 
 namespace SedenaServices.Controllers
 {
@@ -14,42 +15,7 @@ namespace SedenaServices.Controllers
     public class EvaluacionController : ApiController
     {
 
-        [HttpGet]
-         public EvaluacionCLS getEvaluacionFuncion(int id_funcion)
-         {
-             using (DBSedenaDataContext bd = new DBSedenaDataContext())
-             {
-                 
-                 IEnumerable<EvaluacionCLS> evaluado = (from fun in bd.Funcion 
-                                                join age in bd.Agente on fun.Id_Agente equals age.Id_Agente
-                                                join tira in bd.Tirador on fun.Id_Funcion equals tira.Id_Funcion
-                                                select new EvaluacionCLS
-                                                {
-                                                    id_funcion=fun.Id_Funcion,
-                                                    nombre= age.Nombre,
-                                                    matricula=age.Matricula,
-                                                    disparos_Realizados=(int)tira.Disparos_Realizados,
-                                                    disparos_Acertados=(int)tira.Disparos_Acertados,
-                                                    disparos_Colateral=(int)tira.Disparos_Colateral,
-                                                    bajas_Militares=(int)tira.Bajas_Militares,
-                                                    bajas_Colaterales=(int)tira.Bajas_Colaterales,
-                                                    bajas_Enemigos=(int)tira.Bajas_Enemigos
-                                                    
-
-                                                }).ToList();
-                EvaluacionCLS final = new EvaluacionCLS();
-                foreach (var x in evaluado) 
-                {
-                    if (x.id_funcion == id_funcion)
-                    {
-                        return x;
-                        
-                    }
-                }
-                 return final;
-
-             }
-         }
+        public int id_funcion;
 
 
         [HttpGet]
@@ -63,7 +29,7 @@ namespace SedenaServices.Controllers
                                                        join tira in bd.Tirador on fun.Id_Funcion equals tira.Id_Funcion
                                                        select new EvaluacionCLS
                                                        {
-                                                           id_funcion = fun.Id_Funcion,
+                                                           funcion = fun.Funcion1,
                                                            nombre = age.Nombre,
                                                            matricula = age.Matricula,
                                                            disparos_Realizados = (int)tira.Disparos_Realizados,
@@ -89,13 +55,13 @@ namespace SedenaServices.Controllers
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-
+                
                 IEnumerable<EvaluacionCLS> evaluado = (from fun in bd.Funcion
                                                        join age in bd.Agente on fun.Id_Agente equals age.Id_Agente
                                                        join tira in bd.Tirador on fun.Id_Funcion equals tira.Id_Funcion
                                                        select new EvaluacionCLS
                                                        {
-                                                           id_funcion = fun.Id_Funcion,
+                                                           funcion = fun.Funcion1,
                                                            nombre = age.Nombre,
                                                            matricula = age.Matricula,
                                                            disparos_Realizados = (int)tira.Disparos_Realizados,
@@ -127,15 +93,16 @@ namespace SedenaServices.Controllers
 
 
         [HttpPost]
-        public int agregarEvaluacion(EvaluacionCLS oEvaluacion)
+        public string agregarEvaluacion(EntradaCLS data)
         {
-            int respuesta = 0;
+            JObject json = JObject.Parse(data.data);
+            string respuesta = "";
             try
             {
                 using (DBSedenaDataContext bd = new DBSedenaDataContext())
                 {
 
-                    AgenteCLS usu = bd.Agente.Where(p => p.Matricula == oEvaluacion.matricula)
+                    AgenteCLS usu = bd.Agente.Where(p => p.Matricula == (string)json["matricula"])
                     .Select(p => new AgenteCLS
                     {
                         id_Agente = p.Id_Agente,
@@ -150,37 +117,35 @@ namespace SedenaServices.Controllers
                                                             {
                                                                 id_Funcion = funci.Id_Funcion,
                                                             }).ToList();
-                    oFuncion.Id_Funcion = listaFuncion.Count() + 1;
+                    oFuncion.Id_Funcion = listaFuncion.Last().id_Funcion + 1;
                     oFuncion.Id_Agente = usu.id_Agente;
                     oFuncion.Id_Sesion = 1;
-                    oFuncion.Funcion1 = "Tirador";
+                    oFuncion.Funcion1 = (string)json["funcion"];
                     bd.Funcion.InsertOnSubmit(oFuncion);
                     bd.SubmitChanges();
-
-                    Tirador tiraaxu = new Tirador();
-
-                    tiraaxu.Id_Arma = 1;
-                    tiraaxu.Id_Funcion = oFuncion.Id_Funcion;
-                    tiraaxu.Uso_Correcto = oEvaluacion.uso_Correcto;
-                    tiraaxu.Mision_Cumplida = oEvaluacion.mision_Cumplida;
-                    tiraaxu.Disparos_Realizados = oEvaluacion.disparos_Realizados;
-                    tiraaxu.Disparos_Acertados = oEvaluacion.disparos_Acertados;
-                    tiraaxu.Disparos_Colateral = oEvaluacion.disparos_Colateral;
-                    tiraaxu.Bajas_Militares = oEvaluacion.bajas_Militares;
-                    tiraaxu.Bajas_Colaterales = oEvaluacion.bajas_Colaterales;
-                    tiraaxu.Bajas_Enemigos = oEvaluacion.bajas_Militares;
-
-
-
-                    bd.Tirador.InsertOnSubmit(tiraaxu);
+                    if (oFuncion.Funcion1 == "Tirador")
+                    {
+                        Tirador tiraaxu = new Tirador();
+                        tiraaxu.Id_Arma = 1;
+                        tiraaxu.Id_Funcion = oFuncion.Id_Funcion;
+                        tiraaxu.Uso_Correcto = (bool)json["uso_Correcto"];
+                        tiraaxu.Mision_Cumplida = (bool)json["mision_Cumplida"];
+                        tiraaxu.Disparos_Realizados = (int)json["disparos_Realizados"];
+                        tiraaxu.Disparos_Acertados = (int)json["disparos_Acertados"];
+                        tiraaxu.Disparos_Colateral = (int)json["disparos_Colateral"]; ;
+                        tiraaxu.Bajas_Militares = (int)json["bajas_Militares"]; ;
+                        tiraaxu.Bajas_Colaterales = (int)json["bajas_Colaterales"]; ;
+                        tiraaxu.Bajas_Enemigos = (int)json["bajas_Enemigos"]; ;
+                        bd.Tirador.InsertOnSubmit(tiraaxu);
+                    }
                     bd.SubmitChanges();
-                    respuesta = 1;
+                    respuesta = "Agregado";
                 }
             }
 
             catch (Exception ex)
             {
-                respuesta = 0;
+                respuesta = (string)json["matricula"];
             }
             return respuesta;
         }
