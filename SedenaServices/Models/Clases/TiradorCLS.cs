@@ -7,27 +7,27 @@ namespace SedenaServices.Models.Clases
 {
     public class TiradorCLS
     {
-        public int id_Funcion { get; set; }
-        public int id_Arma { get; set; }
-        public bool uso_Correcto { get; set; }
-        public bool mision_Cumplida { get; set; }
-        public int disparos_Realizados  { get; set; }
-        public int disparos_Acertados { get; set; }
-        public int disparos_Colateral { get; set; }
-        public int bajas_Militares { get; set; }
-        public int bajas_Colaterales { get; set; }
-        public int bajas_Enemigos { get; set; }
+        public int idFuncion { get; set; }
+        public int idArma { get; set; }
+        public bool usoCorrecto { get; set; }
+        public bool misionCumplida { get; set; }
+        public int disparosRealizados  { get; set; }
+        public int disparosAcertados { get; set; }
+        public int disparosColateral { get; set; }
+        public int bajasMilitares { get; set; }
+        public int bajasColaterales { get; set; }
+        public int bajasEnemigos { get; set; }
 
 
 
 
 
-        public TiradorCLS(int id_Funcion, int id_Arma,bool uso_Correcto,bool mision_Cumplida)
+        public TiradorCLS(int idFuncion, int idArma,bool usoCorrecto,bool misionCumplida)
         {
-            this.id_Funcion = id_Funcion;
-            this.id_Arma = id_Arma;
-            this.uso_Correcto = uso_Correcto;
-            this.mision_Cumplida = mision_Cumplida;
+            this.idFuncion = idFuncion;
+            this.idArma = idArma;
+            this.usoCorrecto = usoCorrecto;
+            this.misionCumplida = misionCumplida;
         }
 
         public TiradorCLS()

@@ -27,17 +27,20 @@ namespace SedenaServices.Controllers
                 EvaluacionCLS[] evaluado = (from fun in bd.Funcion
                                                        join age in bd.Agente on fun.Id_Agente equals age.Id_Agente
                                                        join tira in bd.Tirador on fun.Id_Funcion equals tira.Id_Funcion
+                                                       
                                                        select new EvaluacionCLS
                                                        {
                                                            funcion = fun.Funcion1,
                                                            nombre = age.Nombre,
                                                            matricula = age.Matricula,
-                                                           disparos_Realizados = (int)tira.Disparos_Realizados,
-                                                           disparos_Acertados = (int)tira.Disparos_Acertados,
-                                                           disparos_Colateral = (int)tira.Disparos_Colateral,
-                                                           bajas_Militares = (int)tira.Bajas_Militares,
-                                                           bajas_Colaterales = (int)tira.Bajas_Colaterales,
-                                                           bajas_Enemigos = (int)tira.Bajas_Enemigos
+                                                           disparosRealizados = (int)tira.Disparos_Realizados,
+                                                           disparosAcertados = (int)tira.Disparos_Acertados,
+                                                           disparosColateral = (int)tira.Disparos_Colateral,
+                                                           bajasMilitares = (int)tira.Bajas_Militares,
+                                                           bajasColaterales = (int)tira.Bajas_Colaterales,
+                                                           bajasEnemigos = (int)tira.Bajas_Enemigos,
+                                                           tiempo=(float)tira.Tiempo,
+
 
 
                                                        }).ToArray();
@@ -64,12 +67,12 @@ namespace SedenaServices.Controllers
                                                            funcion = fun.Funcion1,
                                                            nombre = age.Nombre,
                                                            matricula = age.Matricula,
-                                                           disparos_Realizados = (int)tira.Disparos_Realizados,
-                                                           disparos_Acertados = (int)tira.Disparos_Acertados,
-                                                           disparos_Colateral = (int)tira.Disparos_Colateral,
-                                                           bajas_Militares = (int)tira.Bajas_Militares,
-                                                           bajas_Colaterales = (int)tira.Bajas_Colaterales,
-                                                           bajas_Enemigos = (int)tira.Bajas_Enemigos
+                                                           disparosRealizados = (int)tira.Disparos_Realizados,
+                                                           disparosAcertados = (int)tira.Disparos_Acertados,
+                                                           disparosColateral = (int)tira.Disparos_Colateral,
+                                                           bajasMilitares = (int)tira.Bajas_Militares,
+                                                           bajasColaterales = (int)tira.Bajas_Colaterales,
+                                                           bajasEnemigos = (int)tira.Bajas_Enemigos
 
 
                                                        }).ToList();
@@ -101,51 +104,92 @@ namespace SedenaServices.Controllers
             {
                 using (DBSedenaDataContext bd = new DBSedenaDataContext())
                 {
-
+                    //Verificar Agente
                     AgenteCLS usu = bd.Agente.Where(p => p.Matricula == (string)json["matricula"])
                     .Select(p => new AgenteCLS
                     {
-                        id_Agente = p.Id_Agente,
+                        idAgente = p.Id_Agente,
                         matricula = p.Matricula
                     }
                     ).First();
-                    Funcion oFuncion = new Funcion();
-
-
-                    IEnumerable<FuncionCLS> listaFuncion = (from funci in bd.Funcion
-                                                            select new FuncionCLS
-                                                            {
-                                                                id_Funcion = funci.Id_Funcion,
-                                                            }).ToList();
-                    oFuncion.Id_Funcion = listaFuncion.Last().id_Funcion + 1;
-                    oFuncion.Id_Agente = usu.id_Agente;
-                    oFuncion.Id_Sesion = 1;
-                    oFuncion.Funcion1 = (string)json["funcion"];
-                    bd.Funcion.InsertOnSubmit(oFuncion);
-                    bd.SubmitChanges();
-                    if (oFuncion.Funcion1 == "Tirador")
+                    int valx = 0;
+                    List<EncargadoCLS> listarEncargado = (from encar in bd.Encargado
+                                                          join usua in bd.Agente
+                                                          on encar.Id_Agente equals usua.Id_Agente
+                                                          select new EncargadoCLS
+                                                          {
+                                                              idEncargado = encar.Id_Encargado,
+                                                              matricula = usua.Matricula,
+                                                          }).ToList();
+                    EncargadoCLS aux = new EncargadoCLS();
+                    foreach (var a in listarEncargado)
                     {
-                        Tirador tiraaxu = new Tirador();
-                        tiraaxu.Id_Arma = 1;
-                        tiraaxu.Id_Funcion = oFuncion.Id_Funcion;
-                        tiraaxu.Uso_Correcto = (bool)json["uso_Correcto"];
-                        tiraaxu.Mision_Cumplida = (bool)json["mision_Cumplida"];
-                        tiraaxu.Disparos_Realizados = (int)json["disparos_Realizados"];
-                        tiraaxu.Disparos_Acertados = (int)json["disparos_Acertados"];
-                        tiraaxu.Disparos_Colateral = (int)json["disparos_Colateral"]; ;
-                        tiraaxu.Bajas_Militares = (int)json["bajas_Militares"]; ;
-                        tiraaxu.Bajas_Colaterales = (int)json["bajas_Colaterales"]; ;
-                        tiraaxu.Bajas_Enemigos = (int)json["bajas_Enemigos"]; ;
-                        bd.Tirador.InsertOnSubmit(tiraaxu);
+                        if (a.matricula.Equals((string)json["matriculaEncargado"]))
+                        {
+                            valx = a.idEncargado;
+                            break;
+                        }
                     }
-                    bd.SubmitChanges();
-                    respuesta = "Agregado";
+                    if (usu.idAgente != 0)
+                    {
+
+                        //Creacion de Sesion
+                        Sesion oSesion = new Sesion();
+                        IEnumerable<SesionCLS> listaSesion = (from ses in bd.Sesion
+                                                                select new SesionCLS
+                                                                {
+                                                                    idSesion = ses.Id_Sesion
+                                                                }).ToList();
+                        oSesion.Id_Sesion = listaSesion.Last().idSesion + 1;
+                        oSesion.Actividad = (string)json["actividad"];
+                        oSesion.Entorno = (string)json["entorno"];
+                        oSesion.Fecha = (string)json["fecha"];
+                        oSesion.Id_Encargado = valx;
+                        bd.Sesion.InsertOnSubmit(oSesion);
+                        //Creacion de funcion
+                        Funcion oFuncion = new Funcion();
+                        IEnumerable<FuncionCLS> listaFuncion = (from funci in bd.Funcion
+                                                                select new FuncionCLS
+                                                                {
+                                                                    idFuncion = funci.Id_Funcion
+                                                                }).ToList();
+                        oFuncion.Id_Funcion = listaFuncion.Last().idFuncion + 1;
+                        oFuncion.Id_Agente = usu.idAgente;
+                        oFuncion.Id_Sesion = oSesion.Id_Sesion;
+                        oFuncion.Funcion1 = (string)json["funcion"];
+                        bd.Funcion.InsertOnSubmit(oFuncion);
+                        //Tirador o Conductor
+                        if (oFuncion.Funcion1 == "Tirador")
+                        {
+                            Tirador tiraaxu = new Tirador();
+                            tiraaxu.Id_Arma = 1;
+                            tiraaxu.Id_Funcion = oFuncion.Id_Funcion;
+                            tiraaxu.Uso_Correcto = (bool)json["usoCorrecto"];
+                            tiraaxu.Mision_Cumplida = (bool)json["misionCumplida"];
+                            tiraaxu.Disparos_Realizados = (int)json["disparosRealizados"];
+                            tiraaxu.Disparos_Acertados = (int)json["disparosAcertados"];
+                            tiraaxu.Disparos_Colateral = (int)json["disparosColateral"]; ;
+                            tiraaxu.Bajas_Militares = (int)json["bajasMilitares"]; ;
+                            tiraaxu.Bajas_Colaterales = (int)json["bajasColaterales"]; ;
+                            tiraaxu.Bajas_Enemigos = (int)json["bajasEnemigos"]; 
+                            tiraaxu.Tiempo = (float)json["tiempo"];
+                            bd.Tirador.InsertOnSubmit(tiraaxu);
+                        }
+                        bd.SubmitChanges();
+                        respuesta = "Agregado";
+                    }
+                    else
+                    {
+                        respuesta ="Hola";
+                    }
+                    
+                    
                 }
             }
 
             catch (Exception ex)
             {
-                respuesta = (string)json["matricula"];
+                respuesta = ex.Message;
             }
             return respuesta;
         }

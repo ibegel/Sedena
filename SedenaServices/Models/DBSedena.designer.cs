@@ -36,12 +36,12 @@ namespace SedenaServices.Models
     partial void InsertArma(Arma instance);
     partial void UpdateArma(Arma instance);
     partial void DeleteArma(Arma instance);
-    partial void InsertEncargado(Encargado instance);
-    partial void UpdateEncargado(Encargado instance);
-    partial void DeleteEncargado(Encargado instance);
     partial void InsertConductor(Conductor instance);
     partial void UpdateConductor(Conductor instance);
     partial void DeleteConductor(Conductor instance);
+    partial void InsertEncargado(Encargado instance);
+    partial void UpdateEncargado(Encargado instance);
+    partial void DeleteEncargado(Encargado instance);
     partial void InsertFuncion(Funcion instance);
     partial void UpdateFuncion(Funcion instance);
     partial void DeleteFuncion(Funcion instance);
@@ -61,11 +61,13 @@ namespace SedenaServices.Models
 		{
 			OnCreated();
 		}
+
 		public DBSedenaDataContext() :
 				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SedenaConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
+
 		public DBSedenaDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
@@ -108,19 +110,19 @@ namespace SedenaServices.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Encargado> Encargado
-		{
-			get
-			{
-				return this.GetTable<Encargado>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Conductor> Conductor
 		{
 			get
 			{
 				return this.GetTable<Conductor>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Encargado> Encargado
+		{
+			get
+			{
+				return this.GetTable<Encargado>();
 			}
 		}
 		
@@ -240,7 +242,7 @@ namespace SedenaServices.Models
 		
 		private System.Nullable<int> _Existencia;
 		
-		private EntitySet<Encargado> _Encargado;
+		private EntityRef<Encargado> _Encargado;
 		
 		private EntitySet<Funcion> _Funcion;
 		
@@ -266,7 +268,7 @@ namespace SedenaServices.Models
 		
 		public Agente()
 		{
-			this._Encargado = new EntitySet<Encargado>(new Action<Encargado>(this.attach_Encargado), new Action<Encargado>(this.detach_Encargado));
+			this._Encargado = default(EntityRef<Encargado>);
 			this._Funcion = new EntitySet<Funcion>(new Action<Funcion>(this.attach_Funcion), new Action<Funcion>(this.detach_Funcion));
 			OnCreated();
 		}
@@ -411,16 +413,32 @@ namespace SedenaServices.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Agente_Encargado", Storage="_Encargado", ThisKey="Id_Agente", OtherKey="Id_Agente")]
-		public EntitySet<Encargado> Encargado
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Agente_Encargado", Storage="_Encargado", ThisKey="Id_Agente", OtherKey="Id_Encargado", IsUnique=true, IsForeignKey=false)]
+		public Encargado Encargado
 		{
 			get
 			{
-				return this._Encargado;
+				return this._Encargado.Entity;
 			}
 			set
 			{
-				this._Encargado.Assign(value);
+				Encargado previousValue = this._Encargado.Entity;
+				if (((previousValue != value) 
+							|| (this._Encargado.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Encargado.Entity = null;
+						previousValue.Agente = null;
+					}
+					this._Encargado.Entity = value;
+					if ((value != null))
+					{
+						value.Agente = this;
+					}
+					this.SendPropertyChanged("Encargado");
+				}
 			}
 		}
 		
@@ -455,18 +473,6 @@ namespace SedenaServices.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_Encargado(Encargado entity)
-		{
-			this.SendPropertyChanging();
-			entity.Agente = this;
-		}
-		
-		private void detach_Encargado(Encargado entity)
-		{
-			this.SendPropertyChanging();
-			entity.Agente = null;
 		}
 		
 		private void attach_Funcion(Funcion entity)
@@ -617,209 +623,6 @@ namespace SedenaServices.Models
 		{
 			this.SendPropertyChanging();
 			entity.Arma = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Encargado")]
-	public partial class Encargado : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id_Encargado;
-		
-		private string _Tipo_Encargado;
-		
-		private string _Pass;
-		
-		private System.Nullable<int> _Id_Agente;
-		
-		private EntitySet<Sesion> _Sesion;
-		
-		private EntityRef<Agente> _Agente;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnId_EncargadoChanging(int value);
-    partial void OnId_EncargadoChanged();
-    partial void OnTipo_EncargadoChanging(string value);
-    partial void OnTipo_EncargadoChanged();
-    partial void OnPassChanging(string value);
-    partial void OnPassChanged();
-    partial void OnId_AgenteChanging(System.Nullable<int> value);
-    partial void OnId_AgenteChanged();
-    #endregion
-		
-		public Encargado()
-		{
-			this._Sesion = new EntitySet<Sesion>(new Action<Sesion>(this.attach_Sesion), new Action<Sesion>(this.detach_Sesion));
-			this._Agente = default(EntityRef<Agente>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Encargado", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id_Encargado
-		{
-			get
-			{
-				return this._Id_Encargado;
-			}
-			set
-			{
-				if ((this._Id_Encargado != value))
-				{
-					this.OnId_EncargadoChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Encargado = value;
-					this.SendPropertyChanged("Id_Encargado");
-					this.OnId_EncargadoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tipo_Encargado", DbType="VarChar(20)")]
-		public string Tipo_Encargado
-		{
-			get
-			{
-				return this._Tipo_Encargado;
-			}
-			set
-			{
-				if ((this._Tipo_Encargado != value))
-				{
-					this.OnTipo_EncargadoChanging(value);
-					this.SendPropertyChanging();
-					this._Tipo_Encargado = value;
-					this.SendPropertyChanged("Tipo_Encargado");
-					this.OnTipo_EncargadoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pass", DbType="VarChar(30)")]
-		public string Pass
-		{
-			get
-			{
-				return this._Pass;
-			}
-			set
-			{
-				if ((this._Pass != value))
-				{
-					this.OnPassChanging(value);
-					this.SendPropertyChanging();
-					this._Pass = value;
-					this.SendPropertyChanged("Pass");
-					this.OnPassChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Agente", DbType="Int")]
-		public System.Nullable<int> Id_Agente
-		{
-			get
-			{
-				return this._Id_Agente;
-			}
-			set
-			{
-				if ((this._Id_Agente != value))
-				{
-					if (this._Agente.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_AgenteChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Agente = value;
-					this.SendPropertyChanged("Id_Agente");
-					this.OnId_AgenteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Encargado_Sesion", Storage="_Sesion", ThisKey="Id_Encargado", OtherKey="Id_Encargado")]
-		public EntitySet<Sesion> Sesion
-		{
-			get
-			{
-				return this._Sesion;
-			}
-			set
-			{
-				this._Sesion.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Agente_Encargado", Storage="_Agente", ThisKey="Id_Agente", OtherKey="Id_Agente", IsForeignKey=true)]
-		public Agente Agente
-		{
-			get
-			{
-				return this._Agente.Entity;
-			}
-			set
-			{
-				Agente previousValue = this._Agente.Entity;
-				if (((previousValue != value) 
-							|| (this._Agente.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Agente.Entity = null;
-						previousValue.Encargado.Remove(this);
-					}
-					this._Agente.Entity = value;
-					if ((value != null))
-					{
-						value.Encargado.Add(this);
-						this._Id_Agente = value.Id_Agente;
-					}
-					else
-					{
-						this._Id_Agente = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Agente");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Sesion(Sesion entity)
-		{
-			this.SendPropertyChanging();
-			entity.Encargado = this;
-		}
-		
-		private void detach_Sesion(Sesion entity)
-		{
-			this.SendPropertyChanging();
-			entity.Encargado = null;
 		}
 	}
 	
@@ -988,6 +791,209 @@ namespace SedenaServices.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Encargado")]
+	public partial class Encargado : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id_Encargado;
+		
+		private string _Tipo_Encargado;
+		
+		private string _Pass;
+		
+		private System.Nullable<int> _Id_Agente;
+		
+		private EntitySet<Sesion> _Sesion;
+		
+		private EntityRef<Agente> _Agente;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnId_EncargadoChanging(int value);
+    partial void OnId_EncargadoChanged();
+    partial void OnTipo_EncargadoChanging(string value);
+    partial void OnTipo_EncargadoChanged();
+    partial void OnPassChanging(string value);
+    partial void OnPassChanged();
+    partial void OnId_AgenteChanging(System.Nullable<int> value);
+    partial void OnId_AgenteChanged();
+    #endregion
+		
+		public Encargado()
+		{
+			this._Sesion = new EntitySet<Sesion>(new Action<Sesion>(this.attach_Sesion), new Action<Sesion>(this.detach_Sesion));
+			this._Agente = default(EntityRef<Agente>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Encargado", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int Id_Encargado
+		{
+			get
+			{
+				return this._Id_Encargado;
+			}
+			set
+			{
+				if ((this._Id_Encargado != value))
+				{
+					if (this._Agente.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnId_EncargadoChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Encargado = value;
+					this.SendPropertyChanged("Id_Encargado");
+					this.OnId_EncargadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tipo_Encargado", DbType="VarChar(20)")]
+		public string Tipo_Encargado
+		{
+			get
+			{
+				return this._Tipo_Encargado;
+			}
+			set
+			{
+				if ((this._Tipo_Encargado != value))
+				{
+					this.OnTipo_EncargadoChanging(value);
+					this.SendPropertyChanging();
+					this._Tipo_Encargado = value;
+					this.SendPropertyChanged("Tipo_Encargado");
+					this.OnTipo_EncargadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pass", DbType="VarChar(30)")]
+		public string Pass
+		{
+			get
+			{
+				return this._Pass;
+			}
+			set
+			{
+				if ((this._Pass != value))
+				{
+					this.OnPassChanging(value);
+					this.SendPropertyChanging();
+					this._Pass = value;
+					this.SendPropertyChanged("Pass");
+					this.OnPassChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Agente", DbType="Int")]
+		public System.Nullable<int> Id_Agente
+		{
+			get
+			{
+				return this._Id_Agente;
+			}
+			set
+			{
+				if ((this._Id_Agente != value))
+				{
+					this.OnId_AgenteChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Agente = value;
+					this.SendPropertyChanged("Id_Agente");
+					this.OnId_AgenteChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Encargado_Sesion", Storage="_Sesion", ThisKey="Id_Encargado", OtherKey="Id_Encargado")]
+		public EntitySet<Sesion> Sesion
+		{
+			get
+			{
+				return this._Sesion;
+			}
+			set
+			{
+				this._Sesion.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Agente_Encargado", Storage="_Agente", ThisKey="Id_Encargado", OtherKey="Id_Agente", IsForeignKey=true)]
+		public Agente Agente
+		{
+			get
+			{
+				return this._Agente.Entity;
+			}
+			set
+			{
+				Agente previousValue = this._Agente.Entity;
+				if (((previousValue != value) 
+							|| (this._Agente.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Agente.Entity = null;
+						previousValue.Encargado = null;
+					}
+					this._Agente.Entity = value;
+					if ((value != null))
+					{
+						value.Encargado = this;
+						this._Id_Encargado = value.Id_Agente;
+					}
+					else
+					{
+						this._Id_Encargado = default(int);
+					}
+					this.SendPropertyChanged("Agente");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Sesion(Sesion entity)
+		{
+			this.SendPropertyChanging();
+			entity.Encargado = this;
+		}
+		
+		private void detach_Sesion(Sesion entity)
+		{
+			this.SendPropertyChanging();
+			entity.Encargado = null;
 		}
 	}
 	
@@ -1524,6 +1530,8 @@ namespace SedenaServices.Models
 		
 		private System.Nullable<int> _Bajas_Enemigos;
 		
+		private System.Nullable<double> _Tiempo;
+		
 		private EntityRef<Funcion> _Funcion;
 		
 		private EntityRef<Arma> _Arma;
@@ -1552,6 +1560,8 @@ namespace SedenaServices.Models
     partial void OnBajas_ColateralesChanged();
     partial void OnBajas_EnemigosChanging(System.Nullable<int> value);
     partial void OnBajas_EnemigosChanged();
+    partial void OnTiempoChanging(System.Nullable<double> value);
+    partial void OnTiempoChanged();
     #endregion
 		
 		public Tirador()
@@ -1765,6 +1775,26 @@ namespace SedenaServices.Models
 					this._Bajas_Enemigos = value;
 					this.SendPropertyChanged("Bajas_Enemigos");
 					this.OnBajas_EnemigosChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tiempo", DbType="Float")]
+		public System.Nullable<double> Tiempo
+		{
+			get
+			{
+				return this._Tiempo;
+			}
+			set
+			{
+				if ((this._Tiempo != value))
+				{
+					this.OnTiempoChanging(value);
+					this.SendPropertyChanging();
+					this._Tiempo = value;
+					this.SendPropertyChanged("Tiempo");
+					this.OnTiempoChanged();
 				}
 			}
 		}

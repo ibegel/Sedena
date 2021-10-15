@@ -22,7 +22,7 @@ namespace SedenaServices.Controllers
                 IEnumerable<VehiculoCLS> listarVehiculo = (from veh in bd.Vehiculo
                                                            select new VehiculoCLS
                                                            {
-                                                               id_Vehiculo = (int)veh.Id_Vehiculo,
+                                                               idVehiculo = (int)veh.Id_Vehiculo,
                                                                placa = veh.Placa,
                                                                color = veh.Color,
                                                                marca = veh.Marca,
@@ -71,7 +71,7 @@ namespace SedenaServices.Controllers
                                                    where veh.Id_Vehiculo == id_Vehiculo
                                                    select new VehiculoCLS
                                                    {
-                                                       id_Vehiculo = (int)veh.Id_Vehiculo,
+                                                       idVehiculo = (int)veh.Id_Vehiculo,
                                                        placa = veh.Placa,
                                                        color = veh.Color,
                                                        marca = veh.Marca

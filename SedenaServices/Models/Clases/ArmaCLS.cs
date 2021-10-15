@@ -7,12 +7,12 @@ namespace SedenaServices.Models.Clases
 {
     public class ArmaCLS
     {
-        public int id_Arma { get; set; }
+        public int idArma { get; set; }
         public string nombre { get; set; }
         public string caracteristicas{ get; set; }
-        public ArmaCLS(int id_Arma,string nombre, string caracteristicas) 
+        public ArmaCLS(int idArma,string nombre, string caracteristicas) 
         {
-            this.id_Arma = id_Arma;
+            this.idArma = idArma;
             this.nombre = nombre;
             this.caracteristicas = caracteristicas;
         }

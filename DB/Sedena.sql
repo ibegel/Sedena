@@ -33,9 +33,6 @@ Id_Encargado int
 CONSTRAINT fk_Sesion_Encargado
    FOREIGN KEY (Id_Encargado)
    REFERENCES Encargado(Id_Encargado),
-CONSTRAINT fk_Sesion_Actividad
-   FOREIGN KEY (Id_Actividad)
-   REFERENCES Actividad(Id_Actividad)
 )
 
 create table Actividad

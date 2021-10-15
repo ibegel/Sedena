@@ -21,8 +21,8 @@ namespace SedenaServices.Controllers
                 IEnumerable<ConductorCLS> listarConductor = (from conduc in bd.Conductor
                                                          select new ConductorCLS
                                                          {
-                                                             id_Funcion = (int)conduc.Id_Funcion,
-                                                             id_Vehiculo = (int)conduc.Id_Vehiculo,
+                                                             idFuncion = (int)conduc.Id_Funcion,
+                                                             idVehiculo = (int)conduc.Id_Vehiculo,
                                                          }).ToList();
                 return listarConductor;
             }
@@ -68,8 +68,8 @@ namespace SedenaServices.Controllers
                                                          where conduc.Id_Funcion == id_Funcion
                                                          select new ConductorCLS
                                                          {
-                                                             id_Funcion = (int)conduc.Id_Funcion,
-                                                             id_Vehiculo = (int)conduc.Id_Vehiculo,
+                                                             idFuncion = (int)conduc.Id_Funcion,
+                                                             idVehiculo = (int)conduc.Id_Vehiculo,
                                                          }).ToList();
                 return listarConductor;
             }

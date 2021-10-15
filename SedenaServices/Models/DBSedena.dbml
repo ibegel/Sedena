@@ -15,7 +15,7 @@
       <Column Name="Distintivo" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
       <Column Name="Arma" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
       <Column Name="Existencia" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Agente_Encargado" Member="Encargado" ThisKey="Id_Agente" OtherKey="Id_Agente" Type="Encargado" />
+      <Association Name="Agente_Encargado" Member="Encargado" ThisKey="Id_Agente" OtherKey="Id_Encargado" Type="Encargado" Cardinality="One" />
       <Association Name="Agente_Funcion" Member="Funcion" ThisKey="Id_Agente" OtherKey="Id_Agente" Type="Funcion" />
     </Type>
   </Table>
@@ -27,6 +27,14 @@
       <Association Name="Arma_Tirador" Member="Tirador" ThisKey="Id_Arma" OtherKey="Id_Arma" Type="Tirador" />
     </Type>
   </Table>
+  <Table Name="dbo.Conductor" Member="Conductor">
+    <Type Name="Conductor">
+      <Column Name="Id_Funcion" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Id_Vehiculo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Funcion_Conductor" Member="Funcion" ThisKey="Id_Funcion" OtherKey="Id_Funcion" Type="Funcion" IsForeignKey="true" />
+      <Association Name="Vehiculo_Conductor" Member="Vehiculo" ThisKey="Id_Vehiculo" OtherKey="Id_Vehiculo" Type="Vehiculo" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Encargado" Member="Encargado">
     <Type Name="Encargado">
       <Column Name="Id_Encargado" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -34,15 +42,7 @@
       <Column Name="Pass" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
       <Column Name="Id_Agente" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Encargado_Sesion" Member="Sesion" ThisKey="Id_Encargado" OtherKey="Id_Encargado" Type="Sesion" />
-      <Association Name="Agente_Encargado" Member="Agente" ThisKey="Id_Agente" OtherKey="Id_Agente" Type="Agente" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Conductor" Member="Conductor">
-    <Type Name="Conductor">
-      <Column Name="Id_Funcion" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Id_Vehiculo" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Funcion_Conductor" Member="Funcion" ThisKey="Id_Funcion" OtherKey="Id_Funcion" Type="Funcion" IsForeignKey="true" />
-      <Association Name="Vehiculo_Conductor" Member="Vehiculo" ThisKey="Id_Vehiculo" OtherKey="Id_Vehiculo" Type="Vehiculo" IsForeignKey="true" />
+      <Association Name="Agente_Encargado" Member="Agente" ThisKey="Id_Encargado" OtherKey="Id_Agente" Type="Agente" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Funcion" Member="Funcion">
@@ -80,6 +80,7 @@
       <Column Name="Bajas_Militares" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Bajas_Colaterales" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Bajas_Enemigos" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Tiempo" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Association Name="Funcion_Tirador" Member="Funcion" ThisKey="Id_Funcion" OtherKey="Id_Funcion" Type="Funcion" IsForeignKey="true" />
       <Association Name="Arma_Tirador" Member="Arma" ThisKey="Id_Arma" OtherKey="Id_Arma" Type="Arma" IsForeignKey="true" />
     </Type>

@@ -24,13 +24,13 @@ namespace SedenaServices.Controllers
                 IEnumerable<UpdateCLS> lista = (from upd in bd.Actualizacion
                                                          select new UpdateCLS
                                                          {
-                                                                ultima_Actualizacion=upd.Ultima_Actualizacion,
-                                                                numero_Agentes=(int)upd.Numero_Agentes,
-                                                                numero_Encargados=(int)upd.Numero_Encargados
+                                                                ultimaActualizacion=upd.Ultima_Actualizacion,
+                                                                numeroAgentes=(int)upd.Numero_Agentes,
+                                                                numeroEncargados=(int)upd.Numero_Encargados
 
                                                          }).ToList();
                 UpdateCLS final = new UpdateCLS(lista.Last());
-                return "La ultima actualizacion: " + final.ultima_Actualizacion + "\nNumero de Agentes: " + final.numero_Agentes + "\nNumero de Encargados: " + final.numero_Encargados;
+                return "La ultima actualizacion: " + final.ultimaActualizacion + "Numero de Agentes: " + final.numeroAgentes + "Numero de Encargados: " + final.numeroEncargados;
             }
         }
     }

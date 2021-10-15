@@ -7,8 +7,8 @@ namespace SedenaServices.Models.Clases
 {
     public class ConductorCLS
     {
-        public int id_Funcion { get; set; }
-        public int id_Vehiculo { get; set; }
+        public int idFuncion { get; set; }
+        public int idVehiculo { get; set; }
 
         public ConductorCLS()
         {
@@ -16,8 +16,8 @@ namespace SedenaServices.Models.Clases
         }
         public ConductorCLS(int id_Funcion,int id_Vehiculo)
         {
-            this.id_Funcion = id_Funcion;
-            this.id_Vehiculo = id_Vehiculo;
+            this.idFuncion = id_Funcion;
+            this.idVehiculo = id_Vehiculo;
         }
     }
 }

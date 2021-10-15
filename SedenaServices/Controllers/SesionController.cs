@@ -23,11 +23,11 @@ namespace SedenaServices.Controllers
                                                       
                                                       select new SesionCLS
                                                       {
-                                                          id_Sesion= sesion.Id_Sesion,
+                                                          idSesion= sesion.Id_Sesion,
                                                           actividad=sesion.Actividad,
                                                           entorno=sesion.Entorno,
                                                           fecha=sesion.Fecha,
-                                                          id_Encargado=(int)sesion.Id_Encargado
+                                                          idEncargado=(int)sesion.Id_Encargado
                                                       }).ToList();
                 return listaSesion;
             }
@@ -70,7 +70,7 @@ namespace SedenaServices.Controllers
                             IEnumerable<SesionCLS> listaSesion = (from ses in bd.Sesion
                                                                         select new SesionCLS
                                                                         {
-                                                                            id_Sesion = ses.Id_Sesion,
+                                                                            idSesion = ses.Id_Sesion,
                                                                         }).ToList();
                             oSesion.Id_Sesion = listaSesion.Count() + 1;
                             bd.Sesion.InsertOnSubmit(oSesion);
@@ -107,11 +107,11 @@ namespace SedenaServices.Controllers
                     .Select(p => new SesionCLS
                     {
                         
-                        id_Sesion=p.Id_Sesion,
+                        idSesion=p.Id_Sesion,
                         actividad=p.Actividad,
                         entorno=p.Entorno,
                         fecha=p.Fecha,
-                        id_Encargado=(int)p.Id_Encargado
+                        idEncargado=(int)p.Id_Encargado
                     }
                     ).First();
 

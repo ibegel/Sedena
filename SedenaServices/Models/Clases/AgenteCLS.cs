@@ -7,7 +7,7 @@ namespace SedenaServices.Models.Clases
 {
     public class AgenteCLS
     {
-        public int id_Agente { get; set; }
+        public int idAgente { get; set; }
         public string matricula { get; set; }
         public string grado { get; set; }
         public string nombre { get; set; }
@@ -15,9 +15,9 @@ namespace SedenaServices.Models.Clases
         public string arma { get; set; }
         public int existencia { get; set; }
 
-        public AgenteCLS(int id_Agente, string matricula, string grado, string nombre, string distintivo, string especialidad)
+        public AgenteCLS(int idAgente, string matricula, string grado, string nombre, string distintivo, string especialidad)
         {
-            this.id_Agente = id_Agente;
+            this.idAgente = idAgente;
             this.matricula = matricula;
             this.grado = grado;
             this.nombre = nombre;

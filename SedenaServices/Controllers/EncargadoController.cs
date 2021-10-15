@@ -21,23 +21,22 @@ namespace SedenaServices.Controllers
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
                 List<EncargadoCLS> listarEncargado = (from encar in bd.Encargado
-                                                             join usu in bd.Agente
-                                                             on encar.Id_Agente equals usu.Id_Agente
-                                                             select new EncargadoCLS
-                                                             {
-                                                                 id_Encargado = encar.Id_Encargado,
-                                                                 matricula=usu.Matricula,
-                                                                 grado=usu.Grado,
-                                                                 nombre = usu.Nombre,
-                                                                 distintivo=usu.Distintivo,
-                                                                 arma=usu.Arma,
-                                                                 existencia=(int)usu.Existencia,
-                                                                 tipo_Encargado = encar.Tipo_Encargado,
-                                                                 pass = encar.Pass,
-                                                                 
-                                                                 id_Agente=usu.Id_Agente
-                                                             }).ToList();
-                EncargadosCLS encargados= new EncargadosCLS();
+                                                      join usu in bd.Agente
+                                                      on encar.Id_Agente equals usu.Id_Agente
+                                                      select new EncargadoCLS
+                                                      {
+                                                          idEncargado = encar.Id_Encargado,
+                                                          matricula = usu.Matricula,
+                                                          grado = usu.Grado,
+                                                          nombre = usu.Nombre,
+                                                          distintivo = usu.Distintivo,
+                                                          arma = usu.Arma,
+                                                          existencia = (int)usu.Existencia,
+                                                          tipoEncargado = encar.Tipo_Encargado,
+                                                          pass = encar.Pass,
+                                                          idAgente = usu.Id_Agente
+                                                      }).ToList();
+                EncargadosCLS encargados = new EncargadosCLS();
                 encargados.encargados = listarEncargado.ToArray();
                 return encargados;
             }
@@ -89,7 +88,7 @@ namespace SedenaServices.Controllers
         [HttpPost]
         public int agregarEncargado(Encargado oEncargado)
         {
-            
+
             int respuesta = 0;
             try
             {
@@ -97,12 +96,12 @@ namespace SedenaServices.Controllers
                 {
                     if (oEncargado.Id_Encargado == 0)
                     {
-                        List<EncargadoCLS>listaEncargado = (from encarga in bd.Encargado
-                                                                where encarga.Tipo_Encargado != "Inhabilitado"
-                                                                  select new EncargadoCLS
-                                                                {
-                                                                    id_Encargado = encarga.Id_Encargado
-                                                                }).ToList();
+                        List<EncargadoCLS> listaEncargado = (from encarga in bd.Encargado
+                                                             where encarga.Tipo_Encargado != "Inhabilitado"
+                                                             select new EncargadoCLS
+                                                             {
+                                                                 idEncargado = encarga.Id_Encargado
+                                                             }).ToList();
 
                         oEncargado.Id_Encargado = listaEncargado.Count() + 1;
                         bd.Encargado.InsertOnSubmit(oEncargado);
@@ -135,28 +134,28 @@ namespace SedenaServices.Controllers
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
                 EncargadoCLS oEncargado = (from encar in bd.Encargado
-                                                          join usu in bd.Agente
-                                                          on encar.Id_Agente equals usu.Id_Agente
-                                                          where encar.Id_Encargado==id_Encargado
-                                                          select new EncargadoCLS
-                                                          {
-                                                              id_Encargado = encar.Id_Encargado,
-                                                              matricula = usu.Matricula,
-                                                              grado = usu.Grado,
-                                                              nombre = usu.Nombre,
-                                                              distintivo = usu.Distintivo,
-                                                              arma = usu.Arma,
-                                                              existencia = (int)usu.Existencia,
-                                                              tipo_Encargado = encar.Tipo_Encargado,
-                                                              pass = encar.Pass,
+                                           join usu in bd.Agente
+                                           on encar.Id_Agente equals usu.Id_Agente
+                                           where encar.Id_Encargado == id_Encargado
+                                           select new EncargadoCLS
+                                           {
+                                               idEncargado = encar.Id_Encargado,
+                                               matricula = usu.Matricula,
+                                               grado = usu.Grado,
+                                               nombre = usu.Nombre,
+                                               distintivo = usu.Distintivo,
+                                               arma = usu.Arma,
+                                               existencia = (int)usu.Existencia,
+                                               tipoEncargado = encar.Tipo_Encargado,
+                                               pass = encar.Pass,
 
-                                                              id_Agente = usu.Id_Agente
-                                                          }).First();
+                                               idAgente = usu.Id_Agente
+                                           }).First();
 
                 return oEncargado;
             }
         }
-        
+
         [HttpGet]
         public EncargadoCLS recuperarNombre(string nombre)
         {
@@ -167,20 +166,20 @@ namespace SedenaServices.Controllers
                                                       on encar.Id_Agente equals usu.Id_Agente
                                                       select new EncargadoCLS
                                                       {
-                                                          id_Encargado = encar.Id_Encargado,
+                                                          idEncargado = encar.Id_Encargado,
                                                           matricula = usu.Matricula,
                                                           grado = usu.Grado,
                                                           nombre = usu.Nombre,
                                                           distintivo = usu.Distintivo,
                                                           arma = usu.Arma,
                                                           existencia = (int)usu.Existencia,
-                                                          tipo_Encargado = encar.Tipo_Encargado,
+                                                          tipoEncargado = encar.Tipo_Encargado,
                                                           pass = encar.Pass,
 
-                                                          id_Agente = usu.Id_Agente
+                                                          idAgente = usu.Id_Agente
                                                       }).ToList();
                 EncargadoCLS aux = new EncargadoCLS();
-                foreach(var a in listarEncargado)
+                foreach (var a in listarEncargado)
                 {
                     if (a.nombre.Equals(nombre))
                     {
@@ -191,6 +190,91 @@ namespace SedenaServices.Controllers
                 return aux;
             }
         }
-        
+
+        [HttpGet]
+        public EncargadoCLS recuperarMatricula(string matricula)
+        {
+            using (DBSedenaDataContext bd = new DBSedenaDataContext())
+            {
+                List<EncargadoCLS> listarEncargado = (from encar in bd.Encargado
+                                                      join usu in bd.Agente
+                                                      on encar.Id_Agente equals usu.Id_Agente
+                                                      select new EncargadoCLS
+                                                      {
+                                                          idEncargado = encar.Id_Encargado,
+                                                          matricula = usu.Matricula,
+                                                          grado = usu.Grado,
+                                                          nombre = usu.Nombre,
+                                                          distintivo = usu.Distintivo,
+                                                          arma = usu.Arma,
+                                                          existencia = (int)usu.Existencia,
+                                                          tipoEncargado = encar.Tipo_Encargado,
+                                                          pass = encar.Pass,
+
+                                                          idAgente = usu.Id_Agente
+                                                      }).ToList();
+                EncargadoCLS aux = new EncargadoCLS();
+                foreach (var a in listarEncargado)
+                {
+                    if (a.matricula.Equals(matricula))
+                    {
+                        aux = a;
+                        break;
+                    }
+                }
+                return aux;
+            }
+        }
+
+        [HttpGet]
+        public int logeo(string matricula, string pass )
+        {
+            using (DBSedenaDataContext bd = new DBSedenaDataContext())
+            {
+                List<EncargadoCLS> listarEncargado = (from encar in bd.Encargado
+                                                      join usu in bd.Agente
+                                                      on encar.Id_Agente equals usu.Id_Agente
+                                                      select new EncargadoCLS
+                                                      {
+                                                          idEncargado = encar.Id_Encargado,
+                                                          matricula = usu.Matricula,
+                                                          grado = usu.Grado,
+                                                          nombre = usu.Nombre,
+                                                          distintivo = usu.Distintivo,
+                                                          arma = usu.Arma,
+                                                          existencia = (int)usu.Existencia,
+                                                          tipoEncargado = encar.Tipo_Encargado,
+                                                          pass = encar.Pass,
+
+                                                          idAgente = usu.Id_Agente
+                                                      }).ToList();
+                EncargadoCLS aux = new EncargadoCLS();
+                foreach (var a in listarEncargado)
+                {
+                    if (a.matricula.Equals(matricula))
+                    {
+                        aux = a;
+                        break;
+                    }
+                }
+                if (aux.idEncargado == 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    if (aux.pass == pass)
+                    {
+                        return 1;
+                    }
+                    else
+                    { 
+                    return -1;
+                    }
+                }
+                
+            }
+        }
+
     }
 }

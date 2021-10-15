@@ -22,7 +22,7 @@ namespace SedenaServices.Controllers
                 IEnumerable<ArmaCLS> listarArma = (from arm in bd.Arma
                                                          select new ArmaCLS
                                                          {
-                                                             id_Arma = (int)arm.Id_Arma,
+                                                             idArma = (int)arm.Id_Arma,
                                                              caracteristicas =arm.Caracteristicas
                                                          }).ToList();
                 return listarArma;
@@ -68,7 +68,7 @@ namespace SedenaServices.Controllers
                                                          where arm.Id_Arma == id_Arma
                                                          select new ArmaCLS
                                                          {
-                                                             id_Arma = arm.Id_Arma,
+                                                             idArma = arm.Id_Arma,
                                                              caracteristicas=arm.Caracteristicas
                                                          }).ToList();
                 return listarArma;

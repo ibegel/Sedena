@@ -21,17 +21,16 @@ namespace SedenaServices.Controllers
                 IEnumerable<TiradorCLS> listarTirador = (from tira in bd.Tirador
                                                          select new TiradorCLS
                                                          {
-                                                                 id_Funcion = (int)tira.Id_Funcion,
-                                                                 id_Arma = (int)tira.Id_Arma,
-                                                                 disparos_Realizados=(int)tira.Disparos_Realizados,
-                                                                 disparos_Acertados=(int)tira.Disparos_Acertados,
-                                                                 disparos_Colateral=(int)tira.Disparos_Colateral,
-                                                                 bajas_Colaterales=(int)tira.Bajas_Colaterales,
-                                                                 bajas_Enemigos=(int)tira.Bajas_Enemigos,
-                                                                 bajas_Militares=(int)tira.Bajas_Militares,
-
-                                                                 uso_Correcto=(bool)tira.Uso_Correcto,
-                                                                 mision_Cumplida=(bool)tira.Mision_Cumplida
+                                                                 idFuncion = (int)tira.Id_Funcion,
+                                                                 idArma = (int)tira.Id_Arma,
+                                                                 disparosRealizados=(int)tira.Disparos_Realizados,
+                                                                 disparosAcertados=(int)tira.Disparos_Acertados,
+                                                                 disparosColateral=(int)tira.Disparos_Colateral,
+                                                                 bajasColaterales=(int)tira.Bajas_Colaterales,
+                                                                 bajasEnemigos=(int)tira.Bajas_Enemigos,
+                                                                 bajasMilitares=(int)tira.Bajas_Militares,
+                                                                 usoCorrecto=(bool)tira.Uso_Correcto,
+                                                                 misionCumplida=(bool)tira.Mision_Cumplida
                                                              }).ToList();
                 return listarTirador;
             }
@@ -78,16 +77,16 @@ namespace SedenaServices.Controllers
                                                          where tira.Id_Funcion == id_Funcion 
                                                          select new TiradorCLS
                                                              {
-                                                                 id_Funcion = (int)tira.Id_Funcion,
-                                                                 id_Arma = (int)tira.Id_Arma,
-                                                             disparos_Realizados = (int)tira.Disparos_Realizados,
-                                                             disparos_Acertados = (int)tira.Disparos_Acertados,
-                                                             disparos_Colateral = (int)tira.Disparos_Colateral,
-                                                             bajas_Colaterales = (int)tira.Bajas_Colaterales,
-                                                             bajas_Enemigos = (int)tira.Bajas_Enemigos,
-                                                             bajas_Militares = (int)tira.Bajas_Militares,
-                                                             uso_Correcto = (bool)tira.Uso_Correcto,
-                                                             mision_Cumplida = (bool)tira.Mision_Cumplida
+                                                                 idFuncion = (int)tira.Id_Funcion,
+                                                                 idArma = (int)tira.Id_Arma,
+                                                             disparosRealizados = (int)tira.Disparos_Realizados,
+                                                             disparosAcertados = (int)tira.Disparos_Acertados,
+                                                             disparosColateral = (int)tira.Disparos_Colateral,
+                                                             bajasColaterales = (int)tira.Bajas_Colaterales,
+                                                             bajasEnemigos = (int)tira.Bajas_Enemigos,
+                                                             bajasMilitares = (int)tira.Bajas_Militares,
+                                                             usoCorrecto = (bool)tira.Uso_Correcto,
+                                                             misionCumplida = (bool)tira.Mision_Cumplida
                                                          }).ToList();
                 return listarTirador;
             }

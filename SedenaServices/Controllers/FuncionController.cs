@@ -23,10 +23,10 @@ namespace SedenaServices.Controllers
                                                           select new FuncionCLS
                                                           {
                                                              
-                                                             id_Funcion=fun.Id_Funcion,
+                                                             idFuncion=fun.Id_Funcion,
                                                              funcion=fun.Funcion1,
-                                                             id_Agente=(int)fun.Id_Agente,
-                                                             id_Sesion=(int)fun.Id_Sesion
+                                                             idAgente=(int)fun.Id_Agente,
+                                                             idSesion=(int)fun.Id_Sesion
 
                                                           }).ToList();
                     return listarFuncion;
@@ -73,7 +73,7 @@ namespace SedenaServices.Controllers
                                                                             where funci.Funcion1 != "Inhabilitado"
                                                                             select new FuncionCLS
                                                                             {
-                                                                                id_Funcion = funci.Id_Funcion
+                                                                                idFuncion = funci.Id_Funcion
                                                                             }).ToList();
                                 oFuncion.Id_Funcion = listaFuncion.Count() + 1;
                                 bd.Funcion.InsertOnSubmit(oFuncion);
@@ -108,10 +108,10 @@ namespace SedenaServices.Controllers
                     FuncionCLS oDoctor = bd.Funcion.Where(p => p.Id_Funcion == id_Funcion)
                         .Select(p => new FuncionCLS
                         {
-                            id_Funcion=p.Id_Funcion,
+                            idFuncion=p.Id_Funcion,
                             funcion=p.Funcion1,
-                            id_Agente=(int)p.Id_Agente,
-                            id_Sesion=(int)p.Id_Sesion
+                            idAgente=(int)p.Id_Agente,
+                            idSesion=(int)p.Id_Sesion
                         }
                         ).First();
 

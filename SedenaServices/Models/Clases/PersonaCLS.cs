@@ -7,10 +7,10 @@ namespace SedenaServices.Models.Clases
 {
     public class PersonaCLS
     {
-        public int id_Encargado { get; set; }
-        public string tipo_Encargado { get; set; }
+        public int idEncargado { get; set; }
+        public string tipoEncargado { get; set; }
         public string pass { get; set; }
-        public int id_Agente { get; set; }
+        public int idAgente { get; set; }
         public string nombre { get; set; }
         public string matricula { get; set; }
         public string grado { get; set; }
