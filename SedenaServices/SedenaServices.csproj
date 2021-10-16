@@ -170,6 +170,7 @@
     <Compile Include="Controllers\EvaluacionController.cs" />
     <Compile Include="Controllers\FuncionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Controllers\SesionController.cs" />
     <Compile Include="Controllers\TiradorController.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="Models\Clases\EntradaCLS.cs" />
     <Compile Include="Models\Clases\EvaluacionCLS.cs" />
     <Compile Include="Models\Clases\FuncionCLS.cs" />
+    <Compile Include="Models\Clases\LogrosCLS.cs" />
     <Compile Include="Models\Clases\PersonaCLS.cs" />
     <Compile Include="Models\Clases\SesionCLS.cs" />
     <Compile Include="Models\Clases\TiradorCLS.cs" />

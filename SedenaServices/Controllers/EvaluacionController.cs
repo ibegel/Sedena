@@ -15,12 +15,11 @@ namespace SedenaServices.Controllers
     public class EvaluacionController : ApiController
     {
 
-        public int id_funcion;
-
-
         [HttpGet]
         public EvaluacionesCLS getEvaluacion()
         {
+            EvaluacionesCLS final = new EvaluacionesCLS();
+
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
 
@@ -40,16 +39,13 @@ namespace SedenaServices.Controllers
                                                            bajasColaterales = (int)tira.Bajas_Colaterales,
                                                            bajasEnemigos = (int)tira.Bajas_Enemigos,
                                                            tiempo=(float)tira.Tiempo,
-
-
-
                                                        }).ToArray();
-                EvaluacionesCLS final = new EvaluacionesCLS();
                 final.lista = evaluado;
                 
-                return final;
+                
 
             }
+            return final;
         }
 
 
@@ -193,6 +189,32 @@ namespace SedenaServices.Controllers
             }
             return respuesta;
         }
+       /* [HttpGet]
+        public LogrosCLS puntuaciones(string campoEvaluacion)
+        {
+            LogrosCLS cal = new LogrosCLS();
+            using (DBSedenaDataContext bd = new DBSedenaDataContext())
+            {
+                cal.listaTiradores = (from tira in bd.Tirador
+
+                                      select new TiradorCLS
+                                      {
+                                          idFuncion = (int)tira.Id_Funcion,
+                                          idArma = (int)tira.Id_Arma,
+                                          disparosRealizados = (int)tira.Disparos_Realizados,
+                                          disparosAcertados = (int)tira.Disparos_Acertados,
+                                          disparosColateral = (int)tira.Disparos_Colateral,
+                                          bajasColaterales = (int)tira.Bajas_Colaterales,
+                                          bajasEnemigos = (int)tira.Bajas_Enemigos,
+                                          bajasMilitares = (int)tira.Bajas_Militares,
+                                          usoCorrecto = (bool)tira.Uso_Correcto,
+                                          misionCumplida = (bool)tira.Mision_Cumplida
+                                      }).ToArray(); 
+            }
+            return cal;
+        }*/
+
+
         
 
     }

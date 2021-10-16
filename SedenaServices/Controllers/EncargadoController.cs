@@ -16,28 +16,24 @@ namespace SedenaServices.Controllers
     {
         [HttpGet]
         // localhost/api/Doctor
-        public EncargadosCLS listaEncargado()
+        public AgentesCLS listaEncargado()
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-                List<EncargadoCLS> listarEncargado = (from encar in bd.Encargado
+                List<AgenteCLS> listarEncargado = (from encar in bd.Encargado
                                                       join usu in bd.Agente
                                                       on encar.Id_Agente equals usu.Id_Agente
-                                                      select new EncargadoCLS
+                                                      select new AgenteCLS
                                                       {
-                                                          idEncargado = encar.Id_Encargado,
                                                           matricula = usu.Matricula,
                                                           grado = usu.Grado,
                                                           nombre = usu.Nombre,
                                                           distintivo = usu.Distintivo,
                                                           arma = usu.Arma,
-                                                          existencia = (int)usu.Existencia,
-                                                          tipoEncargado = encar.Tipo_Encargado,
-                                                          pass = encar.Pass,
                                                           idAgente = usu.Id_Agente
                                                       }).ToList();
-                EncargadosCLS encargados = new EncargadosCLS();
-                encargados.encargados = listarEncargado.ToArray();
+                AgentesCLS encargados = new AgentesCLS();
+                encargados.agentes = listarEncargado.ToArray();
                 return encargados;
             }
         }

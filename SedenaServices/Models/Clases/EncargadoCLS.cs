@@ -34,7 +34,7 @@ namespace SedenaServices.Models.Clases
 
     public class EncargadosCLS
         {
-        public EncargadoCLS[] encargados;
+        public AgentesCLS[] encargados;
 
         }
 
