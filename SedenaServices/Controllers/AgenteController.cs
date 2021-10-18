@@ -142,23 +142,34 @@ namespace SedenaServices.Controllers
         [HttpGet]
         public AgenteCLS recuperarAgente(int id_Agente)
         {
-            using (DBSedenaDataContext bd = new DBSedenaDataContext())
-            {
-                AgenteCLS oUsuario = bd.Agente.Where(p => p.Id_Agente == id_Agente)
-                    .Select(p => new AgenteCLS
-                    {
-                        idAgente = p.Id_Agente,
-                        matricula = p.Matricula,
-                        grado = p.Grado,
-                        nombre = p.Nombre,
-                        distintivo=p.Distintivo,
-                        arma=p.Arma,
-                        existencia = (int)p.Existencia
+            
+                using (DBSedenaDataContext bd = new DBSedenaDataContext())
+                {
+                    List<AgenteCLS> listarAgente = (from usu in bd.Agente
+                                                          select new AgenteCLS
+                                                          {
+                                                              idAgente = usu.Id_Agente,
+                                                              matricula = usu.Matricula,
+                                                              grado = usu.Grado,
+                                                              nombre = usu.Nombre,
+                                                              distintivo = usu.Distintivo,
+                                                              arma = usu.Arma,
+                                                              existencia = (int)usu.Existencia
 
+
+                                                          }).ToList();
+                    AgenteCLS aux = new AgenteCLS();
+                    foreach (var a in listarAgente)
+                    {
+                        if (a.idAgente.Equals(id_Agente))
+                        {
+                            aux = a;
+                            break;
+                        }
                     }
-                    ).First();
-                return oUsuario;
-            }
+                    return aux;
+                }
+            
         }
 
         [HttpGet]
@@ -166,19 +177,29 @@ namespace SedenaServices.Controllers
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-                AgenteCLS oUsuario = bd.Agente.Where(p => p.Nombre == nombre)
-                    .Select(p => new AgenteCLS
+                List<AgenteCLS> listarAgente = (from usu in bd.Agente
+                                                select new AgenteCLS
+                                                {
+                                                    idAgente = usu.Id_Agente,
+                                                    matricula = usu.Matricula,
+                                                    grado = usu.Grado,
+                                                    nombre = usu.Nombre,
+                                                    distintivo = usu.Distintivo,
+                                                    arma = usu.Arma,
+                                                    existencia = (int)usu.Existencia
+
+
+                                                }).ToList();
+                AgenteCLS aux = new AgenteCLS();
+                foreach (var a in listarAgente)
+                {
+                    if (a.nombre.ToLower().Equals(nombre.ToLower()))
                     {
-                        idAgente = p.Id_Agente,
-                        matricula = p.Matricula,
-                        grado = p.Grado,
-                        nombre = p.Nombre,
-                        distintivo = p.Distintivo,
-                        arma=p.Arma,
-                        existencia = (int)p.Existencia
+                        aux = a;
+                        break;
                     }
-                    ).First();
-                return oUsuario;
+                }
+                return aux;
             }
         }
 
@@ -187,19 +208,29 @@ namespace SedenaServices.Controllers
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-                AgenteCLS oUsuario = bd.Agente.Where(p => p.Distintivo == distintivo)
-                    .Select(p => new AgenteCLS
+                List<AgenteCLS> listarAgente = (from usu in bd.Agente
+                                                select new AgenteCLS
+                                                {
+                                                    idAgente = usu.Id_Agente,
+                                                    matricula = usu.Matricula,
+                                                    grado = usu.Grado,
+                                                    nombre = usu.Nombre,
+                                                    distintivo = usu.Distintivo,
+                                                    arma = usu.Arma,
+                                                    existencia = (int)usu.Existencia
+
+
+                                                }).ToList();
+                AgenteCLS aux = new AgenteCLS();
+                foreach (var a in listarAgente)
+                {
+                    if (a.distintivo.Equals(distintivo))
                     {
-                        idAgente = p.Id_Agente,
-                        matricula = p.Matricula,
-                        grado = p.Grado,
-                        nombre = p.Nombre,
-                        distintivo = p.Distintivo,
-                        arma=p.Arma,
-                        existencia = (int)p.Existencia
+                        aux = a;
+                        break;
                     }
-                    ).First();
-                return oUsuario;
+                }
+                return aux;
             }
         }
 
@@ -208,19 +239,29 @@ namespace SedenaServices.Controllers
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-                AgenteCLS oUsuario = bd.Agente.Where(p => p.Matricula == matricula)
-                    .Select(p => new AgenteCLS
+                List<AgenteCLS> listarAgente = (from usu in bd.Agente
+                                                select new AgenteCLS
+                                                {
+                                                    idAgente = usu.Id_Agente,
+                                                    matricula = usu.Matricula,
+                                                    grado = usu.Grado,
+                                                    nombre = usu.Nombre,
+                                                    distintivo = usu.Distintivo,
+                                                    arma = usu.Arma,
+                                                    existencia = (int)usu.Existencia
+
+
+                                                }).ToList();
+                AgenteCLS aux = new AgenteCLS();
+                foreach (var a in listarAgente)
+                {
+                    if (a.matricula.Equals(matricula))
                     {
-                        idAgente = p.Id_Agente,
-                        matricula = p.Matricula,
-                        grado = p.Grado,
-                        nombre = p.Nombre,
-                        distintivo = p.Distintivo,
-                        arma=p.Arma,
-                        existencia=(int)p.Existencia
+                        aux = a;
+                        break;
                     }
-                    ).First();
-                return oUsuario;
+                }
+                return aux;
             }
         }
 

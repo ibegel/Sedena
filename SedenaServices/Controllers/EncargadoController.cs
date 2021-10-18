@@ -84,43 +84,68 @@ namespace SedenaServices.Controllers
         [HttpPost]
         public int agregarEncargado(Encargado oEncargado)
         {
-
+            int existe = 0;
             int respuesta = 0;
-            try
+            using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-                using (DBSedenaDataContext bd = new DBSedenaDataContext())
+                List<AgenteCLS> listarAgente = (from usu in bd.Agente
+                                                select new AgenteCLS
+                                                {
+                                                    idAgente = usu.Id_Agente
+                                                }).ToList();
+                foreach (var a in listarAgente)
                 {
-                    if (oEncargado.Id_Encargado == 0)
+                    if (a.idAgente.Equals(oEncargado.Id_Agente))
                     {
-                        List<EncargadoCLS> listaEncargado = (from encarga in bd.Encargado
-                                                             where encarga.Tipo_Encargado != "Inhabilitado"
-                                                             select new EncargadoCLS
-                                                             {
-                                                                 idEncargado = encarga.Id_Encargado
-                                                             }).ToList();
-
-                        oEncargado.Id_Encargado = listaEncargado.Count() + 1;
-                        bd.Encargado.InsertOnSubmit(oEncargado);
-                        bd.SubmitChanges();
-                        respuesta = 1;
-                    }
-                    else
-                    {
-                        Encargado aux = bd.Encargado.Where(p => p.Id_Encargado == oEncargado.Id_Encargado).First();
-                        aux.Id_Encargado = oEncargado.Id_Encargado;
-                        aux.Tipo_Encargado = oEncargado.Tipo_Encargado;
-                        aux.Pass = oEncargado.Pass;
-                        aux.Id_Agente = oEncargado.Id_Agente;
-                        bd.SubmitChanges();
-                        respuesta = 1;
+                        existe = 1;
+                        break;
                     }
                 }
             }
-            catch (Exception ex)
+
+            if (existe == 1)
             {
-                respuesta = 0;
+                
+                try
+                {
+                    using (DBSedenaDataContext bd = new DBSedenaDataContext())
+                    {
+                        if (oEncargado.Id_Encargado == 0)
+                        {
+                            List<EncargadoCLS> listaEncargado = (from encarga in bd.Encargado
+                                                                 where encarga.Tipo_Encargado != "Inhabilitado"
+                                                                 select new EncargadoCLS
+                                                                 {
+                                                                     idEncargado = encarga.Id_Encargado
+                                                                 }).ToList();
+
+                            oEncargado.Id_Encargado = listaEncargado.Count() + 1;
+                            bd.Encargado.InsertOnSubmit(oEncargado);
+                            bd.SubmitChanges();
+                            respuesta = 1;
+                        }
+                        else
+                        {
+                            Encargado aux = bd.Encargado.Where(p => p.Id_Encargado == oEncargado.Id_Encargado).First();
+                            aux.Id_Encargado = oEncargado.Id_Encargado;
+                            aux.Tipo_Encargado = oEncargado.Tipo_Encargado;
+                            aux.Pass = oEncargado.Pass;
+                            aux.Id_Agente = oEncargado.Id_Agente;
+                            bd.SubmitChanges();
+                            respuesta = 1;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    respuesta = 0;
+                }
+                return respuesta;
             }
-            return respuesta;
+            else
+            {
+                return respuesta = -1;
+            }
         }
 
         // localhost/api/Doctor/?iidDoctor=
@@ -222,55 +247,8 @@ namespace SedenaServices.Controllers
             }
         }
 
-        [HttpGet]
-        public int logeo(string matricula, string pass )
-        {
-            using (DBSedenaDataContext bd = new DBSedenaDataContext())
-            {
-                List<EncargadoCLS> listarEncargado = (from encar in bd.Encargado
-                                                      join usu in bd.Agente
-                                                      on encar.Id_Agente equals usu.Id_Agente
-                                                      select new EncargadoCLS
-                                                      {
-                                                          idEncargado = encar.Id_Encargado,
-                                                          matricula = usu.Matricula,
-                                                          grado = usu.Grado,
-                                                          nombre = usu.Nombre,
-                                                          distintivo = usu.Distintivo,
-                                                          arma = usu.Arma,
-                                                          existencia = (int)usu.Existencia,
-                                                          tipoEncargado = encar.Tipo_Encargado,
-                                                          pass = encar.Pass,
-
-                                                          idAgente = usu.Id_Agente
-                                                      }).ToList();
-                EncargadoCLS aux = new EncargadoCLS();
-                foreach (var a in listarEncargado)
-                {
-                    if (a.matricula.Equals(matricula))
-                    {
-                        aux = a;
-                        break;
-                    }
-                }
-                if (aux.idEncargado == 0)
-                {
-                    return 0;
-                }
-                else
-                {
-                    if (aux.pass == pass)
-                    {
-                        return 1;
-                    }
-                    else
-                    { 
-                    return -1;
-                    }
-                }
-                
-            }
-        }
+        
+        
 
     }
 }
