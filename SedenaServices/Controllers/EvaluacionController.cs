@@ -189,7 +189,7 @@ namespace SedenaServices.Controllers
             }
             return respuesta;
         }
-       /* [HttpGet]
+       [HttpGet]
         public LogrosCLS puntuaciones(string campoEvaluacion)
         {
             LogrosCLS cal = new LogrosCLS();
@@ -212,7 +212,7 @@ namespace SedenaServices.Controllers
                                       }).ToArray(); 
             }
             return cal;
-        }*/
+        }
 
 
         

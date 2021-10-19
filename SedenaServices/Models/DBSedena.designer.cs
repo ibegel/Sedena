@@ -30,27 +30,27 @@ namespace SedenaServices.Models
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnCreated();
+    partial void InsertConductor(Conductor instance);
+    partial void UpdateConductor(Conductor instance);
+    partial void DeleteConductor(Conductor instance);
+    partial void InsertArma(Arma instance);
+    partial void UpdateArma(Arma instance);
+    partial void DeleteArma(Arma instance);
     partial void InsertAgente(Agente instance);
     partial void UpdateAgente(Agente instance);
     partial void DeleteAgente(Agente instance);
     partial void InsertEncargado(Encargado instance);
     partial void UpdateEncargado(Encargado instance);
     partial void DeleteEncargado(Encargado instance);
-    partial void InsertArma(Arma instance);
-    partial void UpdateArma(Arma instance);
-    partial void DeleteArma(Arma instance);
-    partial void InsertConductor(Conductor instance);
-    partial void UpdateConductor(Conductor instance);
-    partial void DeleteConductor(Conductor instance);
-    partial void InsertSesion(Sesion instance);
-    partial void UpdateSesion(Sesion instance);
-    partial void DeleteSesion(Sesion instance);
     partial void InsertFuncion(Funcion instance);
     partial void UpdateFuncion(Funcion instance);
     partial void DeleteFuncion(Funcion instance);
     partial void InsertTirador(Tirador instance);
     partial void UpdateTirador(Tirador instance);
     partial void DeleteTirador(Tirador instance);
+    partial void InsertSesion(Sesion instance);
+    partial void UpdateSesion(Sesion instance);
+    partial void DeleteSesion(Sesion instance);
     partial void InsertVehiculo(Vehiculo instance);
     partial void UpdateVehiculo(Vehiculo instance);
     partial void DeleteVehiculo(Vehiculo instance);
@@ -67,7 +67,13 @@ namespace SedenaServices.Models
 		{
 			OnCreated();
 		}
-		
+
+		public DBSedenaDataContext() :
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SedenaConnectionString"].ConnectionString, mappingSource)
+		{
+			OnCreated();
+		}
+
 		public DBSedenaDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
@@ -88,6 +94,22 @@ namespace SedenaServices.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<Conductor> Conductor
+		{
+			get
+			{
+				return this.GetTable<Conductor>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Arma> Arma
+		{
+			get
+			{
+				return this.GetTable<Arma>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Agente> Agente
 		{
 			get
@@ -104,30 +126,6 @@ namespace SedenaServices.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Arma> Arma
-		{
-			get
-			{
-				return this.GetTable<Arma>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Conductor> Conductor
-		{
-			get
-			{
-				return this.GetTable<Conductor>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Sesion> Sesion
-		{
-			get
-			{
-				return this.GetTable<Sesion>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Funcion> Funcion
 		{
 			get
@@ -141,6 +139,14 @@ namespace SedenaServices.Models
 			get
 			{
 				return this.GetTable<Tirador>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Sesion> Sesion
+		{
+			get
+			{
+				return this.GetTable<Sesion>();
 			}
 		}
 		
@@ -213,6 +219,312 @@ namespace SedenaServices.Models
 					this._Numero_Encargados = value;
 				}
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Conductor")]
+	public partial class Conductor : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id_Funcion;
+		
+		private System.Nullable<int> _Id_Vehiculo;
+		
+		private EntityRef<Funcion> _Funcion;
+		
+		private EntityRef<Vehiculo> _Vehiculo;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnId_FuncionChanging(int value);
+    partial void OnId_FuncionChanged();
+    partial void OnId_VehiculoChanging(System.Nullable<int> value);
+    partial void OnId_VehiculoChanged();
+    #endregion
+		
+		public Conductor()
+		{
+			this._Funcion = default(EntityRef<Funcion>);
+			this._Vehiculo = default(EntityRef<Vehiculo>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Funcion", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int Id_Funcion
+		{
+			get
+			{
+				return this._Id_Funcion;
+			}
+			set
+			{
+				if ((this._Id_Funcion != value))
+				{
+					if (this._Funcion.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnId_FuncionChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Funcion = value;
+					this.SendPropertyChanged("Id_Funcion");
+					this.OnId_FuncionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Vehiculo", DbType="Int")]
+		public System.Nullable<int> Id_Vehiculo
+		{
+			get
+			{
+				return this._Id_Vehiculo;
+			}
+			set
+			{
+				if ((this._Id_Vehiculo != value))
+				{
+					if (this._Vehiculo.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnId_VehiculoChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Vehiculo = value;
+					this.SendPropertyChanged("Id_Vehiculo");
+					this.OnId_VehiculoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Funcion_Conductor", Storage="_Funcion", ThisKey="Id_Funcion", OtherKey="Id_Funcion", IsForeignKey=true)]
+		public Funcion Funcion
+		{
+			get
+			{
+				return this._Funcion.Entity;
+			}
+			set
+			{
+				Funcion previousValue = this._Funcion.Entity;
+				if (((previousValue != value) 
+							|| (this._Funcion.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Funcion.Entity = null;
+						previousValue.Conductor = null;
+					}
+					this._Funcion.Entity = value;
+					if ((value != null))
+					{
+						value.Conductor = this;
+						this._Id_Funcion = value.Id_Funcion;
+					}
+					else
+					{
+						this._Id_Funcion = default(int);
+					}
+					this.SendPropertyChanged("Funcion");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Vehiculo_Conductor", Storage="_Vehiculo", ThisKey="Id_Vehiculo", OtherKey="Id_Vehiculo", IsForeignKey=true)]
+		public Vehiculo Vehiculo
+		{
+			get
+			{
+				return this._Vehiculo.Entity;
+			}
+			set
+			{
+				Vehiculo previousValue = this._Vehiculo.Entity;
+				if (((previousValue != value) 
+							|| (this._Vehiculo.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Vehiculo.Entity = null;
+						previousValue.Conductor.Remove(this);
+					}
+					this._Vehiculo.Entity = value;
+					if ((value != null))
+					{
+						value.Conductor.Add(this);
+						this._Id_Vehiculo = value.Id_Vehiculo;
+					}
+					else
+					{
+						this._Id_Vehiculo = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Vehiculo");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Arma")]
+	public partial class Arma : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id_Arma;
+		
+		private string _Nombre;
+		
+		private string _Caracteristicas;
+		
+		private EntitySet<Tirador> _Tirador;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnId_ArmaChanging(int value);
+    partial void OnId_ArmaChanged();
+    partial void OnNombreChanging(string value);
+    partial void OnNombreChanged();
+    partial void OnCaracteristicasChanging(string value);
+    partial void OnCaracteristicasChanged();
+    #endregion
+		
+		public Arma()
+		{
+			this._Tirador = new EntitySet<Tirador>(new Action<Tirador>(this.attach_Tirador), new Action<Tirador>(this.detach_Tirador));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Arma", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int Id_Arma
+		{
+			get
+			{
+				return this._Id_Arma;
+			}
+			set
+			{
+				if ((this._Id_Arma != value))
+				{
+					this.OnId_ArmaChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Arma = value;
+					this.SendPropertyChanged("Id_Arma");
+					this.OnId_ArmaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(30)")]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this.OnNombreChanging(value);
+					this.SendPropertyChanging();
+					this._Nombre = value;
+					this.SendPropertyChanged("Nombre");
+					this.OnNombreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Caracteristicas", DbType="VarChar(MAX)")]
+		public string Caracteristicas
+		{
+			get
+			{
+				return this._Caracteristicas;
+			}
+			set
+			{
+				if ((this._Caracteristicas != value))
+				{
+					this.OnCaracteristicasChanging(value);
+					this.SendPropertyChanging();
+					this._Caracteristicas = value;
+					this.SendPropertyChanged("Caracteristicas");
+					this.OnCaracteristicasChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Arma_Tirador", Storage="_Tirador", ThisKey="Id_Arma", OtherKey="Id_Arma")]
+		public EntitySet<Tirador> Tirador
+		{
+			get
+			{
+				return this._Tirador;
+			}
+			set
+			{
+				this._Tirador.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Tirador(Tirador entity)
+		{
+			this.SendPropertyChanging();
+			entity.Arma = this;
+		}
+		
+		private void detach_Tirador(Tirador entity)
+		{
+			this.SendPropertyChanging();
+			entity.Arma = null;
 		}
 	}
 	
@@ -486,7 +798,7 @@ namespace SedenaServices.Models
 		
 		private int _Id_Encargado;
 		
-		private string _Tipo_Encargado;
+		private string _Usuario;
 		
 		private string _Pass;
 		
@@ -502,8 +814,8 @@ namespace SedenaServices.Models
     partial void OnCreated();
     partial void OnId_EncargadoChanging(int value);
     partial void OnId_EncargadoChanged();
-    partial void OnTipo_EncargadoChanging(string value);
-    partial void OnTipo_EncargadoChanged();
+    partial void OnUsuarioChanging(string value);
+    partial void OnUsuarioChanged();
     partial void OnPassChanging(string value);
     partial void OnPassChanged();
     partial void OnId_AgenteChanging(System.Nullable<int> value);
@@ -537,22 +849,22 @@ namespace SedenaServices.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tipo_Encargado", DbType="VarChar(20)")]
-		public string Tipo_Encargado
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usuario", DbType="VarChar(20)")]
+		public string Usuario
 		{
 			get
 			{
-				return this._Tipo_Encargado;
+				return this._Usuario;
 			}
 			set
 			{
-				if ((this._Tipo_Encargado != value))
+				if ((this._Usuario != value))
 				{
-					this.OnTipo_EncargadoChanging(value);
+					this.OnUsuarioChanging(value);
 					this.SendPropertyChanging();
-					this._Tipo_Encargado = value;
-					this.SendPropertyChanged("Tipo_Encargado");
-					this.OnTipo_EncargadoChanged();
+					this._Usuario = value;
+					this.SendPropertyChanged("Usuario");
+					this.OnUsuarioChanged();
 				}
 			}
 		}
@@ -678,539 +990,6 @@ namespace SedenaServices.Models
 		{
 			this.SendPropertyChanging();
 			entity.Encargado = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Arma")]
-	public partial class Arma : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id_Arma;
-		
-		private string _Nombre;
-		
-		private string _Caracteristicas;
-		
-		private EntitySet<Tirador> _Tirador;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnId_ArmaChanging(int value);
-    partial void OnId_ArmaChanged();
-    partial void OnNombreChanging(string value);
-    partial void OnNombreChanged();
-    partial void OnCaracteristicasChanging(string value);
-    partial void OnCaracteristicasChanged();
-    #endregion
-		
-		public Arma()
-		{
-			this._Tirador = new EntitySet<Tirador>(new Action<Tirador>(this.attach_Tirador), new Action<Tirador>(this.detach_Tirador));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Arma", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id_Arma
-		{
-			get
-			{
-				return this._Id_Arma;
-			}
-			set
-			{
-				if ((this._Id_Arma != value))
-				{
-					this.OnId_ArmaChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Arma = value;
-					this.SendPropertyChanged("Id_Arma");
-					this.OnId_ArmaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(30)")]
-		public string Nombre
-		{
-			get
-			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this.OnNombreChanging(value);
-					this.SendPropertyChanging();
-					this._Nombre = value;
-					this.SendPropertyChanged("Nombre");
-					this.OnNombreChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Caracteristicas", DbType="VarChar(MAX)")]
-		public string Caracteristicas
-		{
-			get
-			{
-				return this._Caracteristicas;
-			}
-			set
-			{
-				if ((this._Caracteristicas != value))
-				{
-					this.OnCaracteristicasChanging(value);
-					this.SendPropertyChanging();
-					this._Caracteristicas = value;
-					this.SendPropertyChanged("Caracteristicas");
-					this.OnCaracteristicasChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Arma_Tirador", Storage="_Tirador", ThisKey="Id_Arma", OtherKey="Id_Arma")]
-		public EntitySet<Tirador> Tirador
-		{
-			get
-			{
-				return this._Tirador;
-			}
-			set
-			{
-				this._Tirador.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Tirador(Tirador entity)
-		{
-			this.SendPropertyChanging();
-			entity.Arma = this;
-		}
-		
-		private void detach_Tirador(Tirador entity)
-		{
-			this.SendPropertyChanging();
-			entity.Arma = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Conductor")]
-	public partial class Conductor : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id_Funcion;
-		
-		private System.Nullable<int> _Id_Vehiculo;
-		
-		private EntityRef<Funcion> _Funcion;
-		
-		private EntityRef<Vehiculo> _Vehiculo;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnId_FuncionChanging(int value);
-    partial void OnId_FuncionChanged();
-    partial void OnId_VehiculoChanging(System.Nullable<int> value);
-    partial void OnId_VehiculoChanged();
-    #endregion
-		
-		public Conductor()
-		{
-			this._Funcion = default(EntityRef<Funcion>);
-			this._Vehiculo = default(EntityRef<Vehiculo>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Funcion", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id_Funcion
-		{
-			get
-			{
-				return this._Id_Funcion;
-			}
-			set
-			{
-				if ((this._Id_Funcion != value))
-				{
-					if (this._Funcion.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_FuncionChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Funcion = value;
-					this.SendPropertyChanged("Id_Funcion");
-					this.OnId_FuncionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Vehiculo", DbType="Int")]
-		public System.Nullable<int> Id_Vehiculo
-		{
-			get
-			{
-				return this._Id_Vehiculo;
-			}
-			set
-			{
-				if ((this._Id_Vehiculo != value))
-				{
-					if (this._Vehiculo.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_VehiculoChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Vehiculo = value;
-					this.SendPropertyChanged("Id_Vehiculo");
-					this.OnId_VehiculoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Funcion_Conductor", Storage="_Funcion", ThisKey="Id_Funcion", OtherKey="Id_Funcion", IsForeignKey=true)]
-		public Funcion Funcion
-		{
-			get
-			{
-				return this._Funcion.Entity;
-			}
-			set
-			{
-				Funcion previousValue = this._Funcion.Entity;
-				if (((previousValue != value) 
-							|| (this._Funcion.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Funcion.Entity = null;
-						previousValue.Conductor = null;
-					}
-					this._Funcion.Entity = value;
-					if ((value != null))
-					{
-						value.Conductor = this;
-						this._Id_Funcion = value.Id_Funcion;
-					}
-					else
-					{
-						this._Id_Funcion = default(int);
-					}
-					this.SendPropertyChanged("Funcion");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Vehiculo_Conductor", Storage="_Vehiculo", ThisKey="Id_Vehiculo", OtherKey="Id_Vehiculo", IsForeignKey=true)]
-		public Vehiculo Vehiculo
-		{
-			get
-			{
-				return this._Vehiculo.Entity;
-			}
-			set
-			{
-				Vehiculo previousValue = this._Vehiculo.Entity;
-				if (((previousValue != value) 
-							|| (this._Vehiculo.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Vehiculo.Entity = null;
-						previousValue.Conductor.Remove(this);
-					}
-					this._Vehiculo.Entity = value;
-					if ((value != null))
-					{
-						value.Conductor.Add(this);
-						this._Id_Vehiculo = value.Id_Vehiculo;
-					}
-					else
-					{
-						this._Id_Vehiculo = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Vehiculo");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Sesion")]
-	public partial class Sesion : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id_Sesion;
-		
-		private string _Actividad;
-		
-		private string _Entorno;
-		
-		private string _Fecha;
-		
-		private System.Nullable<int> _Id_Encargado;
-		
-		private EntitySet<Funcion> _Funcion;
-		
-		private EntityRef<Encargado> _Encargado;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnId_SesionChanging(int value);
-    partial void OnId_SesionChanged();
-    partial void OnActividadChanging(string value);
-    partial void OnActividadChanged();
-    partial void OnEntornoChanging(string value);
-    partial void OnEntornoChanged();
-    partial void OnFechaChanging(string value);
-    partial void OnFechaChanged();
-    partial void OnId_EncargadoChanging(System.Nullable<int> value);
-    partial void OnId_EncargadoChanged();
-    #endregion
-		
-		public Sesion()
-		{
-			this._Funcion = new EntitySet<Funcion>(new Action<Funcion>(this.attach_Funcion), new Action<Funcion>(this.detach_Funcion));
-			this._Encargado = default(EntityRef<Encargado>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Sesion", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id_Sesion
-		{
-			get
-			{
-				return this._Id_Sesion;
-			}
-			set
-			{
-				if ((this._Id_Sesion != value))
-				{
-					this.OnId_SesionChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Sesion = value;
-					this.SendPropertyChanged("Id_Sesion");
-					this.OnId_SesionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Actividad", DbType="VarChar(30)")]
-		public string Actividad
-		{
-			get
-			{
-				return this._Actividad;
-			}
-			set
-			{
-				if ((this._Actividad != value))
-				{
-					this.OnActividadChanging(value);
-					this.SendPropertyChanging();
-					this._Actividad = value;
-					this.SendPropertyChanged("Actividad");
-					this.OnActividadChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entorno", DbType="VarChar(MAX)")]
-		public string Entorno
-		{
-			get
-			{
-				return this._Entorno;
-			}
-			set
-			{
-				if ((this._Entorno != value))
-				{
-					this.OnEntornoChanging(value);
-					this.SendPropertyChanging();
-					this._Entorno = value;
-					this.SendPropertyChanged("Entorno");
-					this.OnEntornoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fecha", DbType="VarChar(MAX)")]
-		public string Fecha
-		{
-			get
-			{
-				return this._Fecha;
-			}
-			set
-			{
-				if ((this._Fecha != value))
-				{
-					this.OnFechaChanging(value);
-					this.SendPropertyChanging();
-					this._Fecha = value;
-					this.SendPropertyChanged("Fecha");
-					this.OnFechaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Encargado", DbType="Int")]
-		public System.Nullable<int> Id_Encargado
-		{
-			get
-			{
-				return this._Id_Encargado;
-			}
-			set
-			{
-				if ((this._Id_Encargado != value))
-				{
-					if (this._Encargado.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_EncargadoChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Encargado = value;
-					this.SendPropertyChanged("Id_Encargado");
-					this.OnId_EncargadoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sesion_Funcion", Storage="_Funcion", ThisKey="Id_Sesion", OtherKey="Id_Sesion")]
-		public EntitySet<Funcion> Funcion
-		{
-			get
-			{
-				return this._Funcion;
-			}
-			set
-			{
-				this._Funcion.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Encargado_Sesion", Storage="_Encargado", ThisKey="Id_Encargado", OtherKey="Id_Encargado", IsForeignKey=true)]
-		public Encargado Encargado
-		{
-			get
-			{
-				return this._Encargado.Entity;
-			}
-			set
-			{
-				Encargado previousValue = this._Encargado.Entity;
-				if (((previousValue != value) 
-							|| (this._Encargado.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Encargado.Entity = null;
-						previousValue.Sesion.Remove(this);
-					}
-					this._Encargado.Entity = value;
-					if ((value != null))
-					{
-						value.Sesion.Add(this);
-						this._Id_Encargado = value.Id_Encargado;
-					}
-					else
-					{
-						this._Id_Encargado = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Encargado");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Funcion(Funcion entity)
-		{
-			this.SendPropertyChanging();
-			entity.Sesion = this;
-		}
-		
-		private void detach_Funcion(Funcion entity)
-		{
-			this.SendPropertyChanging();
-			entity.Sesion = null;
 		}
 	}
 	
@@ -1875,6 +1654,233 @@ namespace SedenaServices.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Sesion")]
+	public partial class Sesion : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id_Sesion;
+		
+		private string _Actividad;
+		
+		private string _Entorno;
+		
+		private string _Fecha;
+		
+		private System.Nullable<int> _Id_Encargado;
+		
+		private EntitySet<Funcion> _Funcion;
+		
+		private EntityRef<Encargado> _Encargado;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnId_SesionChanging(int value);
+    partial void OnId_SesionChanged();
+    partial void OnActividadChanging(string value);
+    partial void OnActividadChanged();
+    partial void OnEntornoChanging(string value);
+    partial void OnEntornoChanged();
+    partial void OnFechaChanging(string value);
+    partial void OnFechaChanged();
+    partial void OnId_EncargadoChanging(System.Nullable<int> value);
+    partial void OnId_EncargadoChanged();
+    #endregion
+		
+		public Sesion()
+		{
+			this._Funcion = new EntitySet<Funcion>(new Action<Funcion>(this.attach_Funcion), new Action<Funcion>(this.detach_Funcion));
+			this._Encargado = default(EntityRef<Encargado>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Sesion", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int Id_Sesion
+		{
+			get
+			{
+				return this._Id_Sesion;
+			}
+			set
+			{
+				if ((this._Id_Sesion != value))
+				{
+					this.OnId_SesionChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Sesion = value;
+					this.SendPropertyChanged("Id_Sesion");
+					this.OnId_SesionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Actividad", DbType="VarChar(30)")]
+		public string Actividad
+		{
+			get
+			{
+				return this._Actividad;
+			}
+			set
+			{
+				if ((this._Actividad != value))
+				{
+					this.OnActividadChanging(value);
+					this.SendPropertyChanging();
+					this._Actividad = value;
+					this.SendPropertyChanged("Actividad");
+					this.OnActividadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Entorno", DbType="VarChar(MAX)")]
+		public string Entorno
+		{
+			get
+			{
+				return this._Entorno;
+			}
+			set
+			{
+				if ((this._Entorno != value))
+				{
+					this.OnEntornoChanging(value);
+					this.SendPropertyChanging();
+					this._Entorno = value;
+					this.SendPropertyChanged("Entorno");
+					this.OnEntornoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fecha", DbType="VarChar(MAX)")]
+		public string Fecha
+		{
+			get
+			{
+				return this._Fecha;
+			}
+			set
+			{
+				if ((this._Fecha != value))
+				{
+					this.OnFechaChanging(value);
+					this.SendPropertyChanging();
+					this._Fecha = value;
+					this.SendPropertyChanged("Fecha");
+					this.OnFechaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Encargado", DbType="Int")]
+		public System.Nullable<int> Id_Encargado
+		{
+			get
+			{
+				return this._Id_Encargado;
+			}
+			set
+			{
+				if ((this._Id_Encargado != value))
+				{
+					if (this._Encargado.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnId_EncargadoChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Encargado = value;
+					this.SendPropertyChanged("Id_Encargado");
+					this.OnId_EncargadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sesion_Funcion", Storage="_Funcion", ThisKey="Id_Sesion", OtherKey="Id_Sesion")]
+		public EntitySet<Funcion> Funcion
+		{
+			get
+			{
+				return this._Funcion;
+			}
+			set
+			{
+				this._Funcion.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Encargado_Sesion", Storage="_Encargado", ThisKey="Id_Encargado", OtherKey="Id_Encargado", IsForeignKey=true)]
+		public Encargado Encargado
+		{
+			get
+			{
+				return this._Encargado.Entity;
+			}
+			set
+			{
+				Encargado previousValue = this._Encargado.Entity;
+				if (((previousValue != value) 
+							|| (this._Encargado.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Encargado.Entity = null;
+						previousValue.Sesion.Remove(this);
+					}
+					this._Encargado.Entity = value;
+					if ((value != null))
+					{
+						value.Sesion.Add(this);
+						this._Id_Encargado = value.Id_Encargado;
+					}
+					else
+					{
+						this._Id_Encargado = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Encargado");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Funcion(Funcion entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sesion = this;
+		}
+		
+		private void detach_Funcion(Funcion entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sesion = null;
 		}
 	}
 	

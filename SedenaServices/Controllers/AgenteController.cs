@@ -85,7 +85,38 @@ namespace SedenaServices.Controllers
         public string agregarAgente(EntradaCLS data)
         {
             JObject json = JObject.Parse(data.data);
-            string respuesta ="";
+            string respuesta = "";
+            List<AgenteCLS> matri = new List<AgenteCLS>() { };
+            using (DBSedenaDataContext bd = new DBSedenaDataContext())
+            {
+                 matri = (from usuario in bd.Agente
+
+                                               select new AgenteCLS
+                                               {
+                                                   idAgente= usuario.Id_Agente,
+                                                   matricula = usuario.Matricula
+                                               }).ToList();
+  
+            }
+            int bandera = 0;
+            foreach (var x in matri)
+            { 
+                if(x.matricula.Equals((string)json["matricula"]))
+                      {
+                    if (x.idAgente.Equals((int)json["idAgente"]))
+                    {
+                        bandera = 0;
+                    }
+                    else 
+                    {
+                        bandera=1;
+                        break;
+                    }
+                    
+            }   
+            }
+
+            if (bandera==0) { 
             try
             {
                 using (DBSedenaDataContext bd = new DBSedenaDataContext())
@@ -110,7 +141,7 @@ namespace SedenaServices.Controllers
                         nuevoAgente.Nombre = (string)json["nombre"];
                         nuevoAgente.Distintivo = (string)json["distintivo"];
                         nuevoAgente.Arma = (string)json["arma"];
-                        nuevoAgente.Existencia = (int)json["existencia"];
+                        nuevoAgente.Existencia = 1;
                         bd.Agente.InsertOnSubmit(nuevoAgente);
                         bd.SubmitChanges();
                         respuesta = "Insertado";
@@ -124,7 +155,7 @@ namespace SedenaServices.Controllers
                         aux.Nombre = (string)json["nombre"];
                         aux.Distintivo = (string)json["distintivo"];
                         aux.Arma = (string)json["arma"];
-                        aux.Existencia = (int)json["existencia"];
+                        aux.Existencia = 1;
                         bd.SubmitChanges();
                         respuesta = "Actualizado";
                     }
@@ -135,8 +166,13 @@ namespace SedenaServices.Controllers
                 respuesta = ex.Message;
             }
             return respuesta;
+            }
+            else
+            {
+                return respuesta = "Matricula ya existente";
+            }
 
-           // return "Estos me enviaste"+oUsuario.id_Agente+" , " + oUsuario.matricula + " , " + oUsuario.grado + " , " + oUsuario.nombre + " , " + oUsuario.distintivo + " , " + oUsuario.arma + " , " + oUsuario.existencia;
+            // return "Estos me enviaste"+oUsuario.id_Agente+" , " + oUsuario.matricula + " , " + oUsuario.grado + " , " + oUsuario.nombre + " , " + oUsuario.distintivo + " , " + oUsuario.arma + " , " + oUsuario.existencia;
         }
 
         [HttpGet]
@@ -224,7 +260,7 @@ namespace SedenaServices.Controllers
                 AgenteCLS aux = new AgenteCLS();
                 foreach (var a in listarAgente)
                 {
-                    if (a.distintivo.Equals(distintivo))
+                    if (a.distintivo.ToLower().Equals(distintivo.ToLower()))
                     {
                         aux = a;
                         break;

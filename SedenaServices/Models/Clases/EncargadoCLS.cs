@@ -8,7 +8,7 @@ namespace SedenaServices.Models.Clases
     public class EncargadoCLS
     {
         public int idEncargado { get; set; }
-        public string tipoEncargado { get; set; }
+        public string usuario { get; set; }
         public string pass { get; set; }
         public int idAgente { get; set; }
         public string nombre { get; set; }
@@ -18,10 +18,10 @@ namespace SedenaServices.Models.Clases
         public string arma { get; set; }
         public int existencia { get; set; }
 
-        public EncargadoCLS(int idEncargado, string tipoEncargado, string pass, int idAgente)
+        public EncargadoCLS(int idEncargado, string User, string pass, int idAgente)
         {
             this.idEncargado = idEncargado;
-            this.tipoEncargado = tipoEncargado;
+            this.usuario = usuario;
             this.pass = pass;
             this.idAgente = idAgente;
         }

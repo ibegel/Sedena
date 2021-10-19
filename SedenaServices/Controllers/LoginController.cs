@@ -30,7 +30,7 @@ namespace SedenaServices.Controllers
                                                           distintivo = usu.Distintivo,
                                                           arma = usu.Arma,
                                                           existencia = (int)usu.Existencia,
-                                                          tipoEncargado = encar.Tipo_Encargado,
+                                                          usuario = encar.Usuario,
                                                           pass = encar.Pass,
 
                                                           idAgente = usu.Id_Agente
@@ -38,7 +38,7 @@ namespace SedenaServices.Controllers
                 EncargadoCLS aux = new EncargadoCLS();
                 foreach (var a in listarEncargado)
                 {
-                    if (a.matricula.Equals(user))
+                    if (a.usuario.Equals(user))
                     {
                         aux = a;
                         break;

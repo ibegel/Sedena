@@ -7,6 +7,7 @@ using System.Web.Http;
 using SedenaServices.Models.Clases;
 using SedenaServices.Models;
 using System.Web.Http.Cors;
+using Newtonsoft.Json.Linq;
 
 namespace SedenaServices.Controllers
 {
@@ -60,95 +61,178 @@ namespace SedenaServices.Controllers
         }
 
 
-        [HttpPut]
-        public int inhabilitarEncargado(int id_Encargado)
-        {
-            int respuesta = 0;
-            try
-            {
-                using (DBSedenaDataContext bd = new DBSedenaDataContext())
-                {
-                    Encargado oEncargado = bd.Encargado.Where(p => p.Id_Encargado == id_Encargado).First();
-                    oEncargado.Tipo_Encargado = "Inhabilitado";
-                    bd.SubmitChanges();
-                    respuesta = 1;
-                }
-            }
-            catch (Exception ex)
-            {
-                respuesta = 0;
-            }
-            return respuesta;
-        }
         // localhost/api/Doctor/
         [HttpPost]
-        public int agregarEncargado(Encargado oEncargado)
+        public string agregarEncargado(EntradaCLS data)
         {
+            JObject json = JObject.Parse(data.data);
             int existe = 0;
-            int respuesta = 0;
+            string respuesta = "";
+            int existeen = 0;
+            List<AgenteCLS> listarAgente = new List<AgenteCLS>() { };
+            List<EncargadoCLS> listaver = new List<EncargadoCLS> { };
+
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-                List<AgenteCLS> listarAgente = (from usu in bd.Agente
+                 listarAgente = (from usu in bd.Agente
                                                 select new AgenteCLS
                                                 {
-                                                    idAgente = usu.Id_Agente
+                                                    idAgente = usu.Id_Agente,
+                                                    matricula=usu.Matricula
                                                 }).ToList();
                 foreach (var a in listarAgente)
                 {
-                    if (a.idAgente.Equals(oEncargado.Id_Agente))
+                    if (a.idAgente.Equals((int)json["idAgente"]))
                     {
                         existe = 1;
                         break;
                     }
                 }
+
+                 listaver = (from encar in bd.Encargado
+                                                      join usua in bd.Agente
+                                                      on encar.Id_Agente equals usua.Id_Agente
+                                                      select new EncargadoCLS
+                                                      {
+                                                          idAgente = (int)encar.Id_Agente,
+                                                          usuario=(string)encar.Usuario,
+
+
+                                                      }).ToList();
+
+               
             }
+            int bandera = 0;
 
-            if (existe == 1)
+            foreach (var x in listarAgente)
             {
-                
-                try
+                if (x.matricula.Equals((string)json["matricula"]))
                 {
-                    using (DBSedenaDataContext bd = new DBSedenaDataContext())
+                    if (x.idAgente.Equals((int)json["idAgente"]))
                     {
-                        if (oEncargado.Id_Encargado == 0)
-                        {
-                            List<EncargadoCLS> listaEncargado = (from encarga in bd.Encargado
-                                                                 where encarga.Tipo_Encargado != "Inhabilitado"
-                                                                 select new EncargadoCLS
-                                                                 {
-                                                                     idEncargado = encarga.Id_Encargado
-                                                                 }).ToList();
-
-                            oEncargado.Id_Encargado = listaEncargado.Count() + 1;
-                            bd.Encargado.InsertOnSubmit(oEncargado);
-                            bd.SubmitChanges();
-                            respuesta = 1;
-                        }
-                        else
-                        {
-                            Encargado aux = bd.Encargado.Where(p => p.Id_Encargado == oEncargado.Id_Encargado).First();
-                            aux.Id_Encargado = oEncargado.Id_Encargado;
-                            aux.Tipo_Encargado = oEncargado.Tipo_Encargado;
-                            aux.Pass = oEncargado.Pass;
-                            aux.Id_Agente = oEncargado.Id_Agente;
-                            bd.SubmitChanges();
-                            respuesta = 1;
-                        }
+                        bandera = 0;
+                    }
+                    else
+                    {
+                        bandera = 1;
+                        break;
                     }
                 }
-                catch (Exception ex)
+            }
+            
+                if (bandera == 0)
                 {
-                    respuesta = 0;
+                    if (existe == 1)
+                    {
+
+                        try
+                        {
+                            using (DBSedenaDataContext bd = new DBSedenaDataContext())
+                            {
+                                Encargado nuevo = new Encargado();
+                            ///crear encargado
+                                if ((int)json["idEncargado"] == 0)
+                                {
+                                List<EncargadoCLS> listaEncargado = (from encarga in bd.Encargado
+                                                                     select new EncargadoCLS
+                                                                     {
+                                                                         idEncargado = encarga.Id_Encargado,
+                                                                         idAgente=(int)encarga.Id_Agente
+                                                                     }).ToList();
+
+                                int idDuplicado = 0;
+                                foreach (var x in listaEncargado)
+                                {
+                                    if (x.idAgente == (int)json["idAgente"])
+                                    {
+                                        idDuplicado = 1;
+                                        break;
+                                    }
+                                }
+
+                                if (idDuplicado == 0)
+                                {
+
+                                    if (listaEncargado.Last().idEncargado.Equals(listaEncargado.Count() + 1))
+                                    {
+                                        nuevo.Id_Encargado = listaEncargado.Count() + 2;
+                                    }
+                                    else
+                                    {
+                                        nuevo.Id_Encargado = listaEncargado.Count() + 1;
+                                    }
+                                    nuevo.Usuario = (string)json["usuario"];
+                                    nuevo.Pass = (string)json["password"];
+                                    nuevo.Id_Agente = (int)json["idAgente"];
+
+
+
+
+                                    Agente aux1 = bd.Agente.Where(p => p.Id_Agente == (int)json["idAgente"]).First();
+                                    aux1.Id_Agente = (int)json["idAgente"];
+                                    aux1.Matricula = (string)json["matricula"];
+                                    aux1.Grado = (string)json["grado"];
+                                    aux1.Nombre = (string)json["nombre"];
+                                    aux1.Distintivo = (string)json["distintivo"];
+                                    aux1.Arma = (string)json["arma"];
+                                    aux1.Existencia = 1;
+                                    bd.Encargado.InsertOnSubmit(nuevo);
+                                    bd.SubmitChanges();
+                                    respuesta += "Agente Actualizado";
+                                    respuesta += "Encargado Insertado";
+                                    return respuesta;
+                                }
+                                else 
+                                {
+                                    respuesta = "El agente ya es encargado";
+                                }
+
+                                }
+                                //Borrar Encargado
+                                else
+                                {
+                                    Agente aux1 = bd.Agente.Where(p => p.Matricula == (string)json["matricula"]).First();
+                                    aux1.Id_Agente = (int)json["idAgente"];
+                                    aux1.Matricula = (string)json["matricula"];
+                                    aux1.Grado = (string)json["grado"];
+                                    aux1.Nombre = (string)json["nombre"];
+                                    aux1.Distintivo = (string)json["distintivo"];
+                                    aux1.Arma = (string)json["arma"];
+                                    aux1.Existencia = 1;
+                                    bd.SubmitChanges();
+                                    respuesta += "Agente Actualizado";
+                                    Encargado aux = bd.Encargado.Where(p => p.Id_Encargado == (int)json["idEncargado"]).First();
+                                    aux.Id_Encargado = (int)json["idEncargado"];
+                                    aux.Usuario = (string)json["usuario"];
+                                    aux.Pass = (string)json["password"];
+                                    aux.Id_Agente = (int)json["idAgente"];
+                                    bd.SubmitChanges();
+                                    respuesta += "Encargado Actualizado";
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            respuesta ="soy un error"+ ex.Message;
+                        }
+                        return respuesta;
+                    }
+                    else
+                    {
+                        return respuesta = "No existe el Agente";
+                    }
+
                 }
-                return respuesta;
-            }
-            else
-            {
-                return respuesta = -1;
-            }
+                else
+                {
+                    return respuesta = "Matricula Erronea o Duplicada";
+                }
+           
         }
 
-        // localhost/api/Doctor/?iidDoctor=
+        /// localhost/api/Doctor/?iidDoctor=
+        /// 
+        
         [HttpGet]
         public EncargadoCLS recuperarEncargado(int id_Encargado)
         {
@@ -167,7 +251,7 @@ namespace SedenaServices.Controllers
                                                distintivo = usu.Distintivo,
                                                arma = usu.Arma,
                                                existencia = (int)usu.Existencia,
-                                               tipoEncargado = encar.Tipo_Encargado,
+                                               usuario = encar.Usuario,
                                                pass = encar.Pass,
 
                                                idAgente = usu.Id_Agente
@@ -194,7 +278,7 @@ namespace SedenaServices.Controllers
                                                           distintivo = usu.Distintivo,
                                                           arma = usu.Arma,
                                                           existencia = (int)usu.Existencia,
-                                                          tipoEncargado = encar.Tipo_Encargado,
+                                                          usuario = encar.Usuario,
                                                           pass = encar.Pass,
 
                                                           idAgente = usu.Id_Agente
@@ -202,7 +286,43 @@ namespace SedenaServices.Controllers
                 EncargadoCLS aux = new EncargadoCLS();
                 foreach (var a in listarEncargado)
                 {
-                    if (a.nombre.Equals(nombre))
+                    if (a.nombre.ToLower().Equals(nombre.ToLower()))
+                    {
+                        aux = a;
+                        break;
+                    }
+                }
+                return aux;
+            }
+        }
+
+
+        [HttpGet]
+        public EncargadoCLS recuperarDistintivo(string distintivo)
+        {
+            using (DBSedenaDataContext bd = new DBSedenaDataContext())
+            {
+                List<EncargadoCLS> listarEncargado = (from encar in bd.Encargado
+                                                      join usu in bd.Agente
+                                                      on encar.Id_Agente equals usu.Id_Agente
+                                                      select new EncargadoCLS
+                                                      {
+                                                          idEncargado = encar.Id_Encargado,
+                                                          matricula = usu.Matricula,
+                                                          grado = usu.Grado,
+                                                          nombre = usu.Nombre,
+                                                          distintivo = usu.Distintivo,
+                                                          arma = usu.Arma,
+                                                          existencia = (int)usu.Existencia,
+                                                          usuario = encar.Usuario,
+                                                          pass = encar.Pass,
+
+                                                          idAgente = usu.Id_Agente
+                                                      }).ToList();
+                EncargadoCLS aux = new EncargadoCLS();
+                foreach (var a in listarEncargado)
+                {
+                    if (a.distintivo.ToLower().Equals(distintivo.ToLower()))
                     {
                         aux = a;
                         break;
@@ -229,7 +349,7 @@ namespace SedenaServices.Controllers
                                                           distintivo = usu.Distintivo,
                                                           arma = usu.Arma,
                                                           existencia = (int)usu.Existencia,
-                                                          tipoEncargado = encar.Tipo_Encargado,
+                                                          usuario = encar.Usuario,
                                                           pass = encar.Pass,
 
                                                           idAgente = usu.Id_Agente
