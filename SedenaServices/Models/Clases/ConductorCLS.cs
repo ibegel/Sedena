@@ -8,16 +8,20 @@ namespace SedenaServices.Models.Clases
     public class ConductorCLS
     {
         public int idFuncion { get; set; }
-        public int idVehiculo { get; set; }
+        public int colisiones { get; set; }
+        public float tiempo { get; set; }
+        public bool misionCumplida {get; set;}
+        public bool usoCorrecto { get; set; }
 
         public ConductorCLS()
         {
             
         }
-        public ConductorCLS(int id_Funcion,int id_Vehiculo)
-        {
-            this.idFuncion = id_Funcion;
-            this.idVehiculo = id_Vehiculo;
-        }
     }
+    [Serializable]
+    public class ConductoresCLS
+    {
+        public ConductorCLS[] conductores;
+    }
+
 }

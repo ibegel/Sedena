@@ -163,27 +163,21 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AgenteController.cs" />
-    <Compile Include="Controllers\ArmaController.cs" />
-    <Compile Include="Controllers\ConductorController.cs" />
     <Compile Include="Controllers\ConfiguracionController.cs" />
     <Compile Include="Controllers\EncargadoController.cs" />
+    <Compile Include="Controllers\EntornoController.cs" />
     <Compile Include="Controllers\EvaluacionController.cs" />
-    <Compile Include="Controllers\FuncionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\PersonaController.cs" />
-    <Compile Include="Controllers\SesionController.cs" />
-    <Compile Include="Controllers\TiradorController.cs" />
     <Compile Include="Controllers\UpdateController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Controllers\VehiculoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Clases\AgenteCLS.cs" />
-    <Compile Include="Models\Clases\ArmaCLS.cs" />
     <Compile Include="Models\Clases\ConductorCLS.cs" />
     <Compile Include="Models\Clases\EncargadoCLS.cs" />
+    <Compile Include="Models\Clases\EntornoCLS.cs" />
     <Compile Include="Models\Clases\EntradaCLS.cs" />
     <Compile Include="Models\Clases\EvaluacionCLS.cs" />
     <Compile Include="Models\Clases\FuncionCLS.cs" />
@@ -192,7 +186,6 @@
     <Compile Include="Models\Clases\SesionCLS.cs" />
     <Compile Include="Models\Clases\TiradorCLS.cs" />
     <Compile Include="Models\Clases\UpdateCLS.cs" />
-    <Compile Include="Models\Clases\VehiculoCLS.cs" />
     <Compile Include="Models\DBSedena.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

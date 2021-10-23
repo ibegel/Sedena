@@ -14,6 +14,10 @@ namespace SedenaServices.Models.Clases
         public string entorno { get; set; }
         public string fecha { get; set; }
         public float tiempo { get; set; }
+        public int colisiones { get; set; }
+
+        public string matriculaEncargado { get; set; }
+        public int idEncargado { get; set; }
         public int disparosRealizados { get; set; }
         public int disparosAcertados { get; set; }
         public int disparosColateral { get; set; }
@@ -48,6 +52,6 @@ namespace SedenaServices.Models.Clases
     [Serializable]
     public class EvaluacionesCLS
     {
-        public EvaluacionCLS[] lista;
+        public List<EvaluacionCLS> lista=new List<EvaluacionCLS>() { };
     }
 }

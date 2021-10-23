@@ -26,23 +26,90 @@ namespace SedenaServices.Controllers
                 EvaluacionCLS[] evaluado = (from fun in bd.Funcion
                                                        join age in bd.Agente on fun.Id_Agente equals age.Id_Agente
                                                        join tira in bd.Tirador on fun.Id_Funcion equals tira.Id_Funcion
+                                                       join ses in bd.Sesion on fun.Id_Sesion equals ses.Id_Sesion
                                                        
-                                                       select new EvaluacionCLS
+
+                                            select new EvaluacionCLS
                                                        {
                                                            funcion = fun.Funcion1,
                                                            nombre = age.Nombre,
                                                            matricula = age.Matricula,
+                                                           usoCorrecto=(bool)tira.Uso_Correcto,
+                                                           misionCumplida=(bool)tira.Mision_Cumplida,
                                                            disparosRealizados = (int)tira.Disparos_Realizados,
                                                            disparosAcertados = (int)tira.Disparos_Acertados,
-                                                           disparosColateral = (int)tira.Disparos_Colateral,
+                                                idEncargado = (int)ses.Id_Encargado,
+                                                disparosColateral = (int)tira.Disparos_Colateral,
                                                            bajasMilitares = (int)tira.Bajas_Militares,
                                                            bajasColaterales = (int)tira.Bajas_Colaterales,
                                                            bajasEnemigos = (int)tira.Bajas_Enemigos,
                                                            tiempo=(float)tira.Tiempo,
-                                                       }).ToArray();
-                final.lista = evaluado;
+                                                           actividad=ses.Actividad,
+                                                           entorno= ses.Entorno,
+                                                           fecha=ses.Fecha,
+                                                          
+                                            }).ToArray();
+                for (int x = 0; x < evaluado.Length; x++)
+                {
+                    EncargadoCLS listarEncargado = (from encar in bd.Encargado
+                                                    join usu in bd.Agente
+                                                    on encar.Id_Agente equals usu.Id_Agente
+                                                    where encar.Id_Encargado == evaluado[x].idEncargado
+                                                    select new EncargadoCLS
+                                                    {
+                                                        matricula = usu.Matricula
+                                                    }).First();
+                    evaluado[x].matriculaEncargado = listarEncargado.matricula;
+                }
+
+                foreach (var x in evaluado)
+                {
+                    final.lista.Add(x);
+                }
                 
                 
+
+            }
+            using (DBSedenaDataContext bd = new DBSedenaDataContext())
+            {
+
+                EvaluacionCLS[] evaluado = (from fun in bd.Funcion
+                                            join age in bd.Agente on fun.Id_Agente equals age.Id_Agente
+                                            join con in bd.Conductor on fun.Id_Funcion equals con.Id_Funcion
+                                            join ses in bd.Sesion on fun.Id_Sesion equals ses.Id_Sesion
+
+                                            select new EvaluacionCLS
+                                            {
+                                                funcion = fun.Funcion1,
+                                                nombre = age.Nombre,
+                                                matricula = age.Matricula,
+                                                usoCorrecto = (bool)con.Uso_Correcto,
+                                                idEncargado=(int)ses.Id_Encargado,
+                                                misionCumplida = (bool)con.Mision_Cumplida,
+                                                colisiones=(int)con.Colisiones,
+                                                tiempo = (float)con.Tiempo,
+                                                actividad = ses.Actividad,
+                                                entorno = ses.Entorno,
+                                                fecha = ses.Fecha,
+                                            }).ToArray();
+                for (int x = 0; x < evaluado.Length; x++)
+                {
+                    EncargadoCLS listarEncargado = (from encar in bd.Encargado
+                                                    join usu in bd.Agente
+                                                    on encar.Id_Agente equals usu.Id_Agente
+                                                    where encar.Id_Encargado == evaluado[x].idEncargado
+                                                    select new EncargadoCLS
+                                                    {
+                                                        matricula = usu.Matricula
+                                                    }).First();
+                    evaluado[x].matriculaEncargado = listarEncargado.matricula;
+                }
+
+                foreach (var x in evaluado)
+                {
+                    final.lista.Add(x);
+                }
+
 
             }
             return final;
@@ -70,7 +137,6 @@ namespace SedenaServices.Controllers
                                                            bajasColaterales = (int)tira.Bajas_Colaterales,
                                                            bajasEnemigos = (int)tira.Bajas_Enemigos
 
-
                                                        }).ToList();
                 EvaluacionesCLS final = new EvaluacionesCLS();
                 List<EvaluacionCLS> aux = new List<EvaluacionCLS>();
@@ -83,7 +149,7 @@ namespace SedenaServices.Controllers
 
                     }
                 }
-                final.lista = aux.ToArray();
+                final.lista = aux;
                 return final;
 
             }
@@ -158,7 +224,6 @@ namespace SedenaServices.Controllers
                         if (oFuncion.Funcion1 == "Tirador")
                         {
                             Tirador tiraaxu = new Tirador();
-                            tiraaxu.Id_Arma = 1;
                             tiraaxu.Id_Funcion = oFuncion.Id_Funcion;
                             tiraaxu.Uso_Correcto = (bool)json["usoCorrecto"];
                             tiraaxu.Mision_Cumplida = (bool)json["misionCumplida"];
@@ -170,6 +235,16 @@ namespace SedenaServices.Controllers
                             tiraaxu.Bajas_Enemigos = (int)json["bajasEnemigos"]; 
                             tiraaxu.Tiempo = (float)json["tiempo"];
                             bd.Tirador.InsertOnSubmit(tiraaxu);
+                        }
+                        if (oFuncion.Funcion1 == "Conductor")
+                        {
+                            Conductor conducaxu = new Conductor();
+                            conducaxu.Id_Funcion = oFuncion.Id_Funcion;
+                            conducaxu.Uso_Correcto = (bool)json["usoCorrecto"];
+                            conducaxu.Mision_Cumplida = (bool)json["misionCumplida"];
+                            conducaxu.Colisiones = (int)json["colisiones"];
+                            conducaxu.Tiempo = (float)json["tiempo"];
+                            bd.Conductor.InsertOnSubmit(conducaxu);
                         }
                         bd.SubmitChanges();
                         respuesta = "Agregado";
@@ -196,11 +271,9 @@ namespace SedenaServices.Controllers
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
                 cal.listaTiradores = (from tira in bd.Tirador
-
                                       select new TiradorCLS
                                       {
                                           idFuncion = (int)tira.Id_Funcion,
-                                          idArma = (int)tira.Id_Arma,
                                           disparosRealizados = (int)tira.Disparos_Realizados,
                                           disparosAcertados = (int)tira.Disparos_Acertados,
                                           disparosColateral = (int)tira.Disparos_Colateral,
@@ -210,10 +283,20 @@ namespace SedenaServices.Controllers
                                           usoCorrecto = (bool)tira.Uso_Correcto,
                                           misionCumplida = (bool)tira.Mision_Cumplida
                                       }).ToArray(); 
+                cal.listaConductores = (from conduc in bd.Conductor
+                                                       select new ConductorCLS
+                                                       {
+                                                           idFuncion = (int)conduc.Id_Funcion,
+                                                           colisiones = (int)conduc.Colisiones,
+                                                           tiempo = (int)conduc.Tiempo,
+                                                           misionCumplida = (bool)conduc.Mision_Cumplida,
+                                                           usoCorrecto = (bool)conduc.Uso_Correcto
+
+                                                       }).ToArray();
             }
             return cal;
         }
-
+       
 
         
 

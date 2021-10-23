@@ -31,7 +31,7 @@ namespace SedenaServices.Controllers
                                                           arma = usu.Arma,
                                                           existencia = (int)usu.Existencia,
                                                           usuario = encar.Usuario,
-                                                          pass = encar.Pass,
+                                                          password = encar.Pass,
 
                                                           idAgente = usu.Id_Agente
                                                       }).ToList();
@@ -50,7 +50,7 @@ namespace SedenaServices.Controllers
                 }
                 else
                 {
-                    if (aux.pass == password)
+                    if (aux.password == password)
                     {
                         return 1;
                     }

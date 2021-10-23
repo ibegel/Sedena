@@ -17,24 +17,26 @@ namespace SedenaServices.Controllers
     {
         [HttpGet]
         // localhost/api/Doctor
-        public AgentesCLS listaEncargado()
+        public EncargadosCLS listaEncargado()
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
-                List<AgenteCLS> listarEncargado = (from encar in bd.Encargado
+                List<EncargadoCLS> listarEncargado = (from encar in bd.Encargado
                                                       join usu in bd.Agente
                                                       on encar.Id_Agente equals usu.Id_Agente
-                                                      select new AgenteCLS
+                                                      select new EncargadoCLS
                                                       {
                                                           matricula = usu.Matricula,
                                                           grado = usu.Grado,
                                                           nombre = usu.Nombre,
                                                           distintivo = usu.Distintivo,
                                                           arma = usu.Arma,
-                                                          idAgente = usu.Id_Agente
+                                                          idAgente = usu.Id_Agente,
+                                                          usuario=encar.Usuario,
+                                                          password=encar.Pass
                                                       }).ToList();
-                AgentesCLS encargados = new AgentesCLS();
-                encargados.agentes = listarEncargado.ToArray();
+                EncargadosCLS encargados = new EncargadosCLS();
+                encargados.encargados = listarEncargado.ToArray();
                 return encargados;
             }
         }
@@ -252,7 +254,7 @@ namespace SedenaServices.Controllers
                                                arma = usu.Arma,
                                                existencia = (int)usu.Existencia,
                                                usuario = encar.Usuario,
-                                               pass = encar.Pass,
+                                               password = encar.Pass,
 
                                                idAgente = usu.Id_Agente
                                            }).First();
@@ -279,7 +281,7 @@ namespace SedenaServices.Controllers
                                                           arma = usu.Arma,
                                                           existencia = (int)usu.Existencia,
                                                           usuario = encar.Usuario,
-                                                          pass = encar.Pass,
+                                                          password = encar.Pass,
 
                                                           idAgente = usu.Id_Agente
                                                       }).ToList();
@@ -315,7 +317,7 @@ namespace SedenaServices.Controllers
                                                           arma = usu.Arma,
                                                           existencia = (int)usu.Existencia,
                                                           usuario = encar.Usuario,
-                                                          pass = encar.Pass,
+                                                          password = encar.Pass,
 
                                                           idAgente = usu.Id_Agente
                                                       }).ToList();
@@ -350,7 +352,7 @@ namespace SedenaServices.Controllers
                                                           arma = usu.Arma,
                                                           existencia = (int)usu.Existencia,
                                                           usuario = encar.Usuario,
-                                                          pass = encar.Pass,
+                                                          password = encar.Pass,
 
                                                           idAgente = usu.Id_Agente
                                                       }).ToList();

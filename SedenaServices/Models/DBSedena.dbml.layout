@@ -1,115 +1,95 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 14, 9.375" name="DBSedena">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.5, 12.5" name="DBSedena">
   <DataContextMoniker Name="/DBSedenaDataContext" />
   <nestedChildShapes>
-    <classShape Id="332eaee3-4c3f-4d12-be7a-b40d6ea6e63f" absoluteBounds="0.75, 7.5, 2, 1.3862939453124996">
-      <DataClassMoniker Name="/DBSedenaDataContext/Actualizacion" />
-      <nestedChildShapes>
-        <elementListCompartment Id="a30fb586-3751-4d51-b001-c48dbf250f4f" absoluteBounds="0.765, 7.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="0b88e3eb-8829-4951-9753-fe87d24a3a0a" absoluteBounds="11.75, 4.625, 2, 1.1939925130208335">
-      <DataClassMoniker Name="/DBSedenaDataContext/Conductor" />
-      <nestedChildShapes>
-        <elementListCompartment Id="a8e78aac-a0d3-4b31-af1a-54d54f4a9226" absoluteBounds="11.765, 5.085, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="c6f0db27-0498-4e7b-9be0-9643c99aa5ab" absoluteBounds="9, 1.375, 2, 1.3862939453125003">
-      <DataClassMoniker Name="/DBSedenaDataContext/Arma" />
-      <nestedChildShapes>
-        <elementListCompartment Id="c1c90bdc-35e2-4772-a7ea-bb258f70d98b" absoluteBounds="9.015, 1.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="ebdb68c7-c676-4686-89af-b0af81f110d5" absoluteBounds="0.75, 4.125, 2, 2.1554996744791675">
+    <classShape Id="e375d6d5-b57e-4260-97a6-4c679c0d9e20" absoluteBounds="2.125, 9.5, 2, 2.1554996744791666">
       <DataClassMoniker Name="/DBSedenaDataContext/Agente" />
       <nestedChildShapes>
-        <elementListCompartment Id="e6a760ce-395e-4c5a-8444-c9543a4e419b" absoluteBounds="0.765, 4.585, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="970565b5-41bc-4fae-ad03-90f0c9d9ed08" absoluteBounds="2.14, 9.96, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="c8c3b789-11de-4a50-acf3-6043370d4cf5" absoluteBounds="3.5, 4.375, 2, 1.5785953776041666">
-      <DataClassMoniker Name="/DBSedenaDataContext/Encargado" />
+    <classShape Id="1450f9f4-4416-4d28-b2c3-468f6fe35715" absoluteBounds="2.5, 3.375, 2, 1.3862939453125">
+      <DataClassMoniker Name="/DBSedenaDataContext/Actualizacion" />
       <nestedChildShapes>
-        <elementListCompartment Id="2920064f-3b66-4e7e-a989-0186a9c9a656" absoluteBounds="3.515, 4.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="55cd1171-097c-4680-83af-dc8a2a9c9c0f" absoluteBounds="2.5150000000000006, 3.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="ed2bfdf9-54b4-4e16-acfb-987f0d48dc07" absoluteBounds="9, 4.375, 2, 1.5785953776041666">
+    <classShape Id="51a48d1a-439b-44f9-b92e-959eb2a564e0" absoluteBounds="8.625, 6.625, 2, 1.7708968098958327">
+      <DataClassMoniker Name="/DBSedenaDataContext/Conductor" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f9fb9717-e9dd-4fab-9c02-af9a4821aae1" absoluteBounds="8.64, 7.0850000000000009, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7836b98e-ed18-4aaa-83bb-45821ad21b9d" absoluteBounds="5.375, 9.75, 2, 1.5785953776041666">
       <DataClassMoniker Name="/DBSedenaDataContext/Funcion" />
       <nestedChildShapes>
-        <elementListCompartment Id="39ed2d37-27a0-48e9-b753-5fa3929ee104" absoluteBounds="9.015, 4.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="db6af3ac-331d-41cf-a840-c650f53e6b42" absoluteBounds="5.3900000000000006, 10.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="39787934-40fb-4f23-801e-1b4fb31bbfe1" absoluteBounds="11.75, 0.75, 2, 2.9247054036458326">
-      <DataClassMoniker Name="/DBSedenaDataContext/Tirador" />
+    <classShape Id="3fca0b2b-4423-46b2-9ec2-82fe49f38fee" absoluteBounds="6.875, 3.25, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/DBSedenaDataContext/Entorno" />
       <nestedChildShapes>
-        <elementListCompartment Id="feb400e9-ac69-4d61-b2cf-f131f6dbe4a1" absoluteBounds="11.765, 1.21, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="97b905bf-244c-4ade-9ef7-1f05396e20b0" absoluteBounds="6.8900000000000006, 3.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="f25c2f6a-850a-4481-bdcf-b5417b0c730b" absoluteBounds="6.25, 4.375, 2, 1.7708968098958327">
+    <classShape Id="c13ad5ff-c267-4436-9cbf-d443ea32232a" absoluteBounds="2.25, 6.375, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/DBSedenaDataContext/Encargado" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8a756e83-b310-4533-a8f9-1567adb5e505" absoluteBounds="2.2650000000000006, 6.8350000000000009, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="76f7a910-15b7-4611-a029-d3ea74613110" absoluteBounds="5.375, 6.5, 2, 1.7708968098958344">
       <DataClassMoniker Name="/DBSedenaDataContext/Sesion" />
       <nestedChildShapes>
-        <elementListCompartment Id="631269df-f614-4454-9dfb-0a23337932f4" absoluteBounds="6.265, 4.835, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="77f6d42b-eb33-4d37-a1d4-feedab17ba0d" absoluteBounds="5.39, 6.9600000000000009, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="9b8bfc2b-8e65-4332-a6b8-7dc43cc61b27" absoluteBounds="9, 7.375, 2, 1.7708968098958327">
-      <DataClassMoniker Name="/DBSedenaDataContext/Vehiculo" />
+    <classShape Id="5f0414f9-252f-4529-b867-baa68696760c" absoluteBounds="9.25, 9.5, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/DBSedenaDataContext/Tirador" />
       <nestedChildShapes>
-        <elementListCompartment Id="dca0fe32-e8d8-43aa-82b6-0cfb76884872" absoluteBounds="9.015, 7.835, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="7f6543d3-d0c5-420a-9164-1824c2b01485" absoluteBounds="9.265, 9.96, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 5.16429768880208); (3.5 : 5.16429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/DBSedenaDataContext/Agente/Agente_Encargado" />
-      <nodes>
-        <classShapeMoniker Id="ebdb68c7-c676-4686-89af-b0af81f110d5" />
-        <classShapeMoniker Id="c8c3b789-11de-4a50-acf3-6043370d4cf5" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(11 : 5.22199625651042); (11.75 : 5.22199625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7.375 : 9.75); (7.75 : 9.375); (7.75 : 7.51044840494792); (8.625 : 7.51044840494792)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/DBSedenaDataContext/Funcion/Funcion_Conductor" />
       <nodes>
-        <classShapeMoniker Id="ed2bfdf9-54b4-4e16-acfb-987f0d48dc07" />
-        <classShapeMoniker Id="0b88e3eb-8829-4951-9753-fe87d24a3a0a" />
+        <classShapeMoniker Id="7836b98e-ed18-4aaa-83bb-45821ad21b9d" />
+        <classShapeMoniker Id="51a48d1a-439b-44f9-b92e-959eb2a564e0" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 6.2444482421875); (10 : 6.2444482421875); (10 : 5.95359537760417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.125 : 10.5392976888021); (5.375 : 10.5392976888021)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/DBSedenaDataContext/Agente/Agente_Funcion" />
       <nodes>
-        <classShapeMoniker Id="ebdb68c7-c676-4686-89af-b0af81f110d5" />
-        <classShapeMoniker Id="ed2bfdf9-54b4-4e16-acfb-987f0d48dc07" />
+        <classShapeMoniker Id="e375d6d5-b57e-4260-97a6-4c679c0d9e20" />
+        <classShapeMoniker Id="7836b98e-ed18-4aaa-83bb-45821ad21b9d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11 : 4.375); (11.375 : 4); (11.375 : 2.21235270182292); (11.75 : 2.21235270182292)]" fixedFrom="NotFixed" fixedTo="Algorithm">
-      <AssociationMoniker Name="/DBSedenaDataContext/Funcion/Funcion_Tirador" />
+    <associationConnector edgePoints="[(3.1875 : 9.5); (3.1875 : 7.95359537760417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DBSedenaDataContext/Agente/Agente_Encargado" />
       <nodes>
-        <classShapeMoniker Id="ed2bfdf9-54b4-4e16-acfb-987f0d48dc07" />
-        <classShapeMoniker Id="39787934-40fb-4f23-801e-1b4fb31bbfe1" />
+        <classShapeMoniker Id="e375d6d5-b57e-4260-97a6-4c679c0d9e20" />
+        <classShapeMoniker Id="c13ad5ff-c267-4436-9cbf-d443ea32232a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11 : 1.73117635091146); (11.75 : 1.73117635091146)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/DBSedenaDataContext/Arma/Arma_Tirador" />
-      <nodes>
-        <classShapeMoniker Id="c6f0db27-0498-4e7b-9be0-9643c99aa5ab" />
-        <classShapeMoniker Id="39787934-40fb-4f23-801e-1b4fb31bbfe1" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(8.25 : 5.16429768880208); (9 : 5.16429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.375 : 8.27089680989583); (6.375 : 9.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/DBSedenaDataContext/Sesion/Sesion_Funcion" />
       <nodes>
-        <classShapeMoniker Id="f25c2f6a-850a-4481-bdcf-b5417b0c730b" />
-        <classShapeMoniker Id="ed2bfdf9-54b4-4e16-acfb-987f0d48dc07" />
+        <classShapeMoniker Id="76f7a910-15b7-4611-a029-d3ea74613110" />
+        <classShapeMoniker Id="7836b98e-ed18-4aaa-83bb-45821ad21b9d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 5.16429768880208); (6.25 : 5.16429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.25 : 7.22679768880208); (5.375 : 7.22679768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/DBSedenaDataContext/Encargado/Encargado_Sesion" />
       <nodes>
-        <classShapeMoniker Id="c8c3b789-11de-4a50-acf3-6043370d4cf5" />
-        <classShapeMoniker Id="f25c2f6a-850a-4481-bdcf-b5417b0c730b" />
+        <classShapeMoniker Id="c13ad5ff-c267-4436-9cbf-d443ea32232a" />
+        <classShapeMoniker Id="76f7a910-15b7-4611-a029-d3ea74613110" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11 : 8.26044840494792); (12.75 : 8.26044840494792); (12.75 : 5.81899251302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/DBSedenaDataContext/Vehiculo/Vehiculo_Conductor" />
+    <associationConnector edgePoints="[(7.375 : 10.5705501888021); (9.25 : 10.5705501888021)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DBSedenaDataContext/Funcion/Funcion_Tirador" />
       <nodes>
-        <classShapeMoniker Id="9b8bfc2b-8e65-4332-a6b8-7dc43cc61b27" />
-        <classShapeMoniker Id="0b88e3eb-8829-4951-9753-fe87d24a3a0a" />
+        <classShapeMoniker Id="7836b98e-ed18-4aaa-83bb-45821ad21b9d" />
+        <classShapeMoniker Id="5f0414f9-252f-4529-b867-baa68696760c" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>
