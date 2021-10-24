@@ -14,6 +14,10 @@ namespace SedenaServices.Controllers
     [EnableCors(headers: "*", origins: "*", methods: "*")]
     public class AgenteController : ApiController
     {
+
+        //Este script se utiliza para acceder a la base de datos y de ella recuperar todos los agentes 
+        //Los agentes recuperados 
+        //
         [HttpGet]
         public AgentesCLS listaAgente()
         {
