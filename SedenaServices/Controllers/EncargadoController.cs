@@ -12,11 +12,16 @@ using Newtonsoft.Json.Linq;
 namespace SedenaServices.Controllers
 {
     [EnableCors(headers: "*", origins: "*", methods: "*")]
-
+    //Se encarga de admiinistar el flujo de entrada y salida de datos que existen en la tabla de Encargado y la tabla agente
+    //Esta realiza la funcion de busqueda dentro de la tabla Agente y de la tabla Encargado ya que como se propuso en la base de datos un Encargado es un Agente con privilegios
+    //Esta se ve complementada con las condiciones proporcionadas por el usuario para dar un mejor control en los mismos
+    //
+    //
     public class EncargadoController : ApiController
     {
+        //Este controlador reune los campos de dos tablas en este caso la tabla Agente y la tabla Encargado
+        //Los reune en una lista para despues convertirlos en json y retornalos 
         [HttpGet]
-        // localhost/api/Doctor
         public EncargadosCLS listaEncargado()
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
@@ -40,7 +45,10 @@ namespace SedenaServices.Controllers
                 return encargados;
             }
         }
-
+        
+        //Campo de borrado en el controlador encargado 
+        //Se proporciona el id de un Encargado y en caso de encontrarlo lo borra lo que significa que ya no tendra los privilegios que vienen dentro de este campo
+        //En caso de no encontrarlo envia un 0 el cual significara que no lo borro
         [HttpDelete]
         public int eliminarEncargado(int id_Encargado)
         {
@@ -62,8 +70,13 @@ namespace SedenaServices.Controllers
             return respuesta;
         }
 
-
-        // localhost/api/Doctor/
+        //recupera los datos ingresados por el usuarios y los guarda dentro de un Json para que sea mejor su manipulacion
+        //Recupera de la base de datos todos los agentes existentes al igual que los encargados 
+        //Y despues buscara que los campos no se repitan para que los encargados no tengas mismos nombre de usuario o matricula 
+        //Primero busca que la matricula no este repetida para evitar que se repita los datos
+        //Si la matricula esta correcta entonces se comprueba que el agente no sea un encargado ya 
+        //Si es un encargado ya entonces habilitara la opcion de actualizar los datos 
+        //Si la matricula es correcta pero el agente no es un encargado entonces el Agente sera ascendido a Encargado 
         [HttpPost]
         public string agregarEncargado(EntradaCLS data)
         {
@@ -232,9 +245,13 @@ namespace SedenaServices.Controllers
            
         }
 
-        /// localhost/api/Doctor/?iidDoctor=
-        /// 
-        
+        //Controlador que retorna un encargado especifico que cumpla la caracteristicas 
+        //Se solicita el identificador del Encargado
+        //hacemos una peticion de los campos en la tabla Agente y a la tabla encargado
+        //Generemos una lista con la union de los campos con mismas datos
+        //Si alguno de ellos cumple la condicion entonces lo recuperamos 
+        //Si nunguno cumple la condicion regresamos un Agente con los campos vacios
+
         [HttpGet]
         public EncargadoCLS recuperarEncargado(int id_Encargado)
         {
@@ -263,6 +280,12 @@ namespace SedenaServices.Controllers
             }
         }
 
+        //Controlador que retorna un encargado especifico que cumpla la caracteristicas 
+        //Se solicita el nombre del Encargado
+        //hacemos una peticion de los campos en la tabla Agente y a la tabla encargado
+        //Generemos una lista con la union de los campos con mismas datos
+        //Si alguno de ellos cumple la condicion entonces lo recuperamos 
+        //Si nunguno cumple la condicion regresamos un Agente con los campos vacios
         [HttpGet]
         public EncargadoCLS recuperarNombre(string nombre)
         {
@@ -298,7 +321,12 @@ namespace SedenaServices.Controllers
             }
         }
 
-
+        //Controlador que retorna un encargado especifico que cumpla la caracteristicas 
+        //Se solicita el distintivo del Encargado
+        //hacemos una peticion de los campos en la tabla Agente y a la tabla encargado
+        //Generemos una lista con la union de los campos con mismas datos
+        //Si alguno de ellos cumple la condicion entonces lo recuperamos 
+        //Si nunguno cumple la condicion regresamos un Agente con los campos vacios
         [HttpGet]
         public EncargadoCLS recuperarDistintivo(string distintivo)
         {
@@ -334,6 +362,13 @@ namespace SedenaServices.Controllers
             }
         }
 
+
+        //Controlador que retorna un encargado especifico que cumpla la caracteristicas 
+        //Se solicita la matricula del Encargado
+        //hacemos una peticion de los campos en la tabla Agente y a la tabla encargado
+        //Generemos una lista con la union de los campos con mismas datos
+        //Si alguno de ellos cumple la condicion entonces lo recuperamos 
+        //Si nunguno cumple la condicion regresamos un Agente con los campos vacios
         [HttpGet]
         public EncargadoCLS recuperarMatricula(string matricula)
         {

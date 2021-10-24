@@ -12,12 +12,17 @@ using Newtonsoft.Json.Linq;
 namespace SedenaServices.Controllers
 {
     [EnableCors(headers: "*", origins: "*", methods: "*")]
+
+    //Este script controla el flujo de entrada de datos en la tabla de Agente 
+    //Sirve como intermediario entre la base de datos y la web api 
+    //Proporciona un mejor control de flujo de datos ademas que cuenta con restricciones por cada una de las peticiones 
     public class AgenteController : ApiController
     {
 
-        //Este script se utiliza para acceder a la base de datos y de ella recuperar todos los agentes 
-        //Los agentes recuperados 
-        //
+        //Este controlador se utiliza para acceder a la base de datos y de ella recuperar todos los agentes 
+        //No requiere ninguno tipo de dato de entrada para poder acceder a el 
+        //Los agentes recuperados son colocados es una lista donde seran enviados en forma de json
+ 
         [HttpGet]
         public AgentesCLS listaAgente()
         {
@@ -41,7 +46,10 @@ namespace SedenaServices.Controllers
 
             }
         }
-
+        //El controlador de borrado en la tabla agente 
+        //Para acceder a el debemos de proporcionar el identificador del agente el cual sera borrado 
+        //Buscara algun agente que cumpla con el id proporcionado y lo borrara
+        //En caso de que el agente no exista proporcionara una respuesta igual a 0 
         [HttpDelete]
         public int eliminarAgente(int id_Agente)
         {
@@ -62,29 +70,13 @@ namespace SedenaServices.Controllers
             }
             return respuesta;
         }
-
-        [HttpPut]
-        public int deshabilitarAgente(int id_Agente)
-        {
-            int respuesta = 0;
-            try
-            {
-                using (DBSedenaDataContext bd = new DBSedenaDataContext())
-                {
-                    Agente oAgente = bd.Agente.Where(p => p.Id_Agente == id_Agente).First();
-                    oAgente.Nombre = "Inhabilitado";
-                    bd.SubmitChanges();
-                    respuesta = 1;
-                }
-            }
-            catch (Exception ex)
-            {
-                respuesta = 0;
-            }
-            return respuesta;
-        }
-
-
+        //Controlador de flujo de entrada de datos dentro de la tabla agente 
+        //Transforma los datos que se le entregan a un Json para un mejor manejo de los mismos
+        //Busca dentro de los campos existentes un agente que ya tenga los mismos valores en la matricula 
+        //Si la matricula es encontrada y concuerda con el id tambien proporcionado, entonces se actualiza los valores existentes
+        //Si la matricula es encontrada y no concuerda el id entonces se manda un aviso donde se menciona que la matricula ya esta en existencia
+        //Si la matricula no fue encontrada entonces se ingresa como un agente nuevo y se le asignan los datos proporcionados
+        //
         [HttpPost]
         public string agregarAgente(EntradaCLS data)
         {
@@ -178,7 +170,11 @@ namespace SedenaServices.Controllers
 
             // return "Estos me enviaste"+oUsuario.id_Agente+" , " + oUsuario.matricula + " , " + oUsuario.grado + " , " + oUsuario.nombre + " , " + oUsuario.distintivo + " , " + oUsuario.arma + " , " + oUsuario.existencia;
         }
-
+        //Controlador que retorna un agente especifico que cumpla la caracteristicas 
+        //Se solicita el id del agente 
+        //hacemos una peticion de los campos en la tabla Agente 
+        //Si alguno de ellos cumple la condicion entonces lo recuperamos 
+        //Si nunguno cumple la condicion regresamos un Agente con los campos vacios
         [HttpGet]
         public AgenteCLS recuperarAgente(int id_Agente)
         {
@@ -212,6 +208,12 @@ namespace SedenaServices.Controllers
             
         }
 
+        //Controlador que retorna un agente especifico que cumpla la caracteristicas 
+        //Se solicita el nombre del agente
+        //hacemos una peticion de los campos en la tabla Agente 
+        //Si alguno de ellos cumple la condicion entonces lo recuperamos 
+        //Si nunguno cumple la condicion regresamos un Agente con los campos vacios
+
         [HttpGet]
         public AgenteCLS recuperarNombre(string nombre)
         {
@@ -243,6 +245,11 @@ namespace SedenaServices.Controllers
             }
         }
 
+        //Controlador que retorna un agente especifico que cumpla la caracteristicas 
+        //Se solicita el distintivo del agente
+        //hacemos una peticion de los campos en la tabla Agente 
+        //Si alguno de ellos cumple la condicion entonces lo recuperamos 
+        //Si nunguno cumple la condicion regresamos un Agente con los campos vacios
         [HttpGet]
         public AgenteCLS recuperarDistintivo(string distintivo)
         {
@@ -273,6 +280,12 @@ namespace SedenaServices.Controllers
                 return aux;
             }
         }
+
+        //Controlador que retorna un agente especifico que cumpla la caracteristicas 
+        //Se solicita la matricula del agente
+        //hacemos una peticion de los campos en la tabla Agente 
+        //Si alguno de ellos cumple la condicion entonces lo recuperamos 
+        //Si nunguno cumple la condicion regresamos un Agente con los campos vacios
 
         [HttpGet]
         public AgenteCLS recuperarMatricula(string matricula)
