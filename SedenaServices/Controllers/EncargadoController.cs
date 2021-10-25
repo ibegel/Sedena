@@ -12,7 +12,7 @@ using Newtonsoft.Json.Linq;
 namespace SedenaServices.Controllers
 {
     [EnableCors(headers: "*", origins: "*", methods: "*")]
-    //Se encarga de admiinistar el flujo de entrada y salida de datos que existen en la tabla de Encargado y la tabla agente
+    //Se encarga de administar el flujo de entrada y salida de datos que existen en la tabla de Encargado y la tabla agente
     //Esta realiza la funcion de busqueda dentro de la tabla Agente y de la tabla Encargado ya que como se propuso en la base de datos un Encargado es un Agente con privilegios
     //Esta se ve complementada con las condiciones proporcionadas por el usuario para dar un mejor control en los mismos
     //
@@ -69,7 +69,7 @@ namespace SedenaServices.Controllers
             }
             return respuesta;
         }
-
+        //Controlador de flujo de entrada de los datos 
         //recupera los datos ingresados por el usuarios y los guarda dentro de un Json para que sea mejor su manipulacion
         //Recupera de la base de datos todos los agentes existentes al igual que los encargados 
         //Y despues buscara que los campos no se repitan para que los encargados no tengas mismos nombre de usuario o matricula 
@@ -369,6 +369,7 @@ namespace SedenaServices.Controllers
         //Generemos una lista con la union de los campos con mismas datos
         //Si alguno de ellos cumple la condicion entonces lo recuperamos 
         //Si nunguno cumple la condicion regresamos un Agente con los campos vacios
+
         [HttpGet]
         public EncargadoCLS recuperarMatricula(string matricula)
         {

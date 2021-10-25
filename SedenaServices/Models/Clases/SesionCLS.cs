@@ -5,6 +5,7 @@ using System.Web;
 
 namespace SedenaServices.Models.Clases
 {
+    //Objeto auxiliar que nos ayudara a manipular de una manera mas sencilla la tabla Sesion
     public class SesionCLS
     {
         public int idSesion { get; set; }
@@ -12,19 +13,12 @@ namespace SedenaServices.Models.Clases
         public string entorno { get; set; }
         public string fecha { get; set; }
         public int idEncargado { get; set; }
-
+        //constructor vacio de la clase Sesion
         public SesionCLS()
         {
             
         }
 
-        public SesionCLS(int idSesion, string actividad, string entorno, string fecha,int idEncargado)
-        {
-            this.idSesion = idSesion;
-            this.actividad = actividad;
-            this.entorno = entorno;
-            this.fecha = fecha;
-            this.idEncargado = idEncargado;
-        }
+       
     }
 }

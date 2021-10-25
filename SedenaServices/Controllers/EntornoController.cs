@@ -12,8 +12,13 @@ using Newtonsoft.Json.Linq;
 namespace SedenaServices.Controllers
 {
     [EnableCors(headers: "*", origins: "*", methods: "*")]
+    //Se encarga de administrar los datos guardados por el usuario basados en los entornos que fueron creados 
+    //Los campos aqui guardados tienen un entorno que puede ser recuperado en unity a fin de volver a generarlo y tener variadas opciones al momento de entrenar
     public class EntornoController : ApiController
     {
+        //Recupera todos entornos que fueron guarddosen la base de datos 
+        //los deposita en una lista la cual despues es convertida en un arreglo 
+        //finalmente los envia como respuesta a la peticion, en un formato tipo Json
         [HttpGet]
         public EntornosCLS listaEntorno()
         {
@@ -33,9 +38,12 @@ namespace SedenaServices.Controllers
 
             }
         }
-
+        //Campo de control de flujo de entra de datos en la tabla Entorno
+        //Obtiene los datos y los convierte en un objeto del tipo json
+        //Recupera todos entornos que fueron guardados en la base de datos con el fin de buscar si el nombre del que sera agregado ya existe
+        //Si no existe entonces lo podemos agregar sin mayor dificultad, pero si existe entonces mandamos un mensaje de que ya existe el campo a evaluar
         [HttpPost]
-        public string agregarAgente(EntradaCLS data)
+        public string agregarEntorno(EntradaCLS data)
         {
             JObject json = JObject.Parse(data.data);
             string respuesta = "";
@@ -88,7 +96,10 @@ namespace SedenaServices.Controllers
                 return respuesta;
             }
 
-
+        //Controlador que retorna un entorno especifico que cumpla la caracteristicas 
+        //Se solicita el name del Entorno
+        //hacemos una peticion de los campos en la tabla Entorno con la condicion de retornar solo el valor donde el campo name coincida con el ingresao
+        //Recuperamos los datos y los ingresamos 
         [HttpGet]
         public EntornoCLS listaEntorno(string name)
         {

@@ -12,9 +12,15 @@ using Newtonsoft.Json.Linq;
 namespace SedenaServices.Controllers
 {
     [EnableCors(headers: "*", origins: "*", methods: "*")]
+    //Controlador que manaja la forma de evaluacion que sera dividida en multiples tablas (sesion, funcion, tirador y conductor)
+    //verificando que los campos que se ingresan tengan coherencia con los campos que ya existen 
     public class EvaluacionController : ApiController
     {
-
+        //Recupera una lista con todas las evaluaciones que se han realizado actualmente
+        //tomando en cuanta las tablas agente funcion sesion tirador o conductor segun sea el caso
+        //Primero recupera todas las evaluaciones del campo tirador y las agrega a una lista que nos servira como auxilar 
+        //Despues recupera todas las evaluaciones del campo conductor y las agrega a otra lista auxiliar
+        //Finalmente las agrega a una lista final que sera enviada como respuesta a el usuario del simulador 
         [HttpGet]
         public EvaluacionesCLS getEvaluacion()
         {
@@ -66,9 +72,6 @@ namespace SedenaServices.Controllers
                 {
                     final.lista.Add(x);
                 }
-                
-                
-
             }
             using (DBSedenaDataContext bd = new DBSedenaDataContext())
             {
@@ -116,47 +119,13 @@ namespace SedenaServices.Controllers
         }
 
 
-        [HttpGet]
-        public EvaluacionesCLS getEvaluacionMatricula(string matricula)
-        {
-            using (DBSedenaDataContext bd = new DBSedenaDataContext())
-            {
-                
-                IEnumerable<EvaluacionCLS> evaluado = (from fun in bd.Funcion
-                                                       join age in bd.Agente on fun.Id_Agente equals age.Id_Agente
-                                                       join tira in bd.Tirador on fun.Id_Funcion equals tira.Id_Funcion
-                                                       select new EvaluacionCLS
-                                                       {
-                                                           funcion = fun.Funcion1,
-                                                           nombre = age.Nombre,
-                                                           matricula = age.Matricula,
-                                                           disparosRealizados = (int)tira.Disparos_Realizados,
-                                                           disparosAcertados = (int)tira.Disparos_Acertados,
-                                                           disparosColateral = (int)tira.Disparos_Colateral,
-                                                           bajasMilitares = (int)tira.Bajas_Militares,
-                                                           bajasColaterales = (int)tira.Bajas_Colaterales,
-                                                           bajasEnemigos = (int)tira.Bajas_Enemigos
-
-                                                       }).ToList();
-                EvaluacionesCLS final = new EvaluacionesCLS();
-                List<EvaluacionCLS> aux = new List<EvaluacionCLS>();
-             
-                foreach (var x in evaluado)
-                {
-                    if (x.matricula == matricula)
-                    {
-                        aux.Add(x);
-
-                    }
-                }
-                final.lista = aux;
-                return final;
-
-            }
-        }
-
-
-
+        //Controlador del flujo de entrada de datos en las tablas sesion, funcion, tirador, conductor
+        //Primero recupera todos los datos existentes en la tabla Agente para asi corroborar la existencia del agente evaluado
+        //Si no existe retorna una cadena para decir que el agente no existe
+        //Se repite lo mismo con la matricula del encargado 
+        //Ya verificados los datos empezamos a segmentar los campos en las tablas sesion y funcion 
+        //Los datos finales seran enviados a la tabla conductor o a la tabla conductor segun el campo funcion lo verifique 
+        //finalmente se agregan los campos en la base de datos y enviamos el mensaje de exito 
         [HttpPost]
         public string agregarEvaluacion(EntradaCLS data)
         {
@@ -251,7 +220,7 @@ namespace SedenaServices.Controllers
                     }
                     else
                     {
-                        respuesta ="Hola";
+                        respuesta ="El agente no existe";
                     }
                     
                     
@@ -264,7 +233,8 @@ namespace SedenaServices.Controllers
             }
             return respuesta;
         }
-       [HttpGet]
+
+      /* [HttpGet]
         public LogrosCLS puntuaciones(string campoEvaluacion)
         {
             LogrosCLS cal = new LogrosCLS();
@@ -296,7 +266,7 @@ namespace SedenaServices.Controllers
             }
             return cal;
         }
-       
+       */
 
         
 

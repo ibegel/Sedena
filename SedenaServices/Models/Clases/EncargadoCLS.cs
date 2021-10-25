@@ -5,6 +5,7 @@ using System.Web;
 
 namespace SedenaServices.Models.Clases
 {
+    //Objeto auxiliar que nos ayudara a manipular de una manera mas sencilla la tabla Encargado
     public class EncargadoCLS
     {
         public int idEncargado { get; set; }
@@ -18,20 +19,14 @@ namespace SedenaServices.Models.Clases
         public string arma { get; set; }
         public int existencia { get; set; }
 
-        public EncargadoCLS(int idEncargado, string User, string pass, int idAgente)
-        {
-            this.idEncargado = idEncargado;
-            this.usuario = usuario;
-            this.password = pass;
-            this.idAgente = idAgente;
-        }
-
+        //constructor vacio de la clase encargado
         public EncargadoCLS()
         {
 
         }
     }
-
+    //lista de los objetos EncargadoCLS que sirve para convertir a formato JSON
+    [Serializable]
     public class EncargadosCLS
         {
         public EncargadoCLS[] encargados;

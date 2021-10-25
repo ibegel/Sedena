@@ -11,8 +11,15 @@ using System.Web.Http.Cors;
 namespace SedenaServices.Controllers
 {
     [EnableCors(headers: "*", origins: "*", methods: "*")]
+    //Controlador creado para poder verificar los datos de inicio de sesion de una manera mas sencilla 
     public class LoginController : ApiController
     {
+        //Se solicita los campos user y password al usuario 
+        //Se recupera una lista con todos los datos de la tabla Encargado
+        //Comparamos los datos que ingresamos con los existente y conforme a esas comparaciones regresamos diversos campos
+        //Devuelve -1 si el usuario no existe
+        //Devuelve 0 si el usuario es correcto pero la contraseña no es correcta
+        //Devuelve 1 si ambos campos son correctos
         [HttpGet]
         public int logeo(string user, string password)
         {

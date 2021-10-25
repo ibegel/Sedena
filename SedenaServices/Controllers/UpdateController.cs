@@ -11,11 +11,18 @@ using System.Web.Http.Cors;
 
 namespace SedenaServices.Controllers
 {
+    //Devuelve campos que seran utiles para saber como esta creciendo las tablas en la base de datos
     [EnableCors(headers: "*", origins: "*", methods: "*")]
     public class UpdateController : ApiController
     {
+        //Recupera los datos de la tabla Actualizacion los cuales son:
+        //      ultimaActualizacion: guarda la fecha de ultima actualizacion de cualquier tabla 
+        //      numeroAgentes:  cuenta el numero de agentes existentes en la tabla Agentes
+        //      numeroEncargados: cuenta el numero de encargados existente en la tabla Encargados
+        //los convierte en una lista y devuelve el ultimo campo insertado puesto que ese campo tiene los datos mas recientes  
+        //
         [HttpGet]
-        // localhost/api/Doctor
+        
         public string listaUpdate()
         {
             using (DBSedenaDataContext bd = new DBSedenaDataContext())

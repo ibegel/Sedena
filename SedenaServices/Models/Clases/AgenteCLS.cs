@@ -5,6 +5,7 @@ using System.Web;
 
 namespace SedenaServices.Models.Clases
 {
+    //Objeto auxiliar que nos ayudara a manipular de una manera mas sencilla la tabla Agente
     public class AgenteCLS
     {
         public int idAgente { get; set; }
@@ -15,22 +16,14 @@ namespace SedenaServices.Models.Clases
         public string arma { get; set; }
         public int existencia { get; set; }
 
-        public AgenteCLS(int idAgente, string matricula, string grado, string nombre, string distintivo, string especialidad)
-        {
-            this.idAgente = idAgente;
-            this.matricula = matricula;
-            this.grado = grado;
-            this.nombre = nombre;
-            this.distintivo = distintivo;
-            this.arma = especialidad;
-        }
+        //constructor vacio de la clase 
         public AgenteCLS()
         {
         }
 
 
     }
-
+    //lista de los objetos AgenteCLS que sirve para convertir a formato JSON
     [Serializable]
     public class AgentesCLS
         {

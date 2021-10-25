@@ -5,6 +5,7 @@ using System.Web;
 
 namespace SedenaServices.Models.Clases
 {
+    //Objeto auxiliar que nos ayudara a manipular el flujo de datos en el controlador Evaluacion 
     public class EvaluacionCLS
     {
         public string funcion { get; set; }
@@ -26,14 +27,12 @@ namespace SedenaServices.Models.Clases
         public int bajasEnemigos { get; set; }
         public bool usoCorrecto { get; set; }
         public bool misionCumplida { get; set; }
-        //public EvaluacionCLS(string nombre, string matricula, int disparos_Realizados, int disparos_Acertados, int disparos_Colateral, int bajas_Militares, int bajas_Colaterales, int bajas_Enemigos, bool uso_Correcto, ool mision_Cumplida)
+        //Creacion del constructor vacio de la clase
         public EvaluacionCLS()
         {
 
-
-
         }
-
+        //Creacion del constructor de la clase obteniendo un objeto del mismo tipo
         public EvaluacionCLS(EvaluacionCLS Otro)
         {
             funcion = Otro.funcion;
@@ -49,6 +48,8 @@ namespace SedenaServices.Models.Clases
             misionCumplida = Otro.misionCumplida;
         }
     }
+
+    //Lista de evaluaciones que nos ayudaran a regresar los objetos en tipo Json 
     [Serializable]
     public class EvaluacionesCLS
     {
